@@ -117,11 +117,11 @@
                         <rect x="86" y="66.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
                         <rect x="126" y="54.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
 
-                        <text x="-26.7" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end">$<xsl:value-of select="players/player[@id = 5]/currentBet"/></text>
-                        <text x="13.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end">$<xsl:value-of select="players/player[@id = 4]/currentBet"/></text>
-                        <text x="53.3" y="75.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end">$<xsl:value-of select="players/player[@id = 3]/currentBet"/></text>
-                        <text x="93.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end">$<xsl:value-of select="players/player[@id = 2]/currentBet"/></text>
-                        <text x="133.3" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end">$<xsl:value-of select="players/player[@id = 1]/currentBet"/></text>
+                        <text x="-26.7" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[@id = 5]/currentBet"/>$</text>
+                        <text x="13.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[@id = 4]/currentBet"/>$</text>
+                        <text x="53.3" y="75.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[@id = 3]/currentBet"/>$</text>
+                        <text x="93.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[@id = 2]/currentBet"/>$</text>
+                        <text x="133.3" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[@id = 1]/currentBet"/>$</text>
 
                     </svg>
 
@@ -281,7 +281,7 @@
 
             <xsl:if test="step ='GameOver'">
                 <foreignObject x="48%" y="88%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/newRound" method="post" id="formRebet" style="display: inline;" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/checkScores/{$id}" method="get" id="formRebet" style="display: inline;" >
                         <button type="submit" form="formRebet" value="Submit" style="height:80px; width:80px;
                     border-radius: 5px;">newRound</button>
                     </form>
