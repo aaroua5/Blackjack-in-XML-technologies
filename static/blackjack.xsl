@@ -157,9 +157,76 @@
 
                     </svg>
 
-                    <svg id="bet chips" width="100%" height="100%" viewBox="0 0 100 100">
+                    <svg id="chips" width="100%" height="100%" viewBox="0 0 100 100">
+                        
+                        <svg id="50" x="-5" y="79" width="100%" height="100%" >
+                            <g transform="scale(.7)" >
+                                <circle cx="20" cy="20" r="7" fill="#b1017d" />
+                                <circle cx="20" cy="20" r="7" fill="#C92E9A" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="5.4" fill="#6e0369" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="20" cy="20" r="5" fill="#b1017d"  />
+                                <circle cx="20" cy="20" r="5" fill="#C92E9A" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
+                                      fill="#ffffff">50</text>
+                            </g>
+                        </svg>
 
+                        <svg id="25" x="-18" y="76" width="100%" height="100%" >
+                            <g transform="scale(.72)" >
+                                <circle cx="20" cy="20" r="7" fill="#19ae4a" />
+                                <circle cx="20" cy="20" r="7" fill="#38b561" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="5.4" fill="#08772a" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="20" cy="20" r="5" fill="#19ae4a"  />
+                                <circle cx="20" cy="20" r="5" fill="#38b561" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
+                                      fill="#ffffff">25</text>
+                            </g>
+                        </svg>
+
+                        <svg id="10" x="-31" y="72" width="100%" height="100%" >
+                            <g transform="scale(.74)" >
+                                <circle cx="20" cy="20" r="7" fill="#f13a44" />
+                                <circle cx="20" cy="20" r="7" fill="#ee535b" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="5.4" fill="#c33931" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="20" cy="20" r="5" fill="#f13a44"  />
+                                <circle cx="20" cy="20" r="5" fill="#ee535b" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
+                                      fill="#ffffff">10</text>
+                            </g>
+                        </svg>
+
+                        <svg id="5" x="-44" y="67" width="100%" height="100%" >
+                            <g transform="scale(.77)" >
+                                <circle cx="20" cy="20" r="7" fill="#f1703b" />
+                                <circle cx="20" cy="20" r="7" fill="#f18156" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="5.4" fill="#bc3c17" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="20" cy="20" r="5" fill="#f1703b"  />
+                                <circle cx="20" cy="20" r="5" fill="#f18156" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
+                                      fill="#ffffff">5</text>
+                            </g>
+                        </svg>
+
+                        <svg id="1" x="-57" y="60" width="100%" height="100%" >
+                            <g transform="scale(.81)" >
+                                <circle cx="20" cy="20" r="7" fill="#febe38" />
+                                <circle cx="20" cy="20" r="7" fill="#ffcb5f" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="5.4" fill="#ee7005" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="20" cy="20" r="5" fill="#febe38"  />
+                                <circle cx="20" cy="20" r="5" fill="#ffcb5f" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
+                                      fill="#ffffff">1</text>
+                            </g>
+                        </svg>v
+                        
                     </svg>
+                    
+                    
 
                 </g>
 
@@ -201,6 +268,17 @@
                             <feMergeNode in="SourceGraphic"/>
                         </feMerge>
                     </filter>
+                    <clipPath id="cut-off-bottom">
+                        <circle cx="20" cy="30" r="12" />
+                    </clipPath>
+                    <clipPath id="chip-white-rectangles">
+                        <rect id="up"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" />
+                        <rect id="upLeft"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-60 20 20)"/>
+                        <rect id="downLeft"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-120 20 20)"/>
+                        <rect id="down"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-180 20 20)"/>
+                        <rect id="downRight"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(120 20 20)"/>
+                        <rect id="upRight"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(60 20 20)"/>
+                    </clipPath>
                 </defs>
 
             </defs>
@@ -208,43 +286,44 @@
             <use href="#table"/>
             <use href="#buttons"/>
             <use href="#bet"/>
+            <use href="#chips"/>
             <use href="#messages"/>
 
 
             <xsl:if test="step = 'bet'">
 
-                <foreignObject x="2%" y="78%" width="100%" height="100%" >
+                <foreignObject x="1.8%" y="70.5%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/1" method="post" id="form1" style="display: inline;" >
-                        <button type="submit" form="form1" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">1</button>
+                        <button type="submit" form="form1" value="Submit" style="height:102px; width:102px;
+                    border-radius: 51px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
 
-                <foreignObject x="8%" y="78%" width="100%" height="100%" >
+                <foreignObject x="8%" y="77%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/5"  method="post" id="form5" style="display: inline;" >
-                        <button type="submit" form="form5" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">5</button>
+                        <button type="submit" form="form5" value="Submit" style="height:98px; width:98px;
+                    border-radius: 49px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
 
-                <foreignObject x="14%" y="78%" width="100%" height="100%" >
+                <foreignObject x="14.3%" y="81.6%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/10"  method="post" id="form10" style="display: inline;" >
-                        <button type="submit" form="form10" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">10</button>
+                        <button type="submit" form="form10" value="Submit" style="height:94px; width:94px;
+                    border-radius: 46px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
 
-                <foreignObject x="20%" y="78%" width="100%" height="100%" >
+                <foreignObject x="20.7%" y="85.3%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/25" method="post" id="form25" style="display: inline;" >
-                        <button type="submit" form="form25" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">25</button>
+                        <button type="submit" form="form25" value="Submit" style="height:90px; width:90px;
+                    border-radius: 45px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
 
-                <foreignObject x="26%" y="78%" width="100%" height="100%" >
+                <foreignObject x="27%" y="88%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/50" method="post" id="form50" style="display: inline;" >
-                        <button type="submit" form="form50" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">50</button>
+                        <button type="submit" form="form50" value="Submit" style="height:90px; width:90px;
+                    border-radius: 45px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
 
