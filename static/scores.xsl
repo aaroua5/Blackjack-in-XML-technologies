@@ -20,6 +20,7 @@
                     <feComposite operator="atop" in2="SourceGraphic"/>
                 </filter>
 
+
                 <g id="background2" >
                     <svg width="100%" height="100%">
                         <rect x="0"  y="0" width="100%" height="100%" fill="#0F2822" />
