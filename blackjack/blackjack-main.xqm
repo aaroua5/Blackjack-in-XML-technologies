@@ -12,6 +12,9 @@ declare function blackjack-main:getGame($gameID) as element(blackjack){
     $blackjack-main:casino/blackjack[@id = $gameID]
 };
 
+declare function blackjack-main:getCasino() as element(casino){
+        $blackjack-main:casino
+};
 
 declare  function blackjack-main:createGame($maxBet as xs:integer, $minBet as xs:integer, $playerNames as xs:string+, $balances as xs:string+){
    let $game := helper:createNewGame($maxBet,$minBet,$playerNames,$balances)
@@ -48,6 +51,16 @@ declare %updating function blackjack-main:startGame($gameID as xs:string){
                               )
             )
 };
+declare %updating function blackjack-main:beforeBet($gameID as xs:string){
+        let $game := blackjack-main:getGame($gameID)
+        let $numberOfPlayers:= fn:count($game/players/player)
+        return(
+            if($game/playerTurn != 1 ) then(
+                    replace value of node $game/playerTurn with $game/playerTurn - 1
+            )
+
+        )
+};
 
 declare %updating function blackjack-main:nextBet($gameID as xs:string){
         let $game := blackjack-main:getGame($gameID)
@@ -68,6 +81,15 @@ declare %updating function blackjack-main:clear($gameID as xs:string){
 
 };
 
+declare %updating function blackjack-main:checkScores($gameID as xs:string){
+        let $game := blackjack-main:getGame($gameID)
+        let $nonBankruptPlayers := for $p in $game/players/player
+                                    where $p/totalmonney > 0
+                                    return $p
+         return(if(fn:count($nonBankruptPlayers)= 0 ) then(
+                replace value of node $game/step with "gameOver"
+         ))
+};
 declare  %updating function blackjack-main:hit($gameID as xs:string){
         let $game := blackjack-main:getGame($gameID)
         let $card := $game/cards/card[fn:position()=1]
@@ -91,7 +113,7 @@ declare  %updating function blackjack-main:hit($gameID as xs:string){
                             else( if($currentCardSum = 21) then(
                                      insert node $card into $game/players/player[@id = $game/playerTurn]/cards,
                                      replace value of node $game/players/player[@id = $game/playerTurn]/status with "blackjack",
-                                     replace value of node $game/event with fn:concat($activePlayer/name," got blackjack"),
+                                     replace  node $game/events with <events><event><message>{fn:concat($activePlayer/name," got blackjack")}</message></event></events>,
                                      delete node $game/cards/card[fn:position()=1],
                                      replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfPlayers ,
                                                              if(($game/playerTurn +1) mod $numberOfPlayers = 0)  then(
@@ -101,7 +123,7 @@ declare  %updating function blackjack-main:hit($gameID as xs:string){
                                   )
                                   else(
                                              insert node $card into $game/players/player[@id = $game/playerTurn]/cards,
-                                             replace value of node $game/event with fn:concat($activePlayer/name," lost, widthraw more than 21"),
+                                             replace node $game/events with<events><event><message> {fn:concat($activePlayer/name," lost, widthraw more than 21")}</message></event></events>,
                                              delete node $game/cards/card[fn:position()=1],
                                              replace value of node $game/players/player[@id = $game/playerTurn]/status with "loser",
                                              replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfPlayers,
@@ -118,16 +140,18 @@ declare %updating function blackjack-main:bet($gameID as xs:string, $betAmount a
         let $game := blackjack-main:getGame($gameID)
         let $activePlayer := $game/players/player[@id = $game/playerTurn]
         let $numberOfplayers := fn:count($game/players/player) + 1
-        return( if($activePlayer/currentBet + $betAmount > $activePlayer/totalmonney) then(
-                replace value of node $game/playerTurn with ($game/playerTurn  + 1)    mod $numberOfplayers
+        return(
+
+            if($activePlayer/currentBet + $betAmount > $activePlayer/totalmonney) then(
+                replace node $game/events with <events><event><message> you have only {$activePlayer/totalmonney} $ </message></event></events>
         )
         else( if($activePlayer/currentBet + $betAmount = $activePlayer/totalmonney) then(
-                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount,
-                replace value of node $game/playerTurn with ($game/playerTurn  + 1)    mod $numberOfplayers
+                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount
                )
 
                else(
-                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount)
+                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount),
+                replace node $game/events with <events/>
                )
         )
 };
@@ -135,7 +159,8 @@ declare %updating function blackjack-main:bet($gameID as xs:string, $betAmount a
 declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
             let $game := blackjack-main:getGame($gameID)
             let $amountOfCardsOfDealer := helper:calculateCurrentCardValue($game, $game/dealer,0)
-            return( replace value of node $game/step with "GameOver",
+            return( replace value of node $game/playerTurn with 1,
+                    replace value of node $game/step with "roundOver",
                     for $p in $game/players/player
                         return( if(helper:calculateCurrentCardValue($game,$p,0) >21) then(
                         replace value of node $p/totalmonney with $p/totalmonney - $p/currentBet
@@ -147,6 +172,7 @@ declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
                                          ) else (
                                                 if(helper:calculateCurrentCardValue($game,$p,0) > $amountOfCardsOfDealer) then(
                                                     if(helper:calculateCurrentCardValue($game,$p,0) = 21) then(
+                                                        replace value of node $p/status with "blackjack",
                                                         replace value of node $p/totalmonney with $p/totalmonney + $p/currentBet * 1.5
                                                     )
                                                     else(
@@ -166,7 +192,7 @@ declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
  declare %updating function blackjack-main:updateEvents($gameID as xs:string){
             let $game := blackjack-main:getGame($gameID)
 
-               let $events:=
+               let $finalEvents:=
                     for $p in $game/players/player
                         return(
                                 if ($p/status = 'loser') then(
@@ -188,7 +214,7 @@ declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
                         )
 
               return(
-                replace value of node $game/event with $events
+                replace  node $game/events with <events><event><message>{$finalEvents}</message></event></events>
               )
 
 
@@ -198,7 +224,8 @@ declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
 declare %updating function blackjack-main:stand($gameID as xs:string){
             let $game := blackjack-main:getGame($gameID)
             let $numberOfPlayers := fn:count($game/players/player) + 1
-            let $activePlayer := ($game/playerTurn + 1 ) mod $numberOfPlayers
+            let $activePlayer := $game/players/player[@id = $game/playerTurn]
+            let $nextActivePlayer := ($game/playerTurn + 1 ) mod $numberOfPlayers
             return(
                     for $p in $game/players/player
                                                  where $p/status ='loser'
@@ -207,15 +234,53 @@ declare %updating function blackjack-main:stand($gameID as xs:string){
                                                                 insert node $card into $game/cards
 
                                                                  )),
-                    if($activePlayer = 0 ) then(
+                    if($nextActivePlayer = 0 ) then(
                         update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))                    )
 
                     else(
-                          replace value of node $game/playerTurn with $activePlayer )
-                    ,     replace value of node $game/event with "")
+                          if(helper:calculateCurrentCardValue($game,$activePlayer,0) =21) then(
+                            replace  node $game/events with  <events><event><message>{(fn:concat($activePlayer/name," got blackjack"))} </message></event></events>,
+                            replace value of node $game/playerTurn with $nextActivePlayer )
+
+                           else(
+                          replace value of node $game/playerTurn with $nextActivePlayer
+                    ,     replace value of node $game/events with <events/>))
+                    )
+
 };
 
 
+declare %updating function blackjack-main:newRound($gameID as xs:string){
+        let $game := blackjack-main:getGame($gameID)
+        let $nonEmptyPlayers:= for $p in $game/players/player
+                                where $p/totalmonney > 0
+                                return $p
+        let $emptyPlayersEvents := <events>
+                                 { for $p in $game/players/player
+                                  where $p/totalmonney = 0
+                                   return(
+                                        <event><message>{fn:concat($p/name," is bankrupt! ")}</message></event>
+                                   )
 
+            }
+                                  </events>
+        return(
+                replace node $game/events with $emptyPlayersEvents,
+                replace value of node $game/step with "bet",
+                 replace value of node $game/dealer/cards with <cards></cards>,
+                for $p in $game/players/player
+                 where $p/totalmonney <= 0
+                 return(delete node $p),
+                 for $p in $nonEmptyPlayers count $i
+                 return(
+                        replace value of node $p/cards with <cards></cards>,
+                        replace value of node $p/currentBet with 0,
+                        replace value of node  $p/@id  with $i,
+                        replace value of node $p/status with "free"
+                 ),
+                 replace node $game/cards with <cards>{helper:shuffleCards()/*}</cards>
+
+        )
+};
 
 

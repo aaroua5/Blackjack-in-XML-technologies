@@ -44,31 +44,31 @@
                         <circle cx="130" cy="45" r="8" fill="#0F2822"/>
                         <circle r="8" cx="130" cy="45" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
 
-                        <xsl:if test="playerTurn = '5'">
+                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '5'">
                             <text x="-32" y="28" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="playerTurn = '4'">
+                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '4'">
                             <text x="8" y="40" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="playerTurn = '3'">
+                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '3'">
                             <text x="48" y="46" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="playerTurn = '2'">
+                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '2'">
                             <text x="88" y="40" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="playerTurn = '1'">
+                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '1'">
                             <text x="128" y="28" font-size="4" fill="#80A323">
                                 ▼
                             </text>
@@ -117,11 +117,11 @@
                         <rect x="86" y="66.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
                         <rect x="126" y="54.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
 
-                        <text x="-26.7" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[@id = 5]/currentBet"/>$</text>
-                        <text x="13.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[@id = 4]/currentBet"/>$</text>
-                        <text x="53.3" y="75.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[@id = 3]/currentBet"/>$</text>
-                        <text x="93.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[@id = 2]/currentBet"/>$</text>
-                        <text x="133.3" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[@id = 1]/currentBet"/>$</text>
+                        <text x="-26.7" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 5]/currentBet"/>$</text>
+                        <text x="13.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 4]/currentBet"/>$</text>
+                        <text x="53.3" y="75.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 3]/currentBet"/>$</text>
+                        <text x="93.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 2]/currentBet"/>$</text>
+                        <text x="133.3" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 1]/currentBet"/>$</text>
 
                     </svg>
 
@@ -152,7 +152,9 @@
 
                         <rect id="rect99" x="-47" y="3" width="55" height="12" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
                         <text x="-45" y="7" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
-                             <xsl:value-of select="event" />
+                          <xsl:for-each select="./events/event">
+                              <xsl:value-of select="message"></xsl:value-of>
+                          </xsl:for-each>
                         </text>
 
                     </svg>
@@ -349,7 +351,7 @@
                 </foreignObject>
 
                 <foreignObject x="60.5%" y="88.5%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/newRound" method="post" id="formRight" style="display: inline;" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/beforeBet/{$id}" method="post" id="formRight" style="display: inline;" >
                         <button type="submit" form="formRight" value="Submit" style="height:90px; width:90px;
                     border-radius: 45px; border: none; background-color: Transparent; outline:none;">︎</button>
                     </form>
@@ -358,7 +360,7 @@
             </xsl:if>
 
 
-            <xsl:if test="step ='GameOver'">
+            <xsl:if test="step ='roundOver'">
                 <foreignObject x="48%" y="88%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/checkScores/{$id}" method="get" id="formRebet" style="display: inline;" >
                         <button type="submit" form="formRebet" value="Submit" style="height:80px; width:80px;
@@ -366,7 +368,7 @@
                     </form>
                 </foreignObject>
             </xsl:if>
-
+            <xsl:if test="step ='play'">
             <foreignObject x="71.9%" y="84.7%"  width="100%" height="100%" >
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/hit/{$id}" method="post" id="formHit" style="display: inline;" >
                     <button   type="submit" form="formHit" value="Submit" style="height:114px; width:114px;
@@ -388,7 +390,7 @@
                     border-radius: 70px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
-
+            </xsl:if>
             <use href="#cards"/>
 
 
@@ -418,7 +420,7 @@
         <xsl:value-of select="totalmonney"/>
         <xsl:variable name="totalNumberCards" select="count(./cards/card)"/>
 
-        <xsl:if test="@id='1'">
+        <xsl:if test="tableSeat='1'">
             <text x="-27" y="58" font-size="4" fill="#80A323" text-anchor="end"><xsl:value-of select="currentBet"/></text>
 
             <xsl:for-each select="./cards/card">
@@ -434,7 +436,7 @@
 
 
 
-        <xsl:if test="@id='2'">
+        <xsl:if test="tableSeat='2'">
 
             <xsl:for-each select="./cards/card">
                 <xsl:variable name="counter" select="position() - 1"/>
@@ -447,7 +449,7 @@
 
         </xsl:if>
 
-        <xsl:if test="@id='3'">
+        <xsl:if test="tableSeat='3'">
             <xsl:for-each select="./cards/card">
                 <xsl:variable name="counter" select="position() - 1"/>
 
@@ -458,7 +460,7 @@
 
         </xsl:if>
 
-        <xsl:if test="@id='4'">
+        <xsl:if test="tableSeat='4'">
 
             <xsl:for-each select="./cards/card">
                 <xsl:variable name="counter" select="position() - 1"/>
@@ -472,7 +474,7 @@
             </xsl:for-each>
 
         </xsl:if>
-        <xsl:if test="@id='5'">
+        <xsl:if test="tableSeat='5'">
 
             <xsl:for-each select="./cards/card">
 

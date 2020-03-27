@@ -21,7 +21,12 @@ let $players := <players>
           <maxBet>{$maxBet}</maxBet>
           <minBet>{$minBet}</minBet>
           <playerTurn>1</playerTurn>
-          <event>welcome</event>
+          <events>
+          <event>
+          <message>
+          welcome</message></event>
+          <event> <message> to blackjack</message></event>
+          </events>
           <dealer id = "0">
                 <name>dealer</name>
                 <cards></cards>
@@ -432,6 +437,7 @@ declare function helper:newPlayer($name as xs:string, $balance as xs:integer, $i
 
         <name>{$name}</name>
         <status>free</status>
+        <tableSeat>{$id}</tableSeat>
         <totalmonney>{$balance}</totalmonney>
         <currentBet>0</currentBet>
         <cards></cards>

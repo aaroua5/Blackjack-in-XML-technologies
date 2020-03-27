@@ -7,6 +7,11 @@ import module namespace request = "http://exquery.org/ns/request";
 
 declare variable $blackjack-controller:staticPath := "../static/blackjack";
 declare variable $blackjack-controller:initPlayers := doc("../static/blackjack/initPlayers.html");
+declare variable $blackjack-controller:lobby := doc("../static/blackjack/lobby.html");
+
+
+
+
 
 declare
 %rest:path("bj/setup")
@@ -15,9 +20,31 @@ declare
 %rest:GET
 function blackjack-controller:setup(){
        let $bjModel := doc("../static/blackjack/blackjack.xml")
-       let $redirectLink := "/bj/initPlayer"
+       let $redirectLink := "/bj/lobby"
        return(db:create("bj",$bjModel),update:output(web:redirect($redirectLink)))
 };
+
+declare
+%rest:path("bj/lobby")
+%output:method("html")
+%rest:GET
+function blackjack-controller:lobby(){
+        $blackjack-controller:lobby
+};
+
+declare
+%rest:path("bj/showGames")
+%output:method("xhtml")
+%rest:GET
+function blackjack-controller:showGames(){
+
+        let $casino := blackjack-main:getCasino()
+        let $xslStyleSheet:= "games.xsl"
+        return(blackjack-controller:generatePage($casino,$xslStyleSheet,"games") )
+};
+
+
+
 
 declare
 %rest:GET
@@ -47,7 +74,7 @@ let $maxBet := (request:parameter("maxBet"))
       request:parameter("balance4", ""),
       request:parameter("balance5", ""))
 
-    return(blackjack-controller:lobby($maxBet,$minBet,$playerNames,$balances))
+    return(blackjack-controller:start($maxBet,$minBet,$playerNames,$balances))
   };
 
 declare
@@ -55,7 +82,7 @@ declare
 %output:method("html")
 %rest:path("/bj/start/{$maxBet}/{$minBet}/{$playerNames}/{$balances}")
 %updating
-function blackjack-controller:lobby($maxBet as xs:integer, $minBet as xs:integer, $playerNames as xs:string+, $balances as xs:string+){
+function blackjack-controller:start($maxBet as xs:integer, $minBet as xs:integer, $playerNames as xs:string+, $balances as xs:string+){
 
        let $game := blackjack-main:createGame($maxBet, $minBet, $playerNames, $balances)
        let $xslStylesheet := "blackjack.xsl"
@@ -67,21 +94,41 @@ declare
 %rest:GET
 %output:method("html")
 %rest:path("/bj/checkScores/{$gameID}")
+%updating
 function blackjack-controller:checkScores($gameID as xs:string){
-        let $game := blackjack-main:getGame($gameID)
-        let $xslStylesheet := "scores.xsl"
-        let $title := "blackjackscores"
-        return(blackjack-controller:generatePage($game,$xslStylesheet,$title))
-
+        let $redirectLink := fn:concat("/bj/drawScores/",$gameID)
+        return(blackjack-main:checkScores($gameID),update:output(web:redirect($redirectLink)))
 };
+
 declare
 %rest:GET
+%output:method("html")
+%rest:path("/bj/drawScores/{$gameID}")
+function blackjack-controller:drawScores($gameID as xs:string){
+            let $game := blackjack-main:getGame($gameID)
+            let $xslStylesheet := "scores.xsl"
+            let $title := "blackjackscores"
+            return(blackjack-controller:generatePage($game, $xslStylesheet, $title))
+};
+declare
+%rest:POST
+%output:method("html")
+%rest:path("/bj/beforeBet/{$gameID}")
+%updating
+function blackjack-controller:beforeBet($gameID as xs:string){
+        let $redirectLink := fn:concat("/bj/draw/",$gameID)
+        return (blackjack-main:beforeBet($gameID), update:output(web:redirect($redirectLink)))
+};
+
+declare
+%rest:POST
 %output:method("html")
 %rest:path("/bj/newRound/{$gameID}")
 %updating
 function blackjack-controller:newRound($gameID){
-
-}
+    let $redirectLink := fn:concat("/bj/draw/",$gameID)
+    return(blackjack-main:newRound($gameID),update:output(web:redirect($redirectLink)))
+};
 
 
 declare
@@ -95,9 +142,9 @@ function blackjack-controller:startGame($gameID){
 };
 
 declare
-%rest:POST
+%rest:GET
 %output:method("html")
-%rest:path("bj/join/{$gameID}")
+%rest:path("/bj/join/{$gameID}")
 function blackjack-controller:join($gameID){
        blackjack-controller:drawGame($gameID)
 };
@@ -169,6 +216,8 @@ function blackjack-controller:hit($gameID as xs:string){
                 update:output(web:redirect($redirectDealerLink)))
                 )
 };
+
+
 declare
 %rest:GET
 %rest:path("/bj/dealer/{$gameID}")
@@ -196,7 +245,7 @@ function blackjack-controller:stand($gameID as xs:string){
                           )
 };
 
-declare function blackjack-controller:generatePage($game as element(blackjack), $xslStylesheet as xs:string, $title as xs:string ){
+declare function blackjack-controller:generatePage($game as element(*), $xslStylesheet as xs:string, $title as xs:string ){
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStylesheet))
     let $transformed := xslt:transform($game, $stylesheet)
     return
