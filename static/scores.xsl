@@ -99,8 +99,8 @@
                     </form>
                 </foreignObject>
                 <foreignObject x="50.6%" y="72.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="post" id="form1" style="display: inline;" >
-                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="get" id="formlobbyround" style="display: inline;" >
+                        <button type="submit" form="formlobbyround" value="Submit" style="height:76px; width:170px;
                              border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -110,8 +110,8 @@
 
             <xsl:if test="step ='gameOver'">
                 <foreignObject x="45.3%" y="72.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="post" id="form1" style="display: inline;" >
-                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="get" id="formlobby" style="display: inline;" >
+                        <button type="submit" form="formlobby" value="Submit" style="height:76px; width:170px;
                                 border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
