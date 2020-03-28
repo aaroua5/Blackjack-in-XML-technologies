@@ -63,15 +63,23 @@ declare %updating function blackjack-main:beforeBet($gameID as xs:string){
 };
 
 declare %updating function blackjack-main:nextBet($gameID as xs:string){
-        let $game := blackjack-main:getGame($gameID)
-        let $numberOfPlayers := fn:count($game/players/player)
-        return(
-            if($game/playerTurn = $numberOfPlayers) then(
-              update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
-            ),
-            replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod ($numberOfPlayers + 1)
-        )
-};
+
+    let $game := blackjack-main:getGame($gameID)
+    let $numberOfPlayers := fn:count($game/players/player)
+    let $currentBet :=  $game/players/player[@id = $game/playerTurn]/currentBet
+    return(
+            if($currentBet cast as xs:integer < $game/minBet ) then(
+           replace node $game/events with <events><event><message> the min Bet is {$game/minBet} </message></event></events>
+            )
+            else (
+                if($game/playerTurn = $numberOfPlayers) then(
+                    update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
+                ),
+                replace value of node $game/playerTurn with ($game/playerTurn +1) mod ($numberOfPlayers + 1)
+            )
+    )
+
+   };
 
 declare %updating function blackjack-main:clear($gameID as xs:string){
         let $game := blackjack-main:getGame($gameID)

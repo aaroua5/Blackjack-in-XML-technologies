@@ -195,7 +195,11 @@ declare
 %rest:path("/bj/nextBet/{$gameID}")
 %updating
 function blackjack-controller:nextBet($gameID as xs:string){
+    let $game :=blackjack-main:getGame($gameID)
+    let $startRedirectLink := fn:concat("/bj/startGame/",$gameID)
     let $redirectLink := fn:concat("/bj/draw/", $gameID)
+    let $numberOfPlayers := fn:count($game/players/player)
+
     return(blackjack-main:nextBet($gameID), update:output(web:redirect($redirectLink)))
 };
 declare
