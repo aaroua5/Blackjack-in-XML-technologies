@@ -84,7 +84,7 @@ declare %updating function blackjack-main:clear($gameID as xs:string){
 declare %updating function blackjack-main:checkScores($gameID as xs:string){
         let $game := blackjack-main:getGame($gameID)
         let $nonBankruptPlayers := for $p in $game/players/player
-                                    where $p/totalmonney > 0
+                                    where $p/totalmonney > $game/minBet
                                     return $p
          return(if(fn:count($nonBankruptPlayers)= 0 ) then(
                 replace value of node $game/step with "gameOver"
@@ -145,15 +145,20 @@ declare %updating function blackjack-main:bet($gameID as xs:string, $betAmount a
             if($activePlayer/currentBet + $betAmount > $activePlayer/totalmonney) then(
                 replace node $game/events with <events><event><message> you have only {$activePlayer/totalmonney} $ </message></event></events>
         )
-        else( if($activePlayer/currentBet + $betAmount = $activePlayer/totalmonney) then(
-                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount
-               )
+        else( if($activePlayer/currentBet + $betAmount >$game/maxBet) then(
+                replace node $game/events with
+               <events><event><message> the max Bet is {$game/maxBet} $ </message></event></events>               )
 
                else(
-                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount),
-                replace node $game/events with <events/>
+                replace value of node $activePlayer/currentBet with $activePlayer/currentBet + $betAmount,
+                replace node $game/events with <events/>)
                )
         )
+};
+
+declare %updating function blackjack-main:deleteGame($gameID as xs:string){
+    let $casino := blackjack-main:getCasino()
+    return(delete node $casino/blackjack[@id = $gameID])
 };
 
 declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
@@ -253,7 +258,7 @@ declare %updating function blackjack-main:stand($gameID as xs:string){
 declare %updating function blackjack-main:newRound($gameID as xs:string){
         let $game := blackjack-main:getGame($gameID)
         let $nonEmptyPlayers:= for $p in $game/players/player
-                                where $p/totalmonney > 0
+                                where $p/totalmonney > $game/minBet
                                 return $p
         let $emptyPlayersEvents := <events>
                                  { for $p in $game/players/player

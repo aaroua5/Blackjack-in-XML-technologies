@@ -124,7 +124,7 @@
                         <text x="133.3" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 1]/currentBet"/>$</text>
 
                     </svg>
-
+                    <xsl:if test="step ='bet'">
                     <svg id="bet buttons" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <rect x="71.5" y="89" width="9" height="9" rx="4.5" ry="4.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
@@ -147,6 +147,7 @@
                         <text x="23.8" y="93.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#fcdd7a">◀</text>
                     </svg>
+                    </xsl:if>
 
                     <svg id="messages" width="100%" height="100%" viewBox="0 0 100 100">
 

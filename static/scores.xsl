@@ -110,7 +110,7 @@
 
             <xsl:if test="step ='gameOver'">
                 <foreignObject x="45.3%" y="72.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="get" id="formlobby" style="display: inline;" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/gameOver/{$id}" method="post" id="formlobby" style="display: inline;" >
                         <button type="submit" form="formlobby" value="Submit" style="height:76px; width:170px;
                                 border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>

@@ -140,7 +140,15 @@ function blackjack-controller:startGame($gameID){
        let $redirectLink := fn:concat("/bj/draw/", $gameID)
         return(blackjack-main:startGame($gameID),update:output(web:redirect($redirectLink)))
 };
-
+declare
+%rest:POST
+%output:method("html")
+%rest:path("/bj/gameOver/{$gameID}")
+%updating
+function blackjack-controller:gameOver($gameID){
+    let $redirectLink := "/bj/lobby"
+    return (blackjack-main:deleteGame($gameID),update:output(web:redirect($redirectLink)))
+};
 declare
 %rest:GET
 %output:method("html")
