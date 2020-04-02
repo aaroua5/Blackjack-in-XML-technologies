@@ -144,6 +144,26 @@
 
                     </svg>
                     
+                    <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
+
+                        <!-- to do - if player wins -->
+
+                        <image height="12" width="12" x="-23" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                        <image height="12" width="12" x="17" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                        <image height="12" width="12" x="57" y="65" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                        <image height="12" width="12" x="97" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                        <image height="12" width="12" x="137" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+
+                        <!-- to do - if player looses -->
+
+                        <image height="12" width="12" x="-23" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                        <image height="12" width="12" x="17" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                        <image height="12" width="12" x="57" y="65" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                        <image height="12" width="12" x="97" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                        <image height="12" width="12" x="137" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+
+                    </svg>
+                    
                     <svg id="card sum" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <!-- to do - Display the sum of the cards -->
@@ -420,6 +440,7 @@
 
             </xsl:if>
             <use href="#cards"/>
+            <use href="#stickers"/>
 
 
         </svg>
