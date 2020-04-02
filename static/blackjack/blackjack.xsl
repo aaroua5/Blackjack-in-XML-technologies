@@ -115,19 +115,47 @@
                 <g id="bet">
                     <svg id="bet score" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <rect x="-34" y="54.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="6" y="66.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="46" y="72.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="86" y="66.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="126" y="54.5" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <!-- nothing to do - New position for the bet score -->
 
-                        <text x="-26.7" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 5]/currentBet"/>$</text>
-                        <text x="13.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 4]/currentBet"/>$</text>
-                        <text x="53.3" y="75.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 3]/currentBet"/>$</text>
-                        <text x="93.3" y="69.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 2]/currentBet"/>$</text>
-                        <text x="133.3" y="57.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 1]/currentBet"/>$</text>
+                        <rect x="-20" y="43" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="20" y="55" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="60" y="61" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="100" y="55" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="140" y="43" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+
+                        <text x="-12.7" y="46" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 5]/currentBet"/>$</text>
+                        <text x="27.3" y="58" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 4]/currentBet"/>$</text>
+                        <text x="67.3" y="64" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 3]/currentBet"/>$</text>
+                        <text x="107.3" y="58" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 2]/currentBet"/>$</text>
+                        <text x="147.3" y="46" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 1]/currentBet"/>$</text>
 
                     </svg>
+                    
+                    <svg id="player name" width="100%" height="100%" viewBox="0 0 100 100">
+
+                        <!-- to do - change player name according to current game (we should not forget to implement the name_length
+                        limitation later on - just a Reminder) -->
+
+                        <text x="-30" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">YOUSRI</text>
+                        <text x="10" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">ALI</text>
+                        <text x="50" y="75.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">ACHRAF</text>
+                        <text x="90" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">MARIA</text>
+                        <text x="130" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">HABIB</text>
+
+                    </svg>
+                    
+                    <svg id="card sum" width="100%" height="100%" viewBox="0 0 100 100">
+
+                        <!-- to do - Display the sum of the cards -->
+
+                        <text x="-19.7" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">17</text>
+                        <text x="20.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">9</text>
+                        <text x="60.3" y="60" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">21</text>
+                        <text x="100.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">13</text>
+                        <text x="140.3" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">2</text>
+
+                    </svg>
+                    
                     <xsl:if test="step ='bet'">
                           <svg id="bet buttons" width="100%" height="100%" viewBox="0 0 100 100">
 
@@ -284,6 +312,8 @@
             <use href="#table"/>
             <use href="#buttons"/>
             <use href="#bet"/>
+            <use href="#player name"/>
+            <use href="#card sum"/>
             <use href="#chips"/>
             <use href="#messages"/>
             <!-- Invisible iframe to throw away results of POST request -->
@@ -708,7 +738,7 @@
             <svg width="225" height="340" filter="url(#f1)">
                 <svg width="185" height="300">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/dba/database?name=bj&amp;resource=Jack.svg"/>
+                    <image width="180" height="283" y="8.5" x="2.5" href="https://i.ibb.co/V3SzTpK/Jack.png"/>
 
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">J</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)"
@@ -727,7 +757,7 @@
             <svg width="225" height="340" filter="url(#f1)">
                 <svg width="185" height="300">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/dba/database?name=bj&amp;resource=Jack.svg"/>
+                    <image width="180" height="283" y="8.5" x="2.5" href="https://i.ibb.co/CJmLR83/Queen.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)"
                           x="-167" y="-280" font-size="25"  fill="{$color}">Q</text>
@@ -745,7 +775,7 @@
             <svg width="225" height="340" filter="url(#f1)">
                 <svg width="185" height="300">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/dba/database?name=bj&amp;resource=Jack.svg"/>
+                    <image width="180" height="283" y="8.5" x="2.5" href="https://i.ibb.co/P6NHWwf/King.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">K</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)"
                           x="-167" y="-280" font-size="25"  fill="{$color}">K</text>
