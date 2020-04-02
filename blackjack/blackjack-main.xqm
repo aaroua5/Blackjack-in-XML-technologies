@@ -175,9 +175,16 @@ declare %updating function blackjack-main:bet($gameID as xs:string, $betAmount a
         )
 };
 
-declare %updating function blackjack-main:deleteGame($gameID as xs:string){
+declare %updating function blackjack-main:deletePlayer($gameID as xs:string){
     let $casino := blackjack-main:getCasino()
-    return(delete node $casino/blackjack[@id = $gameID])
+    let $game := blackjack-main:getGame($gameID)
+    return(
+         for $p in $game/loosers/player
+            return(
+                    delete node $p
+            )
+
+    )
 };
 
 declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
@@ -294,7 +301,7 @@ declare %updating function blackjack-main:newRound($gameID as xs:string){
                  replace value of node $game/dealer/cards with <cards></cards>,
                 for $p in $game/players/player
                  where $p/totalmonney <= 0
-                 return(delete node $p),
+                 return(delete node $p,insert node $p into $game/loosers),
                  for $p in $nonEmptyPlayers count $i
                  return(
                         replace value of node $p/cards with <cards></cards>,

@@ -139,6 +139,7 @@ declare
 function blackjack-controller:draw($gameID as xs:string){
         let $wsIDs := blackjack-ws:getIDs()
         let $stylesheet := doc("../static/blackjack/blackjack.xsl")
+        let $gameOverStylesheet := doc("../static/blackjack/scores.xsl")
         let $game := blackjack-main:getGame($gameID)
         let $gameIDs := for $p in $game/players/player
                         return($p/@id)
@@ -148,9 +149,18 @@ function blackjack-controller:draw($gameID as xs:string){
                 let $playerID := blackjack-ws:get($wsID,"playerID")
                 let $map := map {"playerID":$playerID}
                 let $transformedGame := xslt:transform($game,$stylesheet,$map)
+                let $endGame := xslt:transform($game,$gameOverStylesheet,$map)
                 return(
                        if(fn:count($game/players/player[@id = $playerID]) = 1 ) then(
-                        blackjack-ws:send($transformedGame,concat("/bj/",$playerID)))
+                        blackjack-ws:send($transformedGame,concat("/bj/",$playerID))
+                        )
+                        else (
+                            if(fn:count($game/loosers/player[@id= $playerID] = 1 ) ) then(
+                                blackjack-ws:send($endGame,concat("/bj/",$playerID))
+                            )
+                        )
+
+
                 )
         )
 };
@@ -209,6 +219,7 @@ declare
 %updating
 function blackjack-controller:newRound($gameID){
     let $redirectLink := fn:concat("/bj/draw/",$gameID)
+    let $game := blackjack-main:getGame($gameID)
     return(blackjack-main:newRound($gameID),update:output(web:redirect($redirectLink)))
 };
 
@@ -229,7 +240,7 @@ declare
 %updating
 function blackjack-controller:gameOver($gameID){
     let $redirectLink := "/bj/lobby"
-    return (blackjack-main:deleteGame($gameID),update:output(web:redirect($redirectLink)))
+    return (blackjack-main:deletePlayer($gameID),update:output(web:redirect($redirectLink)))
 };
 
 

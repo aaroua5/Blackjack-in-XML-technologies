@@ -33,6 +33,8 @@ let $players := <players>
            </dealer>
           {$players}
         {helper:shuffleCards()}
+        <loosers/>
+
       </blackjack>
  };
 
