@@ -136,43 +136,108 @@
                         <!-- to do - change player name according to current game (we should not forget to implement the name_length
                         limitation later on - just a Reminder) -->
 
-                        <text x="-30" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">YOUSRI</text>
-                        <text x="10" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">ALI</text>
-                        <text x="50" y="75.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">ACHRAF</text>
-                        <text x="90" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">MARIA</text>
-                        <text x="130" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle">HABIB</text>
+                        <text x="-30" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[position()= 5]/name"/></text>
+                        <text x="10" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[position()= 4]/name"/></text>
+                        <text x="50" y="75.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[position()= 3]/name"/></text>
+                        <text x="90" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[position()= 2]/name"/></text>
+                        <text x="130" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[position()= 1]/name"/></text>
 
                     </svg>
-                    
-                    <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <!-- to do - if player wins -->
 
-                        <image height="12" width="12" x="-23" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
-                        <image height="12" width="12" x="17" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
-                        <image height="12" width="12" x="57" y="65" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
-                        <image height="12" width="12" x="97" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
-                        <image height="12" width="12" x="137" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                           <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <!-- to do - if player looses -->
+                               <xsl:if test="players/player[position()=5]">
 
-                        <image height="12" width="12" x="-23" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
-                        <image height="12" width="12" x="17" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
-                        <image height="12" width="12" x="57" y="65" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
-                        <image height="12" width="12" x="97" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
-                        <image height="12" width="12" x="137" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                               <xsl:choose>
 
-                    </svg>
-                    
+                              <xsl:when test="players/player[position()=5]/status='loser'">
+                               <image height="12" width="12" x="-23" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                              </xsl:when>
+                               <xsl:otherwise>
+                                   <xsl:if test ="players/player[position=5]/status !='free'">
+                                   <image height="12" width="12" x="-23" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                   </xsl:if>
+                               </xsl:otherwise>
+                             </xsl:choose>
+                               </xsl:if>
+
+                               <xsl:if test="players/player[position()=4]">
+
+
+                               <xsl:choose>
+                                <xsl:when test="players/player[position()=4]/status='loser'">
+                                    <image height="12" width="12" x="17" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:if test="players/player[position()=4]/status !='free'">
+                                    <image height="12" width="12" x="17" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                    </xsl:if>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                               </xsl:if>
+
+                               <xsl:if test="players/player[position()=3]">
+
+                               <xsl:choose>
+                                 <xsl:when test="players/player[position()=3]/status='loser'">
+
+                                     <image height="12" width="12" x="57" y="65" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+
+                                 </xsl:when>
+                           <xsl:otherwise>
+                               <xsl:if test="players/player[position()=3]/status !='free'">
+
+                               <image height="12" width="12" x="57" y="65" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                               </xsl:if>
+                           </xsl:otherwise>
+                             </xsl:choose>  
+                               </xsl:if>
+                              <xsl:if test="players/player[position()=2]">
+                               <xsl:choose>
+                                   <xsl:when test="players/player[position()=2]/status='loser'">
+                                       <image height="12" width="12" x="97" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+
+                                   </xsl:when>
+                                   <xsl:otherwise>
+                                       <xsl:if test="players/player[position()=2]/status !='free'">
+
+                                       <image height="12" width="12" x="97" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                       </xsl:if>
+                                   </xsl:otherwise>
+                               </xsl:choose>
+
+                                </xsl:if>
+                               <xsl:if test="players/player[position()=1]">
+
+
+                               <xsl:choose>
+                                    <xsl:when test="players/player[position()=1]/status='loser'">
+                                        <image height="12" width="12" x="137" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="players/player[position()=1]/status !='free'">
+
+                                        <image height="12" width="12" x="137" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                               </xsl:if>
+
+
+
+                           </svg>
                     <svg id="card sum" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <!-- to do - Display the sum of the cards -->
 
-                        <text x="-19.7" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">17</text>
-                        <text x="20.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">9</text>
-                        <text x="60.3" y="60" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">21</text>
-                        <text x="100.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">13</text>
-                        <text x="140.3" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">2</text>
+                        <text x="-19.7" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[position()=5]/totalSumCards"/></text>
+                        <text x="20.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[position()=4]/totalSumCards"/></text>
+                        <text x="60.3" y="60" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[position()=3]/totalSumCards"/></text>
+                        <text x="100.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[position()=2]/totalSumCards"/></text>
+                        <text x="140.3" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[position()=1]/totalSumCards"/></text>
 
                     </svg>
                     

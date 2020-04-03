@@ -227,10 +227,20 @@ function blackjack-controller:newRound($gameID){
 declare
 %rest:GET
 %output:method("html")
+%rest:path("/bj/initializeSum/{$gameID}")
+%updating
+function blackjack-controller:initializeSum($gameID as xs:string){
+        let $redirectLink := fn:concat("/bj/draw/",$gameID)
+        return(blackjack-main:initliazeSum($gameID),update:output(web:redirect($redirectLink)))
+};
+
+
+declare
+%rest:GET
 %rest:path("/bj/startGame/{$gameID}")
 %updating
 function blackjack-controller:startGame($gameID){
-       let $redirectLink := fn:concat("/bj/draw/", $gameID)
+       let $redirectLink := fn:concat("/bj/initializeSum/", $gameID)
         return(blackjack-main:startGame($gameID),update:output(web:redirect($redirectLink)))
 };
 declare
@@ -264,7 +274,7 @@ function blackjack-controller:nextBet($gameID as xs:string){
     let $redirectLink := fn:concat("/bj/draw/", $gameID)
     let $numberOfPlayers := fn:count($game/players/player)
 
-    return(blackjack-main:nextBet($gameID), update:output(web:redirect($redirectLink)))
+  return(blackjack-main:nextBet($gameID), update:output(web:redirect($redirectLink)))
 };
 declare
 %rest:POST
