@@ -521,7 +521,7 @@
         <xsl:for-each select="./cards/card">
             <xsl:variable name="counter" select="position() - 1"/>
 
-            <svg x="{1708+(($counter)-1)*40-(($totalNumberCards)-1)*20}" y="{150 - ($counter)*15}">
+            <svg x="{1708-($counter)*40+(($totalNumberCards)-1)*20}" y="{150 - ($counter)*15}">
                 <xsl:call-template name="playerCard"/>
             </svg>
             
