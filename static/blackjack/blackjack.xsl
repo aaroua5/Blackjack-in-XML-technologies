@@ -529,12 +529,12 @@
 
             <xsl:if test="$counter = 0">
                 <defs>
-                    <pattern id="Pattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <rect x="5" y="-2.5" width="5" height="5" fill="green" transform="rotate(45)"/>
-                        <rect x="7" y="2" width="4" height="3" fill="orange" transform="rotate(45)"/>
-                        <rect x="8" y="-4" width="2" height="3" fill="DarkOrange" transform="rotate(45)"/>
-                        <circle cx="0" cy="0" r="4" fill="black" />
-                        <circle cx="10" cy="10" r="4" fill="black" />
+                    <pattern id="Pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+                        <rect x="7.5" y="-3.75" width="7.5" height="7.5" fill="green" transform="rotate(45)"/>
+                        <rect x="10.5" y="3" width="6" height="4.5" fill="orange" transform="rotate(45)"/>
+                        <rect x="12" y="-6" width="3" height="4.5" fill="DarkOrange" transform="rotate(45)"/>
+                        <circle cx="0" cy="0" r="6" fill="black" />
+                        <circle cx="15" cy="15" r="6" fill="black" />
                     </pattern>
                 </defs>
                 <svg x="1728" y="150" width="225" height="340">
