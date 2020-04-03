@@ -524,6 +524,26 @@
             <svg x="{1708+(($counter)-1)*40-(($totalNumberCards)-1)*20}" y="150">
                 <xsl:call-template name="playerCard"/>
             </svg>
+            
+            <!-- now works only for 2 cards. You need to add in the "if" statement another test to check if: it is not the time to turn card -->
+
+            <xsl:if test="$counter = 0">
+                <defs>
+                    <pattern id="Pattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <rect x="5" y="-2.5" width="5" height="5" fill="green" transform="rotate(45)"/>
+                        <rect x="7" y="2" width="4" height="3" fill="orange" transform="rotate(45)"/>
+                        <rect x="8" y="-4" width="2" height="3" fill="DarkOrange" transform="rotate(45)"/>
+                        <circle cx="0" cy="0" r="4" fill="black" />
+                        <circle cx="10" cy="10" r="4" fill="black" />
+                    </pattern>
+                </defs>
+                <svg x="1728" y="150" width="225" height="340">
+                    <svg width="185" height="300">
+                        <rect width="185" height="300" rx="10" ry="10" fill="white"/>
+                        <rect x="5" y="5" width="175" height="290" rx="10" ry="10" fill="url(#Pattern)"/>
+                    </svg>
+                </svg>
+            </xsl:if>
 
         </xsl:for-each>
     </xsl:template>
