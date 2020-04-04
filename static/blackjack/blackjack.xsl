@@ -7,6 +7,7 @@
         <xsl:variable name="id" select= "@id"/>
         <xsl:variable name = "activePlayer" select="./playerTurn"/>
         <xsl:param name="playerID"/>
+        <xsl:variable name="gamestep" select="step"></xsl:variable>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0, 0, 1800, 900">
 
@@ -48,31 +49,31 @@
                         <circle cx="130" cy="45" r="8" fill="#0F2822"/>
                         <circle r="8" cx="130" cy="45" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
 
-                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '5'">
+                        <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '5'">
                             <text x="-32" y="28" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '4'">
+                        <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '4'">
                             <text x="8" y="40" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '3'">
+                        <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '3'">
                             <text x="48" y="46" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '2'">
+                        <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '2'">
                             <text x="88" y="40" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
-                        <xsl:if test="./players/player[@id = $activePlayer]/tableSeat = '1'">
+                        <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '1'">
                             <text x="128" y="28" font-size="4" fill="#80A323">
                                 ▼
                             </text>
@@ -495,7 +496,7 @@
                     </foreignObject>
 
                     <foreignObject x="91%" y="72.1%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/newRound" method="post" id="formDouble" style="display: inline;" target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/double/{$id}" method="post" id="formDouble" style="display: inline;" target="hiddenFrame">
                             <button type="submit" form="formDouble" value="Submit" style="height:140px; width:140px;
                             border-radius: 70px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -521,12 +522,13 @@
         <xsl:for-each select="./cards/card">
             <xsl:variable name="counter" select="position() - 1"/>
 
+
             <svg x="{1708-($counter)*40+(($totalNumberCards)-1)*20}" y="{150 - ($counter)*15}">
                 <xsl:call-template name="playerCard"/>
             </svg>
-            
-            <!-- now works only for 2 cards. You need to add in the "if" statement another test to check if: it is not the time to turn card -->
 
+            <!-- now works only for 2 cards. You need to add in the "if" statement another test to check if: it is not the time to turn card -->
+            <xsl:if test="//step !='roundOver'">
             <xsl:if test="$counter = 0">
                 <defs>
                     <pattern id="Pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
@@ -545,6 +547,7 @@
                 </svg>
             </xsl:if>
 
+        </xsl:if>
         </xsl:for-each>
     </xsl:template>
 

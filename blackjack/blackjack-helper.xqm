@@ -56,6 +56,50 @@ declare function helper:shuffleCards() as element(cards){
              </cards>
 
 };
+
+
+declare function helper:calculateDealerValues($game as element(blackjack),$player as element(*),$limit) {
+            let $cardsToBeAdded := for $i in 1 to $limit
+                                    return(
+                                        $game/cards/card[fn:position()= $i]
+                                    )
+            let $amountOfAcesTobeAdded := fn:count(
+                                                for $card in $cardsToBeAdded
+                                                where $card/card_number ='A'
+                                                return $card
+            )
+
+
+            let $otherCardsTobeAdded := fn:sum(
+                                                for $card in $cardsToBeAdded
+                                                where $card/card_number != 'A'
+                                                return $card/card_Value
+            )
+                 let $amountOfAces := fn:sum(for $card in $player/cards/card
+                                                                         where $card/card_number = 'A'
+                                                                         return 1) + $amountOfAcesTobeAdded
+
+               let $amountOfOtherCards :=  fn:sum(for $card in $player/cards/card
+                                                                          where $card/card_number != 'A'
+                                                                          return $card/card_Value )+ $otherCardsTobeAdded
+
+                   let $sumOfAces := for $i in 0 to $amountOfAces
+                                                         return  $amountOfAces + $i*10 +$amountOfOtherCards
+                                       let $sumOfAceslessEqual:= for $i in $sumOfAces
+                                                                  where $i <=21
+                                                                  return $i
+                                       return (if($amountOfAces = 0) then($amountOfOtherCards)
+                                               else(
+                                                   if(fn:count($sumOfAceslessEqual) = 0) then(22)
+                                                   else(fn:max($sumOfAceslessEqual))
+                                               )
+
+                                              )
+
+};
+
+
+
 (:this function calulate the sum of total cards of a  player:)
 declare function helper:calculateCurrentCardValue($game as element(blackjack),$player as element(*),$cardValue as xs:integer) {
 

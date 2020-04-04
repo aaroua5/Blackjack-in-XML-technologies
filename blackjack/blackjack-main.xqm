@@ -199,7 +199,35 @@ declare %updating function blackjack-main:deletePlayer($gameID as xs:string){
     )
 };
 
+declare function blackjack-main:dealerTurnHelper($gameID as xs:string,$sum ,$limit ){
+    let $game := blackjack-main:getGame($gameID)
+
+    return(
+                if($sum <= 16) then(
+                        let $newAmount := helper:calculateDealerValues($game,$game/dealer,$limit+1)
+                        return(blackjack-main:dealerTurnHelper($gameID,$newAmount,$limit + 1))
+                )
+                else(
+                    $limit
+                )
+    )
+};
 declare %updating function blackjack-main:dealerTurn($gameID as xs:string){
+               let $game := blackjack-main:getGame($gameID)
+               let $amountOFCardsOfDealer := helper:calculateCurrentCardValue($game, $game/dealer,0)
+
+               let $amountOFCardsToDraw := blackjack-main:dealerTurnHelper($gameID,$amountOFCardsOfDealer,0) cast as xs:integer
+               return(
+                      for $i in 1 to $amountOFCardsToDraw
+                      return(
+                                delete node $game/cards/card[fn:position() = $i],
+                                insert node  $game/cards/card[fn:position()= $i ] as first into $game/dealer/cards
+                      )
+
+                    )
+};
+
+declare %updating function blackjack-main:checkWinnings($gameID as xs:string){
             let $game := blackjack-main:getGame($gameID)
             let $amountOfCardsOfDealer := helper:calculateCurrentCardValue($game, $game/dealer,0)
             return( replace value of node $game/playerTurn with 1,
@@ -293,6 +321,67 @@ declare %updating function blackjack-main:stand($gameID as xs:string){
                     )
 
 };
+
+
+
+
+declare %updating function blackjack-main:double($gameID as xs:string){
+                let $game :=  blackjack-main:getGame($gameID)
+                let $activeplayer := $game/players/player[fn:position()= $game/playerTurn]
+                let $numberOfplayers := fn:count($game/players/player)
+                let $card := $game/cards/card[fn:position() = 1]
+                return(
+                        if($activeplayer/totalSumCards < 11) then(
+
+                                if($activeplayer/totalmonney < 2 * $activeplayer/currentBet) then(
+                                      replace node $game/events with <events><event><message>" you cant Double down"</message></event></events>
+
+                                ) else(
+                                        delete node $card,
+                                        insert node $card into $activeplayer/cards,
+                                        replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfplayers,
+                                        replace value of node $activeplayer/currentBet with $activeplayer/currentBet * 2 ,
+                                        if($game/playerTurn = $numberOfplayers) then(
+                                                update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                        )
+                                )
+
+                        )
+                        else (
+                            replace node $game/events with <events><event><message>" you cant Double down"</message></event></events>
+                        )
+
+
+
+                )
+
+};
+
+declare %updating function blackjack-main:surrender($gameID as xs:string){
+        let $game := blackjack-main:getGame($gameID)
+        let $activePlayer := $game/players/player[$game/playerTurn = fn:position()]
+        let $numberOfPlayers := fn:count($game/players/player)
+        return(
+                    if(fn:count($activePlayer/cards/card)> 2) then(
+                        replace node $game/events with <events><event><message>" you cant surrender"</message></event></events>
+                    )
+                    else(
+                        replace value of node $activePlayer/totalmonney with $activePlayer/totalmonney - 0.5*$activePlayer/currentBet,
+                        replace value of node $activePlayer/currentBet with 0,
+                        for $card in $activePlayer/cards/card
+                        return(
+                                delete node $card , insert node $card into $game/cards
+                        ),
+
+                        if(game/playerTurn = $numberOfPlayers ) then(
+                                update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                        )
+
+
+                    )
+        )
+};
+
 
 
 declare %updating function blackjack-main:newRound($gameID as xs:string){

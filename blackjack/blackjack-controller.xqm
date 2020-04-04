@@ -235,6 +235,19 @@ function blackjack-controller:initializeSum($gameID as xs:string){
 };
 
 
+
+
+declare
+%rest:POST
+%rest:path("/bj/double/{$gameID}")
+%updating
+function blackjack-controller:double($gameID as xs:string){
+        let $redirectLink := fn:concat("/bj/draw/",$gameID)
+        return(blackjack-main:double($gameID),update:output(web:redirect($redirectLink)))
+};
+
+
+
 declare
 %rest:GET
 %rest:path("/bj/startGame/{$gameID}")
@@ -243,6 +256,8 @@ function blackjack-controller:startGame($gameID){
        let $redirectLink := fn:concat("/bj/initializeSum/", $gameID)
         return(blackjack-main:startGame($gameID),update:output(web:redirect($redirectLink)))
 };
+
+
 declare
 %rest:POST
 %output:method("html")
@@ -252,6 +267,19 @@ function blackjack-controller:gameOver($gameID){
     let $redirectLink := "/bj/lobby"
     return (blackjack-main:deletePlayer($gameID),update:output(web:redirect($redirectLink)))
 };
+
+declare
+%rest:POST
+%output:method("html")
+%rest:path("/bj/surrender/{$gameID}")
+%updating
+function blackjack-controller:surrender($gameID){
+        let $redirectLink := fn:concat("/bj/draw",$gameID)
+        return(
+                blackjack-main:surrender($gameID), update:output(web:redirect($redirectLink))
+        )
+};
+
 
 
 declare
@@ -309,9 +337,19 @@ declare
 %rest:path("/bj/dealer/{$gameID}")
 %updating
 function blackjack-controller:dealer($gameID as xs:string){
-        let $redirectLink := fn:concat("/bj/updateEvents/", $gameID)
+        let $redirectLink := fn:concat("/bj/checkWinnings/", $gameID)
         return(blackjack-main:dealerTurn($gameID),update:output(web:redirect($redirectLink)))
 };
+
+declare
+%rest:GET
+%rest:path("/bj/checkWinnings/{$gameID}")
+%updating
+function blackjack-controller:checkWinnings($gameID as xs:string){
+        let $redirectLink := fn:concat("/bj/updateEvents/",$gameID)
+        return(blackjack-main:checkWinnings($gameID),update:output(web:redirect($redirectLink)))
+};
+
 
 
 declare
