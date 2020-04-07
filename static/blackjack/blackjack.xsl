@@ -118,16 +118,6 @@
                             </text>
                         </xsl:if>
 
-                        <svg x="-10" y="6">
-                            <path id="MyPath" fill="none"
-                                  d="M10 10 C 20 20, 40 20, 50 10" transform="scale(2)"/>
-                            <text font-family="Liberation Sans" font-size="7.6" fill="#80A323">
-                                <textPath href="#MyPath">
-                                    BLACKJACK PAYS 3 TO 2
-                                </textPath>
-                            </text>
-                        </svg>
-
                     </svg>
 
                 </g>
@@ -148,7 +138,29 @@
                         <circle cx="140" cy="80" r="6.7" fill="#060C1A" filter="url(#inner-glow)"/>
                         <text x="140" y="80" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#fcdd7a">DOUBLE</text>
+                        
+                        <xsl:if test="step ='roundOver'">
+                            <rect x="39.5" y="89" width="21" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                            <rect x="40" y="89.5" width="20" height="8" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
+                            <text x="50" y="93.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                                  fill="#fcdd7a">NEW ROUND</text>
+                        </xsl:if>
+                        
+                        <rect x="41.5" y="79" width="17" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                        <rect x="42" y="79.5" width="16" height="8" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
+                        <text x="50" y="83.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                              fill="#fcdd7a">GIVE UP Test</text>
 
+                        <svg id="close" x="133.5" y="-5.7" width="100%" height="100%" >
+                            <g transform="scale(.56)" >
+                                <circle cx="20" cy="20" r="5.4" fill="#c33931"/>
+                                <circle cx="20" cy="20" r="5" fill="#f13a44"/>
+                                <circle cx="20" cy="20" r="5" fill="#ee535b" clip-path="url(#cut-off-bottom)"/>
+                                <rect height="8" width="2" x="19" y="16" rx="1" ry="1" fill="white" transform="rotate(45 20 20)"/>
+                                <rect height="8" width="2" x="19" y="16" rx="1" ry="1" fill="white" transform="rotate(-45 20 20)"/>
+                            </g>
+                        </svg>
+                        
                     </svg>
                 </g>
 
@@ -304,6 +316,13 @@
                           <xsl:for-each select="./events/event">
                               <xsl:value-of select="message"></xsl:value-of>
                           </xsl:for-each>
+                        </text>
+                        
+                        <!-- TO DO -->
+                        <rect id="rect99" x="114" y="3" width="25" height="5" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <text x="116" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">Balance:</text>
+                        <text x="128.5" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
+                            9999$
                         </text>
 
                     </svg>
@@ -506,16 +525,32 @@
                </xsl:if>
 
             </xsl:if>
-
+            
+            <!-- TO DO -->
+            <foreignObject x="45.5%" y="78.7%" width="100%" height="100%" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formGiveUp" style="display: inline;" >
+                    <button type="submit" form="formGiveUp" value="Submit" style="height:86px; width:160px;
+                    border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
+                </form>
+            </foreignObject>
 
             <xsl:if test="step ='roundOver'">
-                <foreignObject x="48%" y="88%" width="100%" height="100%" >
+                <foreignObject x="44.5%" y="88.7%" width="100%" height="100%" >
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newRound/{$id}" method="post" id="formRebet" style="display: inline;" target="hiddenFrame" >
-                        <button type="submit" form="formRebet" value="Submit" style="height:80px; width:80px;
-                    border-radius: 5px;">newRound</button>
+                        <button type="submit" form="formRebet" value="Submit" style="height:86px; width:197px;
+                    border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
             </xsl:if>
+            
+            <!-- TO DO -->
+            <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="post" id="formExit" style="display: inline;"  target="hiddenFrame">
+                    <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px;
+                             border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
+                </form>
+            </foreignObject>
+            
             <xsl:if test="step ='play'">
 
                 <xsl:if test="$playerID = players/player[$activePlayer= position()]/@id">
