@@ -67,7 +67,6 @@ function blackjack-controller:showGames($playerName as xs:string, $balance as xs
 
 
 
-
 declare
 %rest:GET
 %rest:path("/bj/initPlayer")
@@ -102,6 +101,7 @@ function blackjack-controller:join($gameID as xs:string , $playerName as xs:stri
                    let $websocketURL := concat("ws://",$address,"/ws/bj")
                    let $getURL := concat("http://", $address, "/bj/draw/",$gameID)
                    let $subscription := concat("/bj/",$numberOfUsers + 1)
+                   let $oncloseurl := concat("http://", $address, "/bj/draw/",$gameID)
                    let $html :=
                        <html>
                            <head>
@@ -111,7 +111,7 @@ function blackjack-controller:join($gameID as xs:string , $playerName as xs:stri
                                <script src="/static/tictactoe/JS/ws-element.js"></script>
                            </head>
                            <body>
-                               <ws-stream id = "bj" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}"/>
+                               <ws-stream id = "bj" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}" oncloseurl = "{$oncloseurl}"/>
                            </body>
                        </html>
 
@@ -151,11 +151,11 @@ function blackjack-controller:draw($gameID as xs:string){
                 let $transformedGame := xslt:transform($game,$stylesheet,$map)
                 let $endGame := xslt:transform($game,$gameOverStylesheet,$map)
                 return(
-                       if(fn:count($game/players/player[@id = $playerID]) = 1 ) then(
+                       if(fn:count($game/players/player[@id = $playerID]) = 1  or fn:count($game/waitPlayers/player[@id = $playerID]) = 1 ) then(
                         blackjack-ws:send($transformedGame,concat("/bj/",$playerID))
                         )
                         else (
-                            if(fn:count($game/loosers/player[@id= $playerID] = 1 ) ) then(
+                            if(fn:count($game/loosers/player[@id= $playerID]) = 1  ) then(
                                 blackjack-ws:send($endGame,concat("/bj/",$playerID))
                             )
                         )
@@ -214,13 +214,21 @@ function blackjack-controller:beforeBet($gameID as xs:string){
 
 declare
 %rest:POST
-%output:method("html")
 %rest:path("/bj/newRound/{$gameID}")
 %updating
 function blackjack-controller:newRound($gameID){
-    let $redirectLink := fn:concat("/bj/draw/",$gameID)
-    let $game := blackjack-main:getGame($gameID)
+    let $redirectLink := fn:concat("/bj/updateSeats/",$gameID)
     return(blackjack-main:newRound($gameID),update:output(web:redirect($redirectLink)))
+};
+
+declare
+%rest:GET
+%output:method("html")
+%rest:path("/bj/updateSeats/{$gameID}")
+%updating
+function blackjack-controller:updateSeats($gameID as xs:string){
+    let $redirectLink := fn:concat("/bj/draw/",$gameID)
+    return(blackjack-main:updateSeats($gameID), update:output(web:redirect($redirectLink)))
 };
 
 
@@ -274,7 +282,7 @@ declare
 %rest:path("/bj/surrender/{$gameID}")
 %updating
 function blackjack-controller:surrender($gameID){
-        let $redirectLink := fn:concat("/bj/draw",$gameID)
+        let $redirectLink := fn:concat("/bj/draw/",$gameID)
         return(
                 blackjack-main:surrender($gameID), update:output(web:redirect($redirectLink))
         )
@@ -350,6 +358,13 @@ function blackjack-controller:checkWinnings($gameID as xs:string){
         return(blackjack-main:checkWinnings($gameID),update:output(web:redirect($redirectLink)))
 };
 
+declare
+%rest:GET
+%rest:path("/bj/getJack")
+%output:method("html")
+function blackjack-controller:getJack(){
+        <html> <head></head> <body> <object data="../static/blackjack/Jack.png"></object></body></html>
+};
 
 
 declare

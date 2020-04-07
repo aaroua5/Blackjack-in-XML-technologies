@@ -16,7 +16,11 @@ declare
 %ws:close("/bj")
 %updating
 function blackjack-ws:stompdisconnect(){
-    update:output(trace(concat("Ws client  disconnected with id ",websocket:id())))
+
+       update:output(trace(concat("Ws client  disconnected with id ",websocket:id())))
+
+
+
 };
 
 declare

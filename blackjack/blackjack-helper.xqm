@@ -32,8 +32,17 @@ let $players := <players>
                 <cards></cards>
            </dealer>
           {$players}
+          <waitPlayers></waitPlayers>
         {helper:shuffleCards()}
-        <loosers/>
+            <freeSeats>
+                <seat>1</seat>
+                <seat>2</seat>
+                <seat>3</seat>
+                <seat>4</seat>
+                <seat>5</seat>
+            </freeSeats>
+
+            <loosers/>
 
       </blackjack>
  };
