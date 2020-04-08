@@ -1,57 +1,12 @@
 xquery version "3.0";
-module namespace helper = "blackjack/helper";
-declare namespace uuid = "java:java.util.UUID";
-declare namespace math = "java:java.lang.Math";
-
-
-declare function helper:createNewGame($maxBet as xs:integer, $minBet as xs:integer, $playerNames as xs:string+ , $balances as xs:string+) as element(blackjack) {
-let $id:=helper:generateID()
-let $players := <players>
-        {
-             for $p in $playerNames count $i
-             where $p != ""
-             return(
-             helper:newPlayer($p, $balances[$i] cast as xs:int,$i,$i)
-             )
-        }
-        </players>
-    return
-    <blackjack id ="{$id}">
-          <step>bet</step>
-          <maxBet>{$maxBet}</maxBet>
-          <minBet>{$minBet}</minBet>
-          <playerTurn>1</playerTurn>
-          <events>
-          <event>
-          <message>
-          welcome</message></event>
-          <event> <message> to blackjack</message></event>
-          </events>
-          <dealer id = "0">
-                <name>dealer</name>
-                <cards></cards>
-           </dealer>
-          {$players}
-          <waitPlayers></waitPlayers>
-        {helper:shuffleCards()}
-            <freeSeats>
-                <seat>1</seat>
-                <seat>2</seat>
-                <seat>3</seat>
-                <seat>4</seat>
-                <seat>5</seat>
-            </freeSeats>
-
-            <loosers/>
-
-      </blackjack>
- };
+module namespace blackjack-cards = "blackjack/Cards";
+import module namespace helper = "blackjack/helper" at "helper.xqm";
 
 
 
-declare function helper:shuffleCards() as element(cards){
+declare function blackjack-cards:shuffleCards() as element(cards){
     let $deck := <cards>
-                {helper:getWholeDeck()/*}
+                {blackjack-cards:getWholeDeck()/*}
                 </cards>
 
     let $shuffledDeck :=
@@ -67,7 +22,8 @@ declare function helper:shuffleCards() as element(cards){
 };
 
 
-declare function helper:calculateDealerValues($game as element(blackjack),$player as element(*),$limit) {
+
+declare function blackjack-cards:calculateDealerValues($game as element(blackjack),$player as element(*),$limit) {
             let $cardsToBeAdded := for $i in 1 to $limit
                                     return(
                                         $game/cards/card[fn:position()= $i]
@@ -99,7 +55,7 @@ declare function helper:calculateDealerValues($game as element(blackjack),$playe
                                                                   return $i
                                        return (if($amountOfAces = 0) then($amountOfOtherCards)
                                                else(
-                                                   if(fn:count($sumOfAceslessEqual) = 0) then(22)
+                                                   if(fn:count($sumOfAceslessEqual) = 0) then(fn:min($sumOfAces))
                                                    else(fn:max($sumOfAceslessEqual))
                                                )
 
@@ -110,7 +66,7 @@ declare function helper:calculateDealerValues($game as element(blackjack),$playe
 
 
 (:this function calulate the sum of total cards of a  player:)
-declare function helper:calculateCurrentCardValue($game as element(blackjack),$player as element(*),$cardValue as xs:integer) {
+declare function blackjack-cards:calculateCurrentCardValue($game as element(blackjack),$player as element(*),$cardValue as xs:integer) {
 
               let $amountOfAces := if($cardValue = 1) then( fn:sum(for $card in $player/cards/card
                                                              where $card/card_number = 'A'
@@ -138,7 +94,7 @@ declare function helper:calculateCurrentCardValue($game as element(blackjack),$p
                                                    return $i
                         return (if($amountOfAces = 0) then($amountOfOtherCards)
                                 else(
-                                    if(fn:count($sumOfAceslessEqual) = 0) then(22)
+                                    if(fn:count($sumOfAceslessEqual) = 0) then(fn:min($sumOfAces))
                                     else(fn:max($sumOfAceslessEqual))
                                 )
 
@@ -146,27 +102,7 @@ declare function helper:calculateCurrentCardValue($game as element(blackjack),$p
 
 
 };
-
-
-
-declare function helper:random($number as xs:integer){
-      xs:integer(ceiling(math:random() * $number))
-};
-
-(:~
- : This function uses Java function until generate-random-number
- : is generally available
- : @return     a random number in [1,$range]
- :)
-declare function helper:randomNumber($range as xs:integer) as xs:integer {
-    xs:integer(ceiling(Q{java:java.lang.Math}random() * $range))
-};
-
-declare function helper:generateID(){
-       let $id := xs:string(uuid:randomUUID())
-        return $id
-};
-declare function helper:getWholeDeck() as element(cards){
+declare function blackjack-cards:getWholeDeck() as element(cards){
         <cards>
         <card>
             <card_number>A</card_number>
@@ -484,19 +420,3 @@ declare function helper:getWholeDeck() as element(cards){
         </card>
     </cards>
 };
-
-
-declare function helper:newPlayer($name as xs:string, $balance as xs:integer, $id as xs:integer , $tableSeat as xs:integer) as element(player) {
-
-    <player id = "{$id}">
-
-        <name>{$name}</name>
-        <status>free</status>
-        <tableSeat>{$tableSeat}</tableSeat>
-        <totalmonney>{$balance}</totalmonney>
-        <currentBet>0</currentBet>
-        <cards></cards>
-
-     </player>
-};
-

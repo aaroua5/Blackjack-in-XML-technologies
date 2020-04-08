@@ -3,7 +3,7 @@ xquery version "3.0";
 module namespace blackjack-ws = "blackjack/WS";
 import module namespace websocket = "http://basex.org/modules/Ws";
 
-import module namespace blackjack-main = "blackjack/Main" at "blackjack-main.xqm";
+import module namespace blackjack-game = "blackjack/Game" at "game.xqm";
 
 declare
 %ws-stomp:connect("/bj")
