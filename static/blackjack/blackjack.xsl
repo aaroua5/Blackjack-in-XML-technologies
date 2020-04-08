@@ -164,6 +164,12 @@
 
 
                         <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
+                            
+                            <image height="20" width="20" x="-27" y="43" xlink:href="https://i.ibb.co/gd9HpZP/ewedw.gif"/>
+                            <image height="20" width="20" x="13" y="55" xlink:href="https://i.ibb.co/gd9HpZP/ewedw.gif"/>
+                            <image height="20" width="20" x="53" y="61" xlink:href="https://i.ibb.co/gd9HpZP/ewedw.gif"/>
+                            <image height="20" width="20" x="93" y="55" xlink:href="https://i.ibb.co/gd9HpZP/ewedw.gif"/>
+                            <image height="20" width="20" x="133" y="43" xlink:href="https://i.ibb.co/gd9HpZP/ewedw.gif"/>
 
                             <xsl:if test="players/player[tableSeat=5]">
 
