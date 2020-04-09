@@ -20,6 +20,7 @@ declare %updating function blackjack-action:nextBet($gameID as xs:string){
     let $numberOfPlayers := fn:count($game/players/player)
     let $currentBet :=  $game/players/player[fn:position()= $game/playerTurn]/currentBet
     let $currentPlayer := $game/players/player[fn:position() = $game/playerTurn]
+    let $currentUser := blackjack-game:getCasino()/users/player[@id = $currentPlayer/@id]
     return(
             if($currentBet cast as xs:integer < $game/minBet ) then(
            replace node $game/events with <events><event id ="{$currentPlayer/@id}"><message> the min Bet is {$game/minBet} </message></event></events>
@@ -29,7 +30,8 @@ declare %updating function blackjack-action:nextBet($gameID as xs:string){
                     update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
                 ),
                 replace value of node $game/playerTurn with ($game/playerTurn +1) mod ($numberOfPlayers + 1),
-                replace value of node $currentPlayer/totalmonney  with $currentPlayer/totalmonney - $currentPlayer/currentBet
+                replace value of node $currentPlayer/totalmonney  with $currentPlayer/totalmonney - $currentPlayer/currentBet,
+                replace value of node $currentUser/totalmonney with $currentUser/totalmonney - $currentPlayer/currentBet
             )
     )
 
@@ -150,6 +152,7 @@ declare %updating function blackjack-action:stand($gameID as xs:string){
 declare %updating function blackjack-action:double($gameID as xs:string){
                 let $game :=  blackjack-game:getGame($gameID)
                 let $activeplayer := $game/players/player[fn:position()= $game/playerTurn]
+                let $activeUser := blackjack-game:getCasino()/users/player[@id = $activeplayer/@id]
                 let $numberOfplayers := fn:count($game/players/player)
                 let $card := $game/cards/card[fn:position() = 1]
                 let $currentCardSum := blackjack-card:calculateCurrentCardValue($game,$activeplayer,$card/card_Value)
@@ -160,12 +163,13 @@ declare %updating function blackjack-action:double($gameID as xs:string){
                                       replace node $game/events with <events><event id="{$activeplayer/@id}"><message>" you cant Double down"</message></event></events>
 
                                 ) else(
-                                        delete node $card,
-                                        insert node $card into $activeplayer/cards,
-                                        replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfplayers,
-                                        replace value of node $activeplayer/currentBet with $activeplayer/currentBet * 2 ,
-                                          replace value of node $activeplayer/totalmonney with $activeplayer/totalmonney - $activeplayer/currentBet
-                                            , replace value of node $activeplayer/totalSumCards with $currentCardSum,
+                                          delete node $card,
+                                          insert node $card into $activeplayer/cards,
+                                          replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfplayers,
+                                          replace value of node $activeplayer/currentBet with $activeplayer/currentBet * 2 ,
+                                          replace value of node $activeplayer/totalmonney with $activeplayer/totalmonney - $activeplayer/currentBet,
+                                          replace value of node $activeUser/totalmonney with $activeUser/totalmonney - $activeplayer/currentBet,
+                                          replace value of node $activeplayer/totalSumCards with $currentCardSum,
                                         if($game/playerTurn = $numberOfplayers) then(
                                                 update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
                                         )
@@ -185,6 +189,7 @@ declare %updating function blackjack-action:double($gameID as xs:string){
 declare %updating function blackjack-action:surrender($gameID as xs:string){
         let $game := blackjack-game:getGame($gameID)
         let $activePlayer := $game/players/player[$game/playerTurn = fn:position()]
+        let $activeUser := blackjack-game:getCasino()/users/player[@id = $activePlayer/@id]
         let $numberOfPlayers := fn:count($game/players/player)
         return(
                     if(fn:count($activePlayer/cards/card)> 2) then(
@@ -192,7 +197,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                     )
                     else(
                         replace value of node $activePlayer/totalmonney with $activePlayer/totalmonney + 0.5*$activePlayer/currentBet,
-
+                        replace value of node $activeUser/totalmonney with $activeUser/totalmonney +0.5 *$activePlayer/currentBet,
                         replace value of node $activePlayer/status with 'surrendered',
                         replace value of node $game/playerTurn with ($game/playerTurn + 1) mod($numberOfPlayers + 1),
                         for $card in $activePlayer/cards/card
@@ -214,10 +219,13 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                 let $player := $game/players/player[$playerID= @id]
                 return(
                         if($game/players/player[fn:position() = fn:count($game/players/player)]/@id = $playerID ) then(
-                            update:output(web:redirect(fn:concat("/bj/startGame/",$gameID))
+
+                            if(fn:count($game/players/player) > 1 ) then(
+                            update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
                         )),
                         delete node $player,
-                        insert node $player into $game/loosers
+                        insert node $player into $game/loosers,
+                        insert node <seat> {$player/tableSeat} </seat> into $game/freeSeats
                 )
 
 
