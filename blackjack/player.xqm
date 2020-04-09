@@ -39,7 +39,7 @@ declare %updating function blackjack-player:insertPlayer($gameID as xs:string, $
             )
 };
 
-declare function blackjack-player:newPlayer($name as xs:string, $balance as xs:integer, $id as xs:integer , $tableSeat as xs:integer) as element(player) {
+declare function blackjack-player:newPlayer($name as xs:string, $balance, $id as xs:integer , $tableSeat as xs:integer) as element(player) {
 
 
     <player id = "{$id}">
@@ -54,7 +54,7 @@ declare function blackjack-player:newPlayer($name as xs:string, $balance as xs:i
      </player>
 
 };
-declare function blackjack-player:newUser($name as xs:string, $balance as xs:integer, $id as xs:integer ) as element(player){
+declare function blackjack-player:newUser($name as xs:string, $balance, $id as xs:integer ) as element(player){
           <player id = "{$id}">
 
                   <name>{$name}</name>

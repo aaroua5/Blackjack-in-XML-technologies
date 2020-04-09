@@ -218,6 +218,29 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                 let $game := blackjack-game:getGame($gameID)
                 let $player := $game/players/player[$playerID= @id]
                 return(
+
+                    if($game/step ='play') then(
+                            if($game/players/player[fn:position()= fn:count($game/players/player)]/@id = $playerID) then(
+                              if(fn:count($game/players/player) > 1) then(
+                                update:output(web:redirect(fn:concat("/bj/dealer/",$gameID))))
+                              else(
+                                update:output(web:redirect(fn:concat("/bj/newRound/",$gameID)))
+                              )
+                            ),delete node $player,
+                            insert node $player into $game/loosers,
+                            insert node <seat> {$player/tableSeat cast as xs:integer} </seat> into $game/freeSeats
+                    ) else(
+                                if($game/step ='roundOver') then(
+
+                                  if($game/players/player[fn:position()= fn:count($game/players/player)]/@id = $playerID) then(
+
+                                        delete node $player,
+                                        insert node $player into $game/loosers,
+                                        insert node <seat> {$player/tableSeat cast as xs:integer} </seat> into $game/freeSeats
+
+                                )
+                    ) else(
+
                         if($game/players/player[fn:position() = fn:count($game/players/player)]/@id = $playerID ) then(
 
                             if(fn:count($game/players/player) > 1 ) then(
@@ -225,9 +248,10 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                         )),
                         delete node $player,
                         insert node $player into $game/loosers,
-                        insert node <seat> {$player/tableSeat} </seat> into $game/freeSeats
+                        insert node <seat> {$player/tableSeat cast as xs:integer} </seat> into $game/freeSeats
                 )
-
+                )
+                )
 
 
         };

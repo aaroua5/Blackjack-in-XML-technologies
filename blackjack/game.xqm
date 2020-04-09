@@ -70,9 +70,11 @@ declare %updating function blackjack-game:insertNewPlayer($gameID as xs:string, 
                 )
 };
 
-declare %updating function blackjack-game:join($gameID as xs:string , $playerName as xs:string, $balance as xs:string, $id as xs:integer){
+declare %updating function blackjack-game:join($gameID as xs:string , $playerName as xs:string, $balance as xs:string){
 
             let $game :=blackjack-game:getGame($gameID)
+            let $casino := blackjack-game:getCasino()
+            let $id := $casino/users/player[name = $playerName]/@id
             (:this tableSeat will be changed to count the case  if one joins and one player is already out:)
             let $tableSeat := $game/freeSeats/seat[fn:position() = 1]
 
@@ -83,12 +85,15 @@ declare %updating function blackjack-game:join($gameID as xs:string , $playerNam
 
                             if(fn:count($game/freeSeats/seat) = 0) then(
 
-                                         blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,-1)
+                                         blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,-1),
+                                         delete node $casino/lobbys[id = $id]
 
 
                             )  else (
                                     blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,$tableSeat),
                                      delete node $tableSeat ,
+                                     delete node $casino/lobbys/lobby[id = $id],
+
 
                                  replace node $game/events with  <events><event id='0'><message> {$playerName} joined the Game!</message></event></events>
 
@@ -431,7 +436,7 @@ declare %updating function blackjack-game:newRound($gameID as xs:string){
                  where $p/totalmonney < $game/minBet
                  return(delete node $p,
                  insert node $p into $game/loosers,
-                 insert node <seat>{$p/tableSeat}</seat> into $game/freeSeats),
+                 insert node <seat>{$p/tableSeat cast as xs:integer}</seat> into $game/freeSeats),
                  for $p in $nonEmptyPlayers count $i
                  return(
                         replace value of node $p/cards with <cards></cards>,
@@ -444,4 +449,21 @@ declare %updating function blackjack-game:newRound($gameID as xs:string){
         )
 };
 
+declare %updating function blackjack-game:addUser($playerName as xs:string,$balance as xs:string ,$id as xs:integer,$numberOfUsers as xs:integer){
+        if($id = $numberOfUsers) then(
+                if(blackjack-game:getCasino()/users/player[$playerName =name]) then(
+                   insert node blackjack-player:newUser($playerName, blackjack-game:getCasino()/users/player[$playerName = name]/totalmonney,  $numberOfUsers) into blackjack-game:getCasino()/users,
+                   insert node <lobby><id>{$numberOfUsers}</id></lobby> into blackjack-game:getCasino()/lobbys,
+                   delete node blackjack-game:getCasino()/users/player[$playerName = name]
+                ) else(
 
+                   insert node blackjack-player:newUser($playerName, $balance cast as xs:integer,  fn:count(blackjack-game:getCasino()/users/player) +1) into blackjack-game:getCasino()/users,
+
+
+
+                   insert node <lobby><id>{fn:count(blackjack-game:getCasino()/users/player) + 1}</id></lobby> into blackjack-game:getCasino()/lobbys
+
+                )
+        )
+
+};

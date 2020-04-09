@@ -47,26 +47,6 @@ function blackjack-controller:lobby(){
         $blackjack-controller:lobby
 };
 
-declare
-%rest:path("/bj/showGames/{$playerName}/{$balance}")
-%output:method("xhtml")
-%rest:GET
-function blackjack-controller:showGames($playerName as xs:string, $balance as xs:string){
-
-        let $casino := blackjack-game:getCasino()
-        let $xslStyleSheet:= "games.xsl"
-       let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStyleSheet))
-                              let $map := map{"playerID":$playerName,"balance":$balance}
-
-                   let $transformed := xslt:transform($casino, $stylesheet,$map)
-                   return
-
-               <html>
-                          {$transformed}
-
-               </html>
-};
-
 
 
 declare
@@ -78,17 +58,52 @@ function blackjack-controller:initPlayers(){
 
 
 declare
-%rest:GET
+%rest:POST
 %rest:path("/bj/form")
+%output:method("html")
 %updating
 function blackjack-controller:handleinit(){
   let $playerNames :=
       request:parameter("playername1", "")
   let $balances :=
       request:parameter("balance1", "")
-   let $redirectLink := fn:concat("/bj/showGames/",$playerNames,"/",$balances)
+   let $redirectLink := fn:concat("/bj/wsInit/",$playerNames,"/",$balances)
     return(update:output(web:redirect($redirectLink)))
   };
+
+declare
+%rest:GET
+%rest:path("/bj/wsInit/{$playerName}/{$balance}")
+%output:method("html")
+%updating
+function blackjack-controller:wsInit($playerName as xs:string, $balance as xs:string){
+
+             let $numberOfUsers := fn:count(blackjack-game:getCasino()/users/player)
+                               let $hostname := request:hostname()
+                               let $port := request:port()
+                               let $address := concat($hostname,":",$port)
+                               let $websocketURL := concat("ws://",$address,"/ws/bj")
+                               let $getURL := concat("http://", $address, "/bj/showGames")
+                               let $subscription := concat("/bj/",blackjack-controller:getID($numberOfUsers + 1 ,$playerName))
+                               let $html :=
+                                   <html>
+                                       <head>
+                                           <title>blackjack</title>
+                                           <script src="/static/tictactoe/JS/jquery-3.2.1.min.js"></script>
+                                           <script src="/static/tictactoe/JS/stomp.js"></script>
+                                           <script src="/static/tictactoe/JS/ws-element.js"></script>
+                                       </head>
+                                       <body>
+                                           <ws-stream id = "bj" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}" />
+                                       </body>
+                                   </html>
+
+            return(update:output($html),blackjack-game:addUser($playerName , $balance,blackjack-controller:getID($numberOfUsers + 1,$playerName),$numberOfUsers + 1))
+
+}  ;
+
+
+
 declare function blackjack-controller:getID($numberOfUsers as xs:integer, $playerName as xs:string){
             let $id := blackjack-game:getCasino()/users/player[name = $playerName]/@id
             let $wsIDs := blackjack-ws:getIDs()
@@ -113,47 +128,60 @@ declare function blackjack-controller:getID($numberOfUsers as xs:integer, $playe
                     )
             )
 };
-declare
-%rest:POST
-%rest:path("/bj/join/{$gameID}/{$playerName}/{$balance}")
-%output:method("html")
-%updating
-function blackjack-controller:join($gameID as xs:string , $playerName as xs:string, $balance as xs:string){
-                   let $numberOfUsers := fn:count(blackjack-game:getCasino()/users/player)
-                   let $hostname := request:hostname()
-                   let $port := request:port()
-                   let $address := concat($hostname,":",$port)
-                   let $websocketURL := concat("ws://",$address,"/ws/bj")
-                   let $getURL := concat("http://", $address, "/bj/draw/",$gameID)
-                   let $subscription := concat("/bj/",blackjack-controller:getID($numberOfUsers+ 1 , $playerName))
-                   let $oncloseurl := concat("http://", $address, "/bj/draw/",$gameID)
-                   let $html :=
-                       <html>
-                           <head>
-                               <title>blackjack</title>
-                               <script src="/static/tictactoe/JS/jquery-3.2.1.min.js"></script>
-                               <script src="/static/tictactoe/JS/stomp.js"></script>
-                               <script src="/static/tictactoe/JS/ws-element.js"></script>
-                           </head>
-                           <body>
-                               <ws-stream id = "bj" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}" oncloseurl = "{$oncloseurl}"/>
-                           </body>
-                       </html>
 
-                   return(update:output($html) , blackjack-game:join($gameID, $playerName,$balance,$numberOfUsers + 1))
+declare
+%rest:path("/bj/showGames")
+%rest:GET
+function blackjack-controller:showGames(){
+
+           let $casino := blackjack-game:getCasino()
+            let $xslStyleSheet:= "games.xsl"
+            let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStyleSheet))
+            let $wsIDs := blackjack-ws:getIDs()
+            return(
+                    for $wsID in $wsIDs
+                  return(  let $playerID := blackjack-ws:get($wsID,"playerID")
+                    let $playerName := $casino/users/player[$playerID = @id]/name
+                    let $balance := $casino/users/player[$playerID = @id]/totalmonney
+
+                    let $map := map{"playerID":$playerName,"balance":$balance}
+
+                    let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
+                    return(
+                        if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
+                        blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
+                        )
+
+                     )
+                    )
+            )
+
 };
 
 
 
 declare
 %rest:POST
-%rest:path("/bj/newGame/{$playerName}/{$balance}")
+%rest:path("/bj/join/{$gameID}/{$playerName}/{$balance}")
 %output:method("html")
 %updating
-function blackjack-controller:newGame($playerName,$balance){
+function blackjack-controller:join($gameID as xs:string , $playerName as xs:string, $balance as xs:string){
+
+
+                   update:output(web:redirect(fn:concat("/bj/draw/",$gameID))) , blackjack-game:join($gameID, $playerName,$balance)
+};
+
+
+
+declare
+%rest:POST
+%rest:path("/bj/newGame")
+%output:method("html")
+%updating
+function blackjack-controller:newGame(){
         let $game:= blackjack-game:createGame(100,10,"","")
 
-          let $redirectLink := fn:concat("/bj/showGames/",$playerName,"/",$balance)
+          let $redirectLink := "/bj/showGames"
                            return(update:output(web:redirect($redirectLink)),blackjack-game:insertGame($game))
 };
 

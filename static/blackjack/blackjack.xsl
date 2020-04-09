@@ -564,7 +564,7 @@
             </xsl:if>
 
             <!-- TO DO -->
-            <xsl:if test="step ='bet'">
+            <xsl:if test="step ='bet' or step='roundOver'">
             <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%" >
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/exitGame/{$id}/{$playerID}" method="post" id="formExit" style="display: inline;"  target="hiddenFrame">
                     <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px;
