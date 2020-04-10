@@ -217,41 +217,45 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
         declare %updating function blackjack-action:exitGame($gameID as  xs:string , $playerID as xs:integer){
                 let $game := blackjack-game:getGame($gameID)
                 let $player := $game/players/player[$playerID= @id]
+                let $numberOfplayers := fn:count($game/players/player)
                 return(
-
-                    if($game/step ='play') then(
-                            if($game/players/player[fn:position()= fn:count($game/players/player)]/@id = $playerID) then(
-                              if(fn:count($game/players/player) > 1) then(
-                                update:output(web:redirect(fn:concat("/bj/dealer/",$gameID))))
-                              else(
-                                update:output(web:redirect(fn:concat("/bj/newRound/",$gameID)))
-                              )
-                            ),delete node $player,
-                            insert node $player into $game/loosers,
-                            insert node <seat> {$player/tableSeat cast as xs:integer} </seat> into $game/freeSeats
-                    ) else(
-                                if($game/step ='roundOver') then(
-
-                                  if($game/players/player[fn:position()= fn:count($game/players/player)]/@id = $playerID) then(
-
+                        if($player) then(
+                                if($game/step ='bet') then(
+                                        if($numberOfplayers > 1) then(
+                                                if($game/players/player[fn:position() = $game/playerTurn]/@id = $playerID) then(
+                                                            if($game/playerTurn = $numberOfplayers) then(
+                                                                    update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
+                                                            )
+                                                )
+                                        ),
                                         delete node $player,
                                         insert node $player into $game/loosers,
-                                        insert node <seat> {$player/tableSeat cast as xs:integer} </seat> into $game/freeSeats
+                                        insert node <seat>{$player/tableSeat cast as xs:integer}</seat> into $game/freeSeats
+                                ),
+                                if($game/step = 'play') then(
+                                        if($numberOfplayers > 1) then(
+                                                     if($game/players/player[fn:position() = $game/playerTurn]/@id = $playerID) then(
+                                                            if($game/playerTurn = $numberOfplayers) then(
+                                                                    update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                                            )
+                                                     )
+                                        )  else(
+                                                     update:output(web:redirect(fn:concat("/bj/newRound",$gameID)))
+                                           ),
+                                            delete node $player,
+                                            insert node $player into $game/loosers,
+                                            insert node <seat>{$player/tableSeat cast as xs:integer}</seat> into $game/freeSeats
 
                                 )
-                    ) else(
 
-                        if($game/players/player[fn:position() = fn:count($game/players/player)]/@id = $playerID ) then(
 
-                            if(fn:count($game/players/player) > 1 ) then(
-                            update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
-                        )),
-                        delete node $player,
-                        insert node $player into $game/loosers,
-                        insert node <seat> {$player/tableSeat cast as xs:integer} </seat> into $game/freeSeats
-                )
-                )
-                )
 
+
+                        )
+                       else(
+                                delete node $game/waitPlayers/player[@id = $playerID],
+                                insert node $game/waitPlayers/player[@id = $playerID] into $game/loosers
+                       )
+)
 
         };

@@ -144,7 +144,7 @@ function blackjack-controller:showGames(){
                     let $playerName := $casino/users/player[$playerID = @id]/name
                     let $balance := $casino/users/player[$playerID = @id]/totalmonney
 
-                    let $map := map{"playerID":$playerName,"balance":$balance}
+                    let $map := map{"playerName":$playerName,"balance":$balance}
 
                     let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
                     return(
@@ -266,7 +266,7 @@ function blackjack-controller:beforeBet($gameID as xs:string){
 };
 
 declare
-%rest:POST
+%rest:GET
 %rest:path("/bj/newRound/{$gameID}")
 %updating
 function blackjack-controller:newRound($gameID){

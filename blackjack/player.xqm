@@ -54,12 +54,12 @@ declare function blackjack-player:newPlayer($name as xs:string, $balance, $id as
      </player>
 
 };
-declare function blackjack-player:newUser($name as xs:string, $balance, $id as xs:integer ) as element(player){
+declare function blackjack-player:newUser($name as xs:string, $balance, $points , $id as xs:integer ) as element(player){
           <player id = "{$id}">
 
                   <name>{$name}</name>
-                  <totalmonney>{$balance}</totalmonney>
-                  <points>0</points>
+                  <totalmonney>{if($balance < 10) then 100 else $balance cast as xs:integer}</totalmonney>
+                  <points>{$points}</points>
           </player>
 };
 

@@ -148,6 +148,7 @@
                               fill="#fcdd7a">GIVE UP</text>
                         </xsl:if>
 
+                       <xsl:if test="step ='play' or step='bet'">
                         <svg id="close" x="133.5" y="-5.7" width="100%" height="100%" >
                             <g transform="scale(.56)" >
                                 <circle cx="20" cy="20" r="5.4" fill="#c33931"/>
@@ -157,6 +158,7 @@
                                 <rect height="8" width="2" x="19" y="16" rx="1" ry="1" fill="white" transform="rotate(-45 20 20)"/>
                             </g>
                         </svg>
+                       </xsl:if>
 
                     </svg>
                 </g>
@@ -338,11 +340,13 @@
                         </text>
 
                         <!-- TO DO -->
+                        <xsl:if test="./players/player[@id = $playerID]">
                         <rect id="rect99" x="114" y="3" width="25" height="5" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
                         <text x="116" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">Balance:</text>
                         <text x="128.5" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
                            <xsl:value-of select="round(./players/player[@id = $playerID]/totalmonney - 0.5)"/>$
                         </text>
+                        </xsl:if>
 
                     </svg>
 
@@ -411,7 +415,7 @@
                                 <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
                                       fill="#ffffff">1</text>
                             </g>
-                        </svg>v
+                        </svg>
 
                     </svg>
 
@@ -545,18 +549,10 @@
 
             </xsl:if>
 
-            <!-- TO DO -->
-            <xsl:if test="step ='play'">
-            <foreignObject x="45.5%" y="88.7%" width="100%" height="100%" >
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/surrender/{$id}" method="POST" id="formGiveUp" style="display: inline;"  target="hiddenFrame" >
-                    <button type="submit" form="formGiveUp" value="Submit" style="height:86px; width:160px;
-                    border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
-                </form>
-            </foreignObject>
-            </xsl:if>
+
             <xsl:if test="step ='roundOver'">
                 <foreignObject x="44.5%" y="88.7%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newRound/{$id}" method="post" id="formRebet" style="display: inline;" target="hiddenFrame" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newRound/{$id}" method="get" id="formRebet" style="display: inline;" target="hiddenFrame" >
                         <button type="submit" form="formRebet" value="Submit" style="height:86px; width:197px;
                     border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
@@ -564,7 +560,7 @@
             </xsl:if>
 
             <!-- TO DO -->
-            <xsl:if test="step ='bet' or step='roundOver'">
+            <xsl:if test="step ='bet' or step='play'">
             <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%" >
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/exitGame/{$id}/{$playerID}" method="post" id="formExit" style="display: inline;"  target="hiddenFrame">
                     <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px;
@@ -575,6 +571,13 @@
             <xsl:if test="step ='play'">
 
                 <xsl:if test="$playerID = players/player[$activePlayer= position()]/@id">
+
+                    <foreignObject x="45.5%" y="88.7%" width="100%" height="100%" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/surrender/{$id}" method="POST" id="formGiveUp" style="display: inline;"  target="hiddenFrame" >
+                            <button type="submit" form="formGiveUp" value="Submit" style="height:86px; width:160px;
+                    border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
+                        </form>
+                    </foreignObject>
 
                     <foreignObject x="71.9%" y="84.7%"  width="100%" height="100%" >
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/hit/{$id}" method="post" id="formHit" style="display: inline;"  target="hiddenFrame">

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
-    <xsl:param name="playerID"/>
+    <xsl:param name="playerName"/>
     <xsl:param name="balance"/>
     <xsl:template match="casino">
-
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0, 0, 1800, 900">
 
             <defs>
@@ -62,30 +61,15 @@
 
                         <svg id="players" width="100%" height="100%" viewBox="0 0 100 100">
                             <text y="14.5" fill="white" font-size="4" >
+                               <xsl:for-each select="users/player">
+                                   <xsl:sort select="points"  order="descending" data-type="number" />
 
-                                <tspan x="35" dy="2em">Fathi</tspan>
-                                <tspan  x="75" fill="#2282bd" text-anchor="end">5385 ✯</tspan>
+                                   <xsl:if test=" not(position() > 8)">
+                                <tspan x="35" dy="2em"><xsl:value-of select="name"></xsl:value-of> </tspan>
+                                <tspan  x="75" fill="#2282bd" text-anchor="end"><xsl:value-of select="round(points -0.5)"/> ✯</tspan>
+                                   </xsl:if>
+                               </xsl:for-each>
 
-                                <tspan x="35" dy="2em">Samir</tspan>
-                                <tspan x="75" fill="#2282bd" text-anchor="end">4289 ✯</tspan>
-
-                                <tspan x="35" dy="2em">Mounir</tspan>
-                                <tspan x="75" fill="#2282bd" text-anchor="end">2900 ✯</tspan>
-
-                                <tspan x="35" dy="2em">Karim</tspan>
-                                <tspan x="75" fill="#2282bd" text-anchor="end">2700 ✯</tspan>
-
-                                <tspan x="35" dy="2em">Abdelsmad</tspan>
-                                <tspan x="75" fill="#2282bd" text-anchor="end">1426 ✯</tspan>
-
-                                <tspan x="35" dy="2em">Mefteh</tspan>
-                                <tspan x="75" fill="#2282bd" text-anchor="end">91 ✯</tspan>
-
-                                <tspan x="35" dy="2em">Sabri</tspan>
-                                <tspan x="75" fill="#2282bd" text-anchor="end">69 ✯</tspan>
-
-                                <tspan x="35" dy="2em">Yousri</tspan>
-                                <tspan x="74" fill="#2282bd" text-anchor="end">50 ✯</tspan>
 
                             </text>
                         </svg>
@@ -124,30 +108,12 @@
 
                         <svg id="games" width="100%" height="100%" viewBox="0 0 100 100">
                             <text y="14.5" fill="white" font-size="4" >
-
-                                <tspan x="35" dy="2em">Game 1</tspan>
-                                <tspan  x="60" fill="#109c84">0P</tspan>
+                               <xsl:for-each select="blackjack">
+                                  <xsl:variable name="counter" select="position()"/>
+                                <tspan x="35" dy="2em">Game <xsl:value-of select="./@counter"/></tspan>
+                                <tspan  x="60" fill="#109c84"><xsl:value-of select="count(players/player)"/>P</tspan>
                                 <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
-
-                                <tspan x="35" dy="2em">Game 2</tspan>
-                                <tspan x="60" fill="#109c84">2P</tspan>
-                                <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
-
-                                <tspan x="35" dy="2em">Game 3</tspan>
-                                <tspan x="60" fill="#109c84">5P</tspan>
-                                <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
-
-                                <tspan x="35" dy="2em">Game 4</tspan>
-                                <tspan x="60" fill="#109c84">3P</tspan>
-                                <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
-
-                                <tspan x="35" dy="2em">Game 5</tspan>
-                                <tspan x="60" fill="#109c84">1P</tspan>
-                                <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
-
-                                <tspan x="35" dy="2em">Game 6</tspan>
-                                <tspan x="60" fill="#109c84">4P</tspan>
-                                <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
+                               </xsl:for-each>
 
                             </text>
                         </svg>
@@ -159,15 +125,15 @@
                         <text x="35" y="35" fill="white" font-size="4">
                             <tspan text-anchor="middle">
                                 <tspan x="50" dy="2em">Good luck, </tspan>
-                                <tspan fill="#fbda79">Yousri</tspan>
+                                <tspan fill="#fbda79"><xsl:value-of select="$playerName"/></tspan>
                             </tspan>
                             <tspan text-anchor="middle">
                                 <tspan  x="50" fill="white" dy="1.5em">Balance: </tspan>
-                                <tspan fill="#fbda79" text-anchor="middle">$100</tspan>
+                                <tspan fill="#fbda79" text-anchor="middle">$<xsl:value-of select=" round(users/player[name = $playerName]/totalmonney -0.5)"/></tspan>
                             </tspan>
                             <tspan text-anchor="middle">
                                 <tspan  x="50" fill="white" dy="1.5em">Score: </tspan>
-                                <tspan fill="#fbda79" text-anchor="middle">50 ✯</tspan>
+                                <tspan fill="#fbda79" text-anchor="middle"><xsl:value-of select=" round(users/player[name = $playerName]/points - 0.5)"/> ✯</tspan>
                             </tspan>
                         </text>
                     </svg>
@@ -175,12 +141,13 @@
                 
                 <svg id="buttons" width="100%" height="100%" viewBox="0 0 100 100">
 
+                   <xsl:if test="not(count(blackjack) > 5)">
                     <svg id="new game" x="55" y="8">
                         <rect x="40.75" y="72" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
                         <text x="50" y="76" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#EFCB68">NEW GAME</text>
                     </svg>
-
+                   </xsl:if>
                     <svg id="close" x="133.5" y="-5.7" width="100%" height="100%" >
                         <g transform="scale(.56)" >
                             <circle cx="20" cy="20" r="5.4" fill="#c33931"/>
@@ -193,15 +160,7 @@
 
                 </svg>
 
-                <g id="buttons" >
-                    <text x="30%" y="30%" color="white">
-                        <tspan> <xsl:for-each select="blackjack" >
-                            <xsl:value-of select="position()"/>====>
-                            <xsl:value-of select="./@id"></xsl:value-of>
-                        </xsl:for-each>
-                        </tspan>
-                    </text>
-                </g>
+
 
             </defs>
 
@@ -215,79 +174,91 @@
                 <iframe class = "hiddenFrame" xmlns = "http://www.w3.org/1999/xhtml" name="hiddenFrame"></iframe>
             </foreignObject>
 
-            <foreignObject x="72.8%" y="79.8%" width="100%" height="100%" >
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newGame/" method="POST" id="formMenu" style="display: inline;" target ="hiddenFrame" >
-                    <button type="submit" form="formMenu" value="Submit" style="height:77px; width:170px;
-                    border-radius: 20px;">new Game</button>
-                </form>
-            </foreignObject>
-            
-            <!-- 6 Join games
 
+
+            <xsl:if test="blackjack[position() = 1]">
+                <xsl:variable name="id" select="blackjack[position() = 1]/@id"/>
             <foreignObject x="85%" y="26.3%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formjoin1" style="display: inline;" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin1" style="display: inline;" target="hiddenFrame" >
                     <button type="submit" form="formjoin1" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            </xsl:if>
+            <xsl:if test="blackjack[position() = 2]">
+            <xsl:variable name="id" select="blackjack[position() = 2]/@id"/>
 
             <foreignObject x="85%" y="34.3%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formjoin2" style="display: inline;" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin2" style="display: inline;"  target="hiddenFrame">
                     <button type="submit" form="formjoin2" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            </xsl:if>
+
+            <xsl:if test="blackjack[position() = 3]">
+                <xsl:variable name="id" select="blackjack[position() = 3]/@id"/>
 
             <foreignObject x="85%" y="42.3%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formjoin3" style="display: inline;" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin3" style="display: inline;" target="hiddenFrame" >
                     <button type="submit" form="formjoin3" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            </xsl:if>
+            <xsl:if test="blackjack[position() = 4]">
+                <xsl:variable name="id" select="blackjack[position() = 4]/@id"/>
 
             <foreignObject x="85%" y="50.3%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formjoin4" style="display: inline;" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin4" style="display: inline;"  target="hiddenFrame">
                     <button type="submit" form="formjoin4" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            </xsl:if>
+            <xsl:if test="blackjack[position() = 5]">
+                <xsl:variable name="id" select="blackjack[position() = 5]/@id"/>
 
             <foreignObject x="85%" y="58.3%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formjoin5" style="display: inline;" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin5" style="display: inline;" target="hiddenFrame" >
                     <button type="submit" form="formjoin5" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            </xsl:if>
+            <xsl:if test="blackjack[position() = 6]">
+
+                <xsl:variable name="id" select="blackjack[position() = 6]/@id"/>
 
             <foreignObject x="85%" y="66.3%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formjoin6" style="display: inline;" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin6" style="display: inline;" target="hiddenFrame">
                     <button type="submit" form="formjoin6" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            </xsl:if>
 
-            -->
+
 
              <xsl:variable name="counter" select="position()"/>
-                <foreignObject x="60%" y="30%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{blackjack/@id}/{$playerID}/{$balance}" method="POST" id="formjoin" style="display: inline;" target="hiddenFrame" >
-                    <button type="submit" form="formjoin" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">join game 1 </button>
-                </form>
-            </foreignObject>
-            <foreignObject x="80%" y="30%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{blackjack[position()= 2]/@id}/{$playerID}/{$balance}" method="POST" id="formjoin2" style="display: inline;" target="hiddenFrame">
-                    <button type="submit" form="formjoin2" value="Submit" style="height:80px; width:80px;
-                    border-radius: 40px;">join game 2 </button>
-                </form>
-            </foreignObject>
+
+
             
-            <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%" >
-                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="post" id="formExit" style="display: inline;"  target="hiddenFrame">
+            <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby" method="get" id="formExit" style="display: inline;">
                     <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px;
                              border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>
+            <xsl:if test="not(count(blackjack) > 5)">
+
+            <foreignObject x="72.8%" y="79.8%" width="100%" height="100%" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newGame" method="POST" id="formMenu" style="display: inline;" target ="hiddenFrame" >
+                    <button type="submit" form="formMenu" value="Submit" style="height:77px; width:170px;
+                    border-radius: 20px;  background-color: Transparent;"></button>
+                </form>
+            </foreignObject>
+            </xsl:if>
         </svg>
 
     </xsl:template>
