@@ -65,10 +65,15 @@ declare
 function blackjack-controller:handleinit(){
   let $playerNames :=
       request:parameter("playername1", "")
-  let $balances :=
-      request:parameter("balance1", "")
-   let $redirectLink := fn:concat("/bj/wsInit/",$playerNames,"/",$balances)
-    return(update:output(web:redirect($redirectLink)))
+   let $redirectLink := fn:concat("/bj/wsInit/",$playerNames,"/",100)
+   let $redirectLinkInit := "/bj/initPlayer"
+   let $id := blackjack-controller:getID(blackjack-game:getCasino()/numberOfUsers,$playerNames)
+
+    return(if($id = blackjack-game:getCasino()/numberOfUsers) then(update:output(web:redirect($redirectLink)))
+            else(
+                update:output(web:redirect($redirectLinkInit))
+            )
+          )
   };
 
 declare
@@ -78,13 +83,13 @@ declare
 %updating
 function blackjack-controller:wsInit($playerName as xs:string, $balance as xs:string){
 
-             let $numberOfUsers := fn:count(blackjack-game:getCasino()/users/player)
+             let $numberOfUsers := blackjack-game:getCasino()/numberOfUsers
                                let $hostname := request:hostname()
                                let $port := request:port()
                                let $address := concat($hostname,":",$port)
                                let $websocketURL := concat("ws://",$address,"/ws/bj")
                                let $getURL := concat("http://", $address, "/bj/showGames")
-                               let $subscription := concat("/bj/",blackjack-controller:getID($numberOfUsers + 1 ,$playerName))
+                               let $subscription := concat("/bj/",$numberOfUsers)
                                let $html :=
                                    <html>
                                        <head>
@@ -98,7 +103,7 @@ function blackjack-controller:wsInit($playerName as xs:string, $balance as xs:st
                                        </body>
                                    </html>
 
-            return(update:output($html),blackjack-game:addUser($playerName , $balance,blackjack-controller:getID($numberOfUsers + 1,$playerName),$numberOfUsers + 1))
+            return(update:output($html),blackjack-game:addUser($playerName , $balance,blackjack-controller:getID(blackjack-game:getCasino()/numberOfUsers,$playerName),blackjack-game:getCasino()/numberOfUsers))
 
 }  ;
 
@@ -145,7 +150,6 @@ function blackjack-controller:showGames(){
                     let $balance := $casino/users/player[$playerID = @id]/totalmonney
 
                     let $map := map{"playerName":$playerName,"balance":$balance}
-
                     let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
                     return(
                         if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
@@ -214,7 +218,8 @@ function blackjack-controller:draw($gameID as xs:string){
                         )
 
 
-                )
+                ),
+                blackjack-controller:showGames()
         )
 };
 

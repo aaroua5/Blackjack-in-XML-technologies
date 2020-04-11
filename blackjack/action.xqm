@@ -218,6 +218,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                 let $game := blackjack-game:getGame($gameID)
                 let $player := $game/players/player[$playerID= @id]
                 let $numberOfplayers := fn:count($game/players/player)
+                let $user := blackjack-game:getCasino()/users/player[@id = $playerID]
                 return(
                         if($player) then(
                                 if($game/step ='bet') then(
@@ -226,7 +227,12 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                                             if($game/playerTurn = $numberOfplayers) then(
                                                                     update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
                                                             )
+                                                ),
+                                                if($player[fn:position() < $game/playerTurn]) then(
+                                                    replace value of node $game/playerTurn with $game/playerTurn - 1,
+                                                   replace value of node $user/points with $user/points -$player/currentBet
                                                 )
+
                                         ),
                                         delete node $player,
                                         insert node $player into $game/loosers,
@@ -238,14 +244,19 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                                             if($game/playerTurn = $numberOfplayers) then(
                                                                     update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
                                                             )
-                                                     )
+                                                     ),
+                                                       if($player[fn:position() < $game/playerTurn]) then(
+                                                             replace value of node $game/playerTurn with $game/playerTurn - 1,
+                                                             replace value of node $user/points with $user/points -$player/currentBet
+
+                                                         )
+
                                         )  else(
                                                      update:output(web:redirect(fn:concat("/bj/newRound",$gameID)))
                                            ),
                                             delete node $player,
                                             insert node $player into $game/loosers,
                                             insert node <seat>{$player/tableSeat cast as xs:integer}</seat> into $game/freeSeats
-
                                 )
 
 

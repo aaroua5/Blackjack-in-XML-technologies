@@ -9,6 +9,7 @@ declare
 %ws-stomp:connect("/bj")
 %updating
 function blackjack-ws:stompconnect(){
+replace value of node blackjack-game:getCasino()/numberOfUsers with blackjack-game:getCasino()/numberOfUsers + 1,
 update:output(trace(concat("WS client connected with id ",websocket:id())))
 };
 

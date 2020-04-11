@@ -86,7 +86,7 @@ declare %updating function blackjack-game:join($gameID as xs:string , $playerNam
                             if(fn:count($game/freeSeats/seat) = 0 or $game/step !='bet') then(
 
                                          blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,-1),
-                                         delete node $casino/lobbys[id = $id]
+                                         delete node $casino/lobbys/lobby[id = $id]
 
 
                             )  else (
