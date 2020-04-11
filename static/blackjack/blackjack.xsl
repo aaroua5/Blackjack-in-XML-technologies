@@ -330,8 +330,8 @@
 
                     <svg id="messages" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <rect id="rect99" x="-47" y="3" width="55" height="12" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <text x="-45" y="7" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
+                        <rect id="rect99" x="-47" y="3" width="53" height="5" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <text x="-45" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
                             <xsl:for-each select="./events/event">
                                 <xsl:if test="@id =$playerID or @id = 0">
                                      <xsl:value-of select="message"></xsl:value-of>
