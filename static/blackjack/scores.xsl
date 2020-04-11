@@ -30,7 +30,7 @@
                     <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
                 </filter>
 
-                <g id="background2" >
+                <g id="background" >
                     <svg width="100%" height="100%">
                         <rect x="0"  y="0" width="100%" height="100%" fill="#0F2822" />
 
@@ -42,10 +42,34 @@
 
                 <svg id="buttons" width="100%" height="100%" viewBox="0 0 100 100">
 
+                    <xsl:if test="step ='roundOver'">
 
-                        <rect x="40.75" y="73" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
-                        <text x="50" y="77" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                        <rect x="51.5" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                        <text x="60.75" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#EFCB68">MENU</text>
+
+                        <rect x="30" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                        <text x="39.25" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                              fill="#EFCB68">GAMES</text>
+
+                        <text x="50" y="43" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                              fill="#EBEBEB">See you soon, Yousri</text>
+
+                    </xsl:if>
+
+                    <xsl:if test="step ='gameOver'">
+
+                        <rect x="40.75" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                        <text x="50" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                              fill="#EFCB68">MENU</text>
+
+                        <text x="50" y="40" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                              fill="#EBEBEB">
+                            <tspan x="50" >GAME OVER!</tspan>
+                            <tspan x="50" dy="1.5em">You lost all of your money!</tspan>
+                        </text>
+
+                    </xsl:if>
 
                 </svg>
 
@@ -53,19 +77,34 @@
 
             </defs>
 
-            <use href="#background2" width="100%" height="100%"/>
+            <use href="#background" width="100%" height="100%"/>
             <use href="#buttons" width="100%" height="100%"/>
 
+            <xsl:if test="step ='roundOver'">
+                <foreignObject x="39.9%" y="47.8%" width="100%" height="100%" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newRound/{$id}" method="post" id="form1" style="display: inline;" >
+                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+                            border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
+                    </form>
+                </foreignObject>
+                <foreignObject x="50.6%" y="47.8%" width="100%" height="100%" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="post" id="form1" style="display: inline;" >
+                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+                             border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
+                    </form>
+                </foreignObject>
+            </xsl:if>
 
+            <!--    this only when there is no more players: all bankrupt! !-->
 
-
-
-                <foreignObject x="45.3%" y="72.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/gameOver/{$id}" method="post" id="formlobby" style="display: inline;" >
-                        <button type="submit" form="formlobby" value="Submit" style="height:76px; width:170px;
+            <xsl:if test="step ='gameOver'">
+                <foreignObject x="45.3%" y="47.8%" width="100%" height="100%" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="post" id="form1" style="display: inline;" >
+                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
                                 border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
+            </xsl:if>
         </svg>
 
     </xsl:template>
