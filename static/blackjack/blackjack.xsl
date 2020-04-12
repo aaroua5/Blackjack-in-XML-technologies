@@ -298,7 +298,7 @@
                                 </xsl:choose>
                             </xsl:if>
 
-
+                            <image height="9" width="17" x="12" y="2.4" xlink:href="https://i.ibb.co/5RKPPJW/your-turn.gif"/>
 
                         </svg>
 
