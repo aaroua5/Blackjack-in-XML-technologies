@@ -12,6 +12,8 @@ import module namespace blackjack-action = "blackjack/Action" at "action.xqm";
 declare variable $blackjack-controller:staticPath := "../static/blackjack";
 declare variable $blackjack-controller:initPlayers := doc("../static/blackjack/initPlayers.html");
 declare variable $blackjack-controller:lobby := doc("../static/blackjack/lobby.html");
+declare variable $blackjack-controller:rules := doc("../static/blackjack/rules.html");
+declare variable $blackjack-controller:about := doc("../static/blackjack/about.html");
 declare variable $blackjack-controller:initJoin := doc("../static/blackjack/initplayerJoin.html");
 declare variable $blackjack-controller:Jack := doc("../static/blackjack/Jack.svg");
 
@@ -47,6 +49,23 @@ function blackjack-controller:lobby(){
         $blackjack-controller:lobby
 };
 
+
+declare
+%rest:path("bj/rules")
+%output:method("html")
+%rest:GET
+function blackjack-controller:rules(){
+    $blackjack-controller:rules
+};
+
+
+declare
+%rest:path("bj/about")
+%output:method("html")
+%rest:GET
+function blackjack-controller:about(){
+    $blackjack-controller:about
+};
 
 
 declare
