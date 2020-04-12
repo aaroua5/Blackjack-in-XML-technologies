@@ -3,8 +3,6 @@
 
     <xsl:param name="playerID"/>
     <xsl:template match="blackjack">
-
-
         <xsl:variable name="id" select="@id"></xsl:variable>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0, 0, 1800, 900">
 
@@ -41,35 +39,50 @@
 
 
                 <svg id="buttons" width="100%" height="100%" viewBox="0 0 100 100">
+                         <xsl:choose>
+                             <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
+                                 <rect x="40.75" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                                 <text x="50" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                                       fill="#EFCB68">MENU</text>
 
-                    <xsl:if test="step ='roundOver'">
+                                 <text x="50" y="40" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                                       fill="#EBEBEB">
+                                     <tspan x="50" >GAME OVER!</tspan>
+                                     <tspan x="50" dy="1.5em">You lost all of your money!</tspan>
+                                 </text>
 
-                        <rect x="51.5" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
-                        <text x="60.75" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
-                              fill="#EFCB68">MENU</text>
 
-                        <rect x="30" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
-                        <text x="39.25" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
-                              fill="#EFCB68">GAMES</text>
+                             </xsl:when>
+                             <xsl:otherwise>
+                                 <rect x="51.5" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                                 <text x="60.75" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                                       fill="#EFCB68">MENU</text>
 
-                        <text x="50" y="43" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
-                              fill="#EBEBEB">See you soon, Yousri</text>
+                                 <rect x="30" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                                 <text x="39.25" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                                       fill="#EFCB68">GAMES</text>
 
-                    </xsl:if>
+                                         <text x="50" y="43" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                                               fill="#EBEBEB">See you soon
+                                         </text>
 
-                    <xsl:if test="step ='gameOver'">
 
-                        <rect x="40.75" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
-                        <text x="50" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
-                              fill="#EFCB68">MENU</text>
 
-                        <text x="50" y="40" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
-                              fill="#EBEBEB">
-                            <tspan x="50" >GAME OVER!</tspan>
-                            <tspan x="50" dy="1.5em">You lost all of your money!</tspan>
-                        </text>
 
-                    </xsl:if>
+
+
+
+                             </xsl:otherwise>
+
+
+
+
+                         </xsl:choose>
+
+
+
+
+
 
                 </svg>
 
@@ -80,31 +93,42 @@
             <use href="#background" width="100%" height="100%"/>
             <use href="#buttons" width="100%" height="100%"/>
 
-            <xsl:if test="step ='roundOver'">
-                <foreignObject x="39.9%" y="47.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newRound/{$id}" method="post" id="form1" style="display: inline;" >
-                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+            <foreignObject width="0" height="0">
+                <iframe class = "hiddenFrame" xmlns = "http://www.w3.org/1999/xhtml" name="hiddenFrame"></iframe>
+            </foreignObject>
+
+
+            <xsl:choose>
+                <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
+                    <foreignObject x="45.3%" y="47.8%" width="100%" height="100%" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToLobby/{$id}/{$playerID}" method="get" id="form1" style="display: inline;" >
+                            <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+                                border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
+                        </form>
+                    </foreignObject>
+
+                </xsl:when>
+                <xsl:otherwise>
+                <xsl:variable name="playerName" select="loosers/player[$playerID = @id]/name"></xsl:variable>
+                    <foreignObject x="39.9%" y="47.8%" width="100%" height="100%" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToGames/{$id}/{$playerID}" method="get" id="form2" style="display: inline;"  target="hiddenFrame">
+                            <button type="submit" form="form2" value="Submit" style="height:76px; width:170px;
                             border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
-                    </form>
-                </foreignObject>
-                <foreignObject x="50.6%" y="47.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="post" id="form1" style="display: inline;" >
-                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
+                        </form>
+                    </foreignObject>
+                    <foreignObject x="50.6%" y="47.8%" width="100%" height="100%" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToLobby/{$id}/{$playerID}" method="get" id="form3" style="display: inline;" >
+                            <button type="submit" form="form3" value="Submit" style="height:76px; width:170px;
                              border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
-                    </form>
-                </foreignObject>
-            </xsl:if>
+                        </form>
+                    </foreignObject>
+                </xsl:otherwise>
+            </xsl:choose>
+
+
 
             <!--    this only when there is no more players: all bankrupt! !-->
 
-            <xsl:if test="step ='gameOver'">
-                <foreignObject x="45.3%" y="47.8%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby/" method="post" id="form1" style="display: inline;" >
-                        <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
-                                border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
-                    </form>
-                </foreignObject>
-            </xsl:if>
         </svg>
 
     </xsl:template>

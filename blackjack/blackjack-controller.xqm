@@ -78,6 +78,27 @@ function blackjack-controller:handleinit(){
 
 declare
 %rest:GET
+%rest:path("/bj/returnToGames/{$gameID}/{$playerID}")
+%updating
+function blackjack-controller:returnToGames($gameID as xs:string ,$playerID as xs:integer){
+        insert node <lobby><id>{$playerID}</id></lobby> into blackjack-game:getCasino()/lobbys,
+        delete node blackjack-game:getGame($gameID)/loosers/player[@id =$playerID],
+        update:output(web:redirect("/bj/showGames"))
+};
+
+declare
+%rest:GET
+%rest:path("/bj/returnToLobby/{$gameID}/{$playerID}")
+%updating
+function blackjack-controller:returnToLobby($gameID as xs:string , $playerID as xs:integer){
+
+  delete node blackjack-game:getGame($gameID)/loosers/player[@id =$playerID],
+        update:output(web:redirect("/bj/lobby"))
+};
+
+
+declare
+%rest:GET
 %rest:path("/bj/wsInit/{$playerName}/{$balance}")
 %output:method("html")
 %updating

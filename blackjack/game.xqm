@@ -88,7 +88,6 @@ declare %updating function blackjack-game:join($gameID as xs:string , $playerNam
                                          blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,-1),
                                          delete node $casino/lobbys/lobby[id = $id]
 
-
                             )  else (
                                     blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,$tableSeat),
                                      delete node $tableSeat ,

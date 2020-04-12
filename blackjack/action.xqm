@@ -198,6 +198,8 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                     else(
                         replace value of node $activePlayer/totalmonney with $activePlayer/totalmonney + 0.5*$activePlayer/currentBet,
                         replace value of node $activeUser/totalmonney with $activeUser/totalmonney +0.5 *$activePlayer/currentBet,
+                        replace value of node $activeUser/points with $activeUser/points - 0.5 *$activePlayer/currentBet,
+
                         replace value of node $activePlayer/status with 'surrendered',
                         replace value of node $game/playerTurn with ($game/playerTurn + 1) mod($numberOfPlayers + 1),
                         for $card in $activePlayer/cards/card
@@ -230,13 +232,15 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                                 ),
                                                 if($player[fn:position() < $game/playerTurn]) then(
                                                     replace value of node $game/playerTurn with $game/playerTurn - 1,
-                                                   replace value of node $user/points with $user/points -$player/currentBet
-                                                )
+                                                    replace value of node $user/points with $user/points -$player/currentBet
+
+                                                  )
 
                                         ),
                                         delete node $player,
                                         insert node $player into $game/loosers,
                                         insert node <seat>{$player/tableSeat cast as xs:integer}</seat> into $game/freeSeats
+
                                 ),
                                 if($game/step = 'play') then(
                                         if($numberOfplayers > 1) then(
@@ -246,17 +250,19 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                                             )
                                                      ),
                                                        if($player[fn:position() < $game/playerTurn]) then(
-                                                             replace value of node $game/playerTurn with $game/playerTurn - 1,
-                                                             replace value of node $user/points with $user/points -$player/currentBet
+                                                             replace value of node $game/playerTurn with $game/playerTurn - 1
 
-                                                         )
+                                                        )
+
 
                                         )  else(
-                                                     update:output(web:redirect(fn:concat("/bj/newRound",$gameID)))
+                                                     update:output(web:redirect(fn:concat("/bj/newRound/",$gameID)))
                                            ),
                                             delete node $player,
                                             insert node $player into $game/loosers,
-                                            insert node <seat>{$player/tableSeat cast as xs:integer}</seat> into $game/freeSeats
+                                            insert node <seat>{$player/tableSeat cast as xs:integer}</seat> into $game/freeSeats,
+                                            replace value of node $user/points with $user/points -$player/currentBet
+
                                 )
 
 

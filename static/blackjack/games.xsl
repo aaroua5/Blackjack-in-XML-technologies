@@ -142,7 +142,7 @@
                 
                 <svg id="buttons" width="100%" height="100%" viewBox="0 0 100 100">
 
-                   <xsl:if test="not(count(blackjack) > 5)">
+                   <xsl:if test="not(count(blackjack) > 7)">
                     <svg id="new game" x="0" y="0">
                         <rect x="40.75" y="56" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
                         <text x="50" y="60" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
