@@ -60,7 +60,7 @@
 
                                  <rect x="30" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
                                  <text x="39.25" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
-                                       fill="#EFCB68">GAMES</text>
+                                       fill="#EFCB68">LOUNGE</text>
 
                                          <text x="50" y="43" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                                fill="#EBEBEB">See you soon

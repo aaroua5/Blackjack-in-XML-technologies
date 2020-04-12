@@ -160,7 +160,7 @@ declare
 %rest:GET
 function blackjack-controller:showGames(){
 
-           let $casino := blackjack-game:getCasino()
+           let $casino := $blackjack-game:casino
             let $xslStyleSheet:= "games.xsl"
             let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStyleSheet))
             let $wsIDs := blackjack-ws:getIDs()
