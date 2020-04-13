@@ -4,7 +4,7 @@
     <xsl:param name="balance"/>
     <xsl:template match="casino">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0, 0, 1800, 900">
-
+            <xsl:variable name="playerID" select="users/player[name = $playerName]/@id"/>
             <defs>
                 
                 <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
@@ -267,7 +267,7 @@
             
              <xsl:variable name="counter" select="position()"/>
             <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/lobby" method="get" id="formExit" style="display: inline;">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/menu/{$playerID}" method="get" id="formExit" style="display: inline;">
                     <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px;
                     border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>

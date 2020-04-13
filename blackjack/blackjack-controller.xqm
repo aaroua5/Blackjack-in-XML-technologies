@@ -35,7 +35,7 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup(){
-       let $bjModel := (doc("../static/blackjack/blackjack.xml"),doc("../static/blackjack/Jack.svg"))
+       let $bjModel := doc("../static/blackjack/blackjack.xml")
 
        let $redirectLink := "/bj/lobby"
        return(db:create("bj",$bjModel),update:output(web:redirect($redirectLink)))
@@ -115,6 +115,15 @@ function blackjack-controller:returnToLobby($gameID as xs:string , $playerID as 
         update:output(web:redirect("/bj/lobby"))
 };
 
+declare
+%rest:GET
+%rest:path("/bj/menu/{$playerID}")
+%updating
+function blackjack-controller:menu($playerID as xs:integer){
+        delete node blackjack-game:getCasino()/lobbys/lobby[id = $playerID],
+        update:output(web:redirect("/bj/lobby"))
+
+};
 
 declare
 %rest:GET
@@ -190,7 +199,7 @@ function blackjack-controller:showGames(){
                     let $balance := $casino/users/player[$playerID = @id]/totalmonney
 
                     let $map := map{"playerName":$playerName,"balance":$balance}
-                    let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
+                    let $transformedCasino := xslt:transform( db:open("bj")/casino,$stylesheet,$map)
                     return(
                         if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
                         blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))

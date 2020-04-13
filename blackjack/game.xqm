@@ -459,11 +459,11 @@ declare %updating function blackjack-game:addUser($playerName as xs:string,$bala
                    delete node blackjack-game:getCasino()/users/player[$playerName = name]
                 ) else(
 
-                   insert node blackjack-player:newUser($playerName, $balance cast as xs:integer, 0, fn:count(blackjack-game:getCasino()/users/player) +1) into blackjack-game:getCasino()/users,
+                   insert node blackjack-player:newUser($playerName, $balance cast as xs:integer, 0, $id ) into blackjack-game:getCasino()/users,
 
 
 
-                   insert node <lobby><id>{fn:count(blackjack-game:getCasino()/users/player) + 1}</id></lobby> into blackjack-game:getCasino()/lobbys
+                   insert node <lobby><id>{$id}</id></lobby> into blackjack-game:getCasino()/lobbys
 
                 )
         )

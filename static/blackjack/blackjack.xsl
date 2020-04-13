@@ -297,9 +297,9 @@
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:if>
-
-                            <image height="9" width="17" x="12" y="2.4" xlink:href="https://i.ibb.co/5RKPPJW/your-turn.gif"/>
-
+                            <xsl:if test="$playerID = players/player[$activePlayer= position()]/@id">
+                                    <image height="9" width="17" x="12" y="2.4" xlink:href="https://i.ibb.co/5RKPPJW/your-turn.gif"/>
+                            </xsl:if>
                         </svg>
 
                         <!-- to do - Display the sum of the cards -->
