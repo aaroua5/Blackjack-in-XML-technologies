@@ -47,7 +47,7 @@ declare function blackjack-player:newPlayer($name as xs:string, $balance, $id as
         <name>{$name}</name>
         <status>free</status>
         <tableSeat>{$tableSeat}</tableSeat>
-        <totalmonney>{$balance}</totalmonney>
+        <totalmonney>{$balance cast as xs:integer}</totalmonney>
         <currentBet>0</currentBet>
         <cards></cards>
 

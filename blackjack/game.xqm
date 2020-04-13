@@ -30,42 +30,24 @@ declare %updating function blackjack-game:insertNewPlayer($gameID as xs:string, 
                 let $casino := blackjack-game:getCasino()
                 let $game := blackjack-game:getGame($gameID)
            return(
-                if(fn:count($casino/users/player[$playerName = name] > 0)) then
-                (
-                    if($casino/users/player[$playerName = name]/totalmonney > $game/minBet) then(
+
                             let $player := blackjack-player:newPlayer($playerName,$casino/users/player[$playerName = name]/totalmonney,$id,$tableSeat)
-                            let $user := blackjack-player:newUser($playerName,$casino/users/player[$playerName = name]/totalmonney,$casino/users/player[$playerName = name]/points,$id)
                             return(
                                     if($tableSeat < 0) then(
-                                                insert node $player into $game/waitPlayers,
-                                                insert node $user into $casino/users,
-                                                delete node $casino/users/player[$playerName = name]
+                                                insert node $player into $game/waitPlayers
+
                                     ) else(
-                                            insert node $player into $game/players,
-                                            insert node $user into $casino/users,
-                                            delete node $casino/users/player[$playerName = name]
+                                            insert node $player into $game/players
+
                                     )
                             )
-                    )
-                  else (
-                            let $player := blackjack-player:newPlayer($playerName,$balance cast as xs:integer,$id,$tableSeat)
-                            let $user := blackjack-player:newUser($playerName,$balance cast as xs:integer,0,$id)
-                            return(
-                                  if($tableSeat < 0) then(
-                                              insert node $player into $game/waitPlayers,
-                                              insert node $user into $casino/users,
-                                              delete node $casino/users/player[$playerName = name]
-                                  ) else(
-                                          insert node $player into $game/players,
-                                          insert node $user into $casino/users,
-                                          delete node $casino/users/player[$playerName = name]
-                                  )
-                          )
-                  )
 
 
 
-                )
+
+
+
+
 
                 )
 };
@@ -405,7 +387,7 @@ declare %updating function blackjack-game:updateSeats($gameID as xs:string) {
                 ) else(
                         let $emptySeat := $emptySeats[fn:position() = 1 ]
                         let $player := $game/waitPlayers/player[fn:position() = 1]
-                        return(blackjack-player:insertPlayer($gameID, $player,$emptySeat),delete node $player)
+                        return(blackjack-player:insertPlayer($gameID, $player,$emptySeat),delete node $player,delete node $emptySeat)
 
                 )
                 ) else(
