@@ -188,7 +188,7 @@ declare
 %rest:GET
 function blackjack-controller:showGames(){
 
-           let $casino := $blackjack-game:casino
+           let $casino := blackjack-game:getCasino()
             let $xslStyleSheet:= "games.xsl"
             let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStyleSheet))
             let $wsIDs := blackjack-ws:getIDs()
@@ -199,10 +199,10 @@ function blackjack-controller:showGames(){
                     let $balance := $casino/users/player[$playerID = @id]/totalmonney
 
                     let $map := map{"playerName":$playerName,"balance":$balance}
-                    let $transformedCasino := xslt:transform( db:open("bj")/casino,$stylesheet,$map)
+                    let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
                     return(
                         if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
-                        blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
+                                blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
                         )
 
                      )
@@ -257,11 +257,11 @@ function blackjack-controller:draw($gameID as xs:string){
                 let $transformedGame := xslt:transform($game,$stylesheet,$map)
                 let $endGame := xslt:transform($game,$gameOverStylesheet,$map)
                 return(
-                       if(fn:count($game/players/player[@id = $playerID]) = 1  or fn:count($game/waitPlayers/player[@id = $playerID]) = 1 ) then(
-                        blackjack-ws:send($transformedGame,concat("/bj/",$playerID))
+                       if($game/players/player[@id = $playerID]  or $game/waitPlayers/player[@id = $playerID] ) then(
+                                blackjack-ws:send($transformedGame,concat("/bj/",$playerID))
                         )
                         else (
-                            if(fn:count($game/loosers/player[@id= $playerID]) = 1  ) then(
+                            if($game/loosers/player[@id= $playerID]) then(
                                 blackjack-ws:send($endGame,concat("/bj/",$playerID))
                             )
                         )

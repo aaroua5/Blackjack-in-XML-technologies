@@ -66,7 +66,16 @@
 
                                    <xsl:if test=" not(position() > 8)">
                                 <tspan x="35" dy="2em"><xsl:value-of select="name"></xsl:value-of> </tspan>
-                                <tspan  x="75" fill="#2282bd" text-anchor="end"><xsl:value-of select="round(points -0.5)"/> ✯</tspan>
+                                       <xsl:if test="position() != last()" >
+                                               <tspan  x="75" fill="#2282bd" text-anchor="end">
+                                                      <xsl:value-of select="round(points -0.5)"/> ✯
+                                               </tspan>
+                                       </xsl:if>
+                                       <xsl:if test="position() = last()" >
+                                           <tspan  x="74" fill="#2282bd" text-anchor="end">
+                                               <xsl:value-of select="round(points -0.5)"/> ✯
+                                           </tspan>
+                                       </xsl:if>
                                    </xsl:if>
                                </xsl:for-each>
                             </text>
@@ -113,10 +122,62 @@
                                   <xsl:variable name="counter" select="position()"/>
                                 <tspan x="35" dy="2em">Game <xsl:value-of select="./@counter"/></tspan>
                                 <tspan  x="60" fill="#109c84"><xsl:value-of select="count(players/player)"/>/5</tspan>
-                                <tspan x="73.8" fill="#014034" text-anchor="middle" baseline-shift="0.2" font-size="3">▶︎</tspan>
+
+
                                </xsl:for-each>
 
                             </text>
+                           <xsl:if test="count(blackjack) > 0" >
+                                    <path transform="translate(70.6 23.9) rotate(-90) scale(1.4)"
+                                          d="M 1 1 L 3 1 L 2 3 z"
+                                          fill="#014034"
+                                    />
+                           </xsl:if>
+                            <xsl:if test="count(blackjack) > 1" >
+                                <path transform="translate(70.6 31.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+                            <xsl:if test="count(blackjack) > 2" >
+                                <path transform="translate(70.6 39.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+                            <xsl:if test="count(blackjack) > 3" >
+                                <path transform="translate(70.6 47.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+                            <xsl:if test="count(blackjack) > 4" >
+                                <path transform="translate(70.6 55.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+                            <xsl:if test="count(blackjack) > 5" >
+                                <path transform="translate(70.6 63.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+                            <xsl:if test="count(blackjack) > 6" >
+                                <path transform="translate(70.6 71.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+                            <xsl:if test="count(blackjack) > 7" >
+                                <path transform="translate(70.6 79.9) rotate(-90) scale(1.4)"
+                                      d="M 1 1 L 3 1 L 2 3 z"
+                                      fill="#014034"
+                                />
+                            </xsl:if>
+
+
+
                         </svg>
                     </svg>
                 </g>

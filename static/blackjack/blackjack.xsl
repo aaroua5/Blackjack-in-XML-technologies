@@ -199,6 +199,27 @@
 
 
                         <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
+                            <xsl:if test="players/player[tableSeat =5]/totalSumCards = 21">
+                                  <image height="20" width="20" x="-40" y="25" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            </xsl:if>
+                            <xsl:if test="players/player[tableSeat =4]/totalSumCards = 21">
+
+                            <image height="20" width="20" x="0" y="37" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            </xsl:if>
+                            <xsl:if test="players/player[tableSeat =3]/totalSumCards = 21">
+
+                            <image height="20" width="20" x="40" y="43" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            </xsl:if>
+                            <xsl:if test="players/player[tableSeat =2]/totalSumCards = 21">
+
+                            <image height="20" width="20" x="80" y="37" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            </xsl:if>
+                            <xsl:if test="players/player[tableSeat = 1]/totalSumCards = 21">
+
+                            <image height="20" width="20" x="120" y="25" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            </xsl:if>
+
+
                             <xsl:if test="players/player[tableSeat=5]/status ='surrendered'">
                             <image height="20" width="20" x="-27" y="43" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
                             </xsl:if>
@@ -297,9 +318,19 @@
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:if>
+                            <rect id="rect99" x="93" y="3" width="18" height="5" rx="0.8" ry="0.8" fill="#0c5544"/>
                             <xsl:if test="$playerID = players/player[$activePlayer= position()]/@id">
-                                    <image height="9" width="17" x="12" y="2.4" xlink:href="https://i.ibb.co/5RKPPJW/your-turn.gif"/>
+                                <text x="95" y="6.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="start">
+                                    Your turn!
+                                </text>
                             </xsl:if>
+                            <xsl:if test="$playerID != players/player[$activePlayer= position()]/@id">
+                                <text x="95" y="6.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="start">
+                                    Waiting...
+                                </text>
+                            </xsl:if>
+
+
                         </svg>
 
                         <!-- to do - Display the sum of the cards -->
