@@ -184,7 +184,7 @@
 
                 <g id="message">
                     <svg id="table" width="100%" height="100%" viewBox="0 0 100 100">
-                        <text x="35" y="30" fill="white" font-size="4">
+                        <text x="35" y="27" fill="white" font-size="4">
                             <tspan text-anchor="middle">
                                 <tspan x="50" dy="2em">Good luck, </tspan>
                                 <tspan fill="#fbda79"><xsl:value-of select="$playerName"/></tspan>
@@ -205,11 +205,17 @@
 
                    <xsl:if test="not(count(blackjack) > 7)">
                     <svg id="new game" x="0" y="0">
-                        <rect x="40.75" y="56" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
-                        <text x="50" y="60" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                        <rect x="40.75" y="55" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                        <text x="50" y="59" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#EFCB68">NEW GAME</text>
                     </svg>
                    </xsl:if>
+                    
+                    <svg id="random game" x="0" y="0">
+                        <rect x="37.75" y="66" width="24.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                        <text x="50" y="70" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                              fill="#EFCB68">RANDOM GAME</text>
+                    </svg>
                     
                     <svg id="close" x="133.5" y="-5.7" width="100%" height="100%" >
                         <g transform="scale(.56)" >
@@ -238,13 +244,20 @@
             </foreignObject>
 
             <xsl:if test="not(count(blackjack) > 7)">
-            <foreignObject x="45.2%" y="55.8%" width="100%" height="100%" >
+            <foreignObject x="45.2%" y="54.7%" width="100%" height="100%" >
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newGame" method="POST" id="formMenu" style="display: inline;" target ="hiddenFrame" >
                     <button type="submit" form="formMenu" value="Submit" style="height:77px; width:170px;
                     border-radius: 20px;  background-color: Transparent;"></button>
                 </form>
             </foreignObject>
             </xsl:if>
+            
+            <foreignObject x="43.8%" y="65.7%" width="100%" height="100%" >
+                <form xmlns="http://www.w3.org/1999/xhtml" action="" method="get" id="formRandom" style="display: inline;" >
+                    <button type="submit" form="formRandom" value="Submit" style="height:77px; width:225px;
+                    border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
+                </form>
+            </foreignObject>
 
             <xsl:if test="blackjack[position() = 1]">
                 <xsl:variable name="id" select="blackjack[position() = 1]/@id"/>
