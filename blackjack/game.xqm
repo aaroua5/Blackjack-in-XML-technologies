@@ -231,9 +231,7 @@ declare %updating function blackjack-game:checkScores($gameID as xs:string){
                                     where $p/totalmonney > $game/minBet
                                     return $p
          return(
-                if(fn:count($nonBankruptPlayers)= 0 ) then(
-                    replace value of node $game/step with "gameOver"
-                )
+
          )
 
 };
@@ -325,9 +323,9 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
                                                     replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 1.5 * $p/currentBet
                                             )  else (
                                                     if($p/status!= 'surrendered') then(
-                                                        replace value of node $p/totalmonney with $p/totalmonney + 3 * $p/currentBet,
-                                                        replace value of node $casino/users/player[@id = $p/@id]/totalmonney with $casino/users/player[@id = $p/@id]/totalmonney + 3 * $p/currentBet,
-                                                        replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 2 *$p/currentBet,
+                                                        replace value of node $p/totalmonney with $p/totalmonney + 2 * $p/currentBet,
+                                                        replace value of node $casino/users/player[@id = $p/@id]/totalmonney with $casino/users/player[@id = $p/@id]/totalmonney + 2 * $p/currentBet,
+                                                        replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 1 *$p/currentBet,
                                                         replace value of node $p/status with 'winner'
                                                     )
                                             )
@@ -394,7 +392,6 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
                                <event id ="{$p/@id}">
                                  <message>
                                     {
-                                        if(blackjack-card:calculateCurrentCardValue($game,$game/dealer,0) > 21) then(
                                             if($p/status = 'blackjack') then(
                                                     fn:concat("You won ",1.5 *$p/currentBet,"$")
                                             ),
@@ -402,28 +399,12 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
                                                 fn:concat("You surrendered and lost ",0.5*$p/currentBet,"$")
                                             ) ,
                                             if($p/status ='winner') then(
-                                                    fn:concat("You won ",2*$p/currentBet,"$")
+                                                    fn:concat("You won ",1*$p/currentBet,"$")
                                             ),
                                             if($p/status ='loser') then(
                                                 fn:concat("You lost ", $p/currentBet,"$")
                                             )
 
-
-                                        ) else(
-
-                                                 if($p/status = 'blackjack') then(
-                                                        fn:concat("You won ",1.5 *$p/currentBet,"$")
-                                                ),
-                                                if($p/status = 'surrendered') then(
-                                                    fn:concat("You surrendered and lost ",0.5*$p/currentBet,"$")
-                                                ) ,
-                                                if($p/status ='winner') then(
-                                                        fn:concat("You won ",1*$p/currentBet,"$")
-                                                ),
-                                                if($p/status ='loser') then(
-                                                    fn:concat("You lost ", $p/currentBet,"$")
-                                                )
-                                        )
 
 
                                     }
