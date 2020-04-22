@@ -199,22 +199,22 @@
 
 
                         <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
-                            <xsl:if test="players/player[tableSeat =5]/totalSumCards = 21">
+                            <xsl:if test="players/player[tableSeat =5]/status = 'blackjack'">
                                   <image height="20" width="20" x="-40" y="25" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                             </xsl:if>
-                            <xsl:if test="players/player[tableSeat =4]/totalSumCards = 21">
+                            <xsl:if test="players/player[tableSeat =4]/status = 'blackjack'">
 
                             <image height="20" width="20" x="0" y="37" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                             </xsl:if>
-                            <xsl:if test="players/player[tableSeat =3]/totalSumCards = 21">
+                            <xsl:if test="players/player[tableSeat =3]/status = 'blackjack'">
 
                             <image height="20" width="20" x="40" y="43" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                             </xsl:if>
-                            <xsl:if test="players/player[tableSeat =2]/totalSumCards = 21">
+                            <xsl:if test="players/player[tableSeat =2]/status = 'blackjack'">
 
                             <image height="20" width="20" x="80" y="37" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                             </xsl:if>
-                            <xsl:if test="players/player[tableSeat = 1]/totalSumCards = 21">
+                            <xsl:if test="players/player[tableSeat = 1]/status = 'blackjack'">
 
                             <image height="20" width="20" x="120" y="25" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                             </xsl:if>
