@@ -248,6 +248,11 @@
             <use href="#buttons" width="100%" height="100%"/>
 
             <!-- Buttons: -->
+            
+            <!-- Hidden frame to throw away post requests -->
+            <foreignObject width="0" height="0">
+                <iframe class = "hiddenFrame" xmlns = "http://www.w3.org/1999/xhtml" name="hiddenFrame"></iframe>
+            </foreignObject>
 
             <!-- New game button -->
             <xsl:if test="not(count(blackjack) > 7)">
