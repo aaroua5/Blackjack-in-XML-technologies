@@ -3,7 +3,10 @@ module namespace blackjack-cards = "blackjack/Cards";
 import module namespace helper = "blackjack/helper" at "helper.xqm";
 
 
-
+(:~
+ : This function shuffle Cards and return them
+ : @return the shuffeled cards
+:)
 declare function blackjack-cards:shuffleCards() as element(cards){
     let $deck := <cards>
                 {blackjack-cards:getWholeDeck()/*}
@@ -22,7 +25,13 @@ declare function blackjack-cards:shuffleCards() as element(cards){
 };
 
 
-
+(:~
+ : This function calculate the amount of the dealer Cards plus the first $limit cards from our deck
+ : @game            the Game
+ : @player          in this case is the Dealer
+ : @limit           The number of cards to be withdrawn from Deck
+ :@return           The number of Cards
+:)
 declare function blackjack-cards:calculateDealerValues($game as element(blackjack),$player as element(*),$limit) {
             let $cardsToBeAdded := for $i in 1 to $limit
                                     return(
@@ -40,32 +49,42 @@ declare function blackjack-cards:calculateDealerValues($game as element(blackjac
                                                 where $card/card_number != 'A'
                                                 return $card/card_Value
             )
-                 let $amountOfAces := fn:sum(for $card in $player/cards/card
-                                                                         where $card/card_number = 'A'
-                                                                         return 1) + $amountOfAcesTobeAdded
+            let $amountOfAces := fn:sum(for $card in $player/cards/card
+                                        where $card/card_number = 'A'
+                                        return 1
+                                       )+ $amountOfAcesTobeAdded
 
-               let $amountOfOtherCards :=  fn:sum(for $card in $player/cards/card
-                                                                          where $card/card_number != 'A'
-                                                                          return $card/card_Value )+ $otherCardsTobeAdded
+            let $amountOfOtherCards :=  fn:sum(for $card in $player/cards/card
+                                               where $card/card_number != 'A'
+                                               return $card/card_Value
+                                               )+ $otherCardsTobeAdded
 
-                   let $sumOfAces := for $i in 0 to $amountOfAces
-                                                         return  $amountOfAces + $i*10 +$amountOfOtherCards
-                                       let $sumOfAceslessEqual:= for $i in $sumOfAces
-                                                                  where $i <=21
-                                                                  return $i
-                                       return (if($amountOfAces = 0) then($amountOfOtherCards)
-                                               else(
-                                                   if(fn:count($sumOfAceslessEqual) = 0) then(fn:min($sumOfAces))
-                                                   else(fn:max($sumOfAceslessEqual))
-                                               )
+           let $sumOfAces := for $i in 0 to $amountOfAces
+                                                 return  $amountOfAces + $i*10 +$amountOfOtherCards
+           let $sumOfAceslessEqual:= for $i in $sumOfAces
+                                      where $i <=21
+                                      return $i
 
-                                              )
+           return (
+                                if($amountOfAces = 0) then($amountOfOtherCards)
+                                else(
+                                            if(fn:count($sumOfAceslessEqual) = 0) then(fn:min($sumOfAces))
+                                            else(fn:max($sumOfAceslessEqual))
+                                )
+
+                  )
 
 };
 
 
 
-(:this function calulate the sum of total cards of a  player:)
+(:~
+ : This function calculate the total sum of cards of The player , this function is called for example in hit ,stand ....
+ : @game   The game in which the player is
+ : @player      The player
+ : @cardValue       The value of card to be added to deck of player
+ : @return          The new total sum of cards of The player
+:)
 declare function blackjack-cards:calculateCurrentCardValue($game as element(blackjack),$player as element(*),$cardValue as xs:integer) {
 
               let $amountOfAces := if($cardValue = 1) then( fn:sum(for $card in $player/cards/card
@@ -102,6 +121,10 @@ declare function blackjack-cards:calculateCurrentCardValue($game as element(blac
 
 
 };
+
+(:~
+ : @return the whole deck of our casino
+:)
 declare function blackjack-cards:getWholeDeck() as element(cards){
         <cards>
         <card>

@@ -4,17 +4,12 @@ import module namespace helper = "blackjack/helper" at "helper.xqm";
 import module namespace blackjack-game = "blackjack/Game" at "game.xqm";
 import module namespace blackjack-card = "blackjack/Cards" at "cards.xqm";
 
+(:~ this function is called when the player hits Deal and the game should move to next player based on playerTurn
+ :  after clicking Deal the Bet will be deducted from his total monney
+ : @gameID      The ID of the game
+ : @return      Update the game model
+:)
 
-declare %updating function blackjack-action:beforeBet($gameID as xs:string){
-        let $game := blackjack-game:getGame($gameID)
-        let $numberOfPlayers:= fn:count($game/players/player)
-        return(
-            if($game/playerTurn != 1 ) then(
-                    replace value of node $game/playerTurn with $game/playerTurn - 1
-            )
-
-        )
-};
 declare %updating function blackjack-action:nextBet($gameID as xs:string){
 
     let $game := blackjack-game:getGame($gameID)
@@ -24,7 +19,7 @@ declare %updating function blackjack-action:nextBet($gameID as xs:string){
     let $currentUser := blackjack-game:getCasino()/users/player[@id = $currentPlayer/@id]
     return(
             if($currentBet cast as xs:integer < $game/minBet ) then(
-           replace node $game/events with <events><event id ="{$currentPlayer/@id}"><message>The min Bet is {$game/minBet}$</message></event></events>
+                    replace node $game/events with <events><event id ="{$currentPlayer/@id}"><message>The min Bet is {$game/minBet}$</message></event></events>
             )
             else (
                 if($game/playerTurn = $numberOfPlayers) then(
@@ -38,6 +33,11 @@ declare %updating function blackjack-action:nextBet($gameID as xs:string){
 
    };
 
+(:~
+ : This function is called when the user clicks clear and want to remove his bet and make a new bet
+ : @gameID          The ID of the Game
+ : @return          Update the game model
+ :)
 declare %updating function blackjack-action:clear($gameID as xs:string){
         let $game := blackjack-game:getGame($gameID)
         return(
@@ -45,6 +45,12 @@ declare %updating function blackjack-action:clear($gameID as xs:string){
         )
 
 };
+(:~
+ : This function is called when the player wants to hit
+ : @gameID              The ID of The Game
+ : @return              Update the game model by adding a card to the current player
+:)
+
 declare  %updating function blackjack-action:hit($gameID as xs:string){
         let $game := blackjack-game:getGame($gameID)
         let $card := $game/cards/card[fn:position()=1]
@@ -92,6 +98,13 @@ declare  %updating function blackjack-action:hit($gameID as xs:string){
 
         )
 };
+
+(:~ This function is called when The player wants to add a bet amount to his currentBet
+ :  @gameID      The ID of The game
+ :  @betAmount   The amount to be added to the current Bet
+ :  @return       Update The game model
+:)
+
 declare %updating function blackjack-action:bet($gameID as xs:string, $betAmount as xs:integer){
         let $game := blackjack-game:getGame($gameID)
         let $activePlayer := $game/players/player[fn:position() = $game/playerTurn]
@@ -111,7 +124,11 @@ declare %updating function blackjack-action:bet($gameID as xs:string, $betAmount
                )
         )
 };
-
+(:~
+ : This function is called when the player wants to stand
+ : @gameID              The ID of the game
+ : @return              Update the game model
+:)
 declare %updating function blackjack-action:stand($gameID as xs:string){
             let $game := blackjack-game:getGame($gameID)
             let $numberOfPlayers := fn:count($game/players/player) + 1
@@ -149,6 +166,11 @@ declare %updating function blackjack-action:stand($gameID as xs:string){
 
 };
 
+(:~
+ : This function is called when the player wants to double , it should check if he has less or more than 11 sum of cards
+ : @gameID                  The ID of the game
+ : @return                  Update The game model
+:)
 
 declare %updating function blackjack-action:double($gameID as xs:string){
                 let $game :=  blackjack-game:getGame($gameID)
@@ -187,6 +209,13 @@ declare %updating function blackjack-action:double($gameID as xs:string){
 
 };
 
+(:~
+ : This function is called when The player which to surrender , only if he has 2  cards
+ :  @gameID         The ID of the game
+ :  @return         Update the game model
+:)
+
+
 declare %updating function blackjack-action:surrender($gameID as xs:string){
         let $game := blackjack-game:getGame($gameID)
         let $activePlayer := $game/players/player[$game/playerTurn = fn:position()]
@@ -216,6 +245,13 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                     )
         )
 };
+
+        (:~
+         : This function is called when The player wish to exit the game , it should which state the game is in
+         : @gameID              The ID of The game
+         : @playerID            The ID of The player to exit
+
+        :)
 
         declare %updating function blackjack-action:exitGame($gameID as  xs:string , $playerID as xs:integer){
                 let $game := blackjack-game:getGame($gameID)
@@ -274,6 +310,6 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                 delete node $game/waitPlayers/player[@id = $playerID],
                                 insert node $game/waitPlayers/player[@id = $playerID] into $game/loosers
                        )
-)
+                )
 
         };

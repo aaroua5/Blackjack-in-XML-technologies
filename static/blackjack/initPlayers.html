@@ -64,7 +64,7 @@
     <div class="player">
         <div class="line">
             <label style="margin-right:10px" for="playername1">Name of Player</label>
-            <input style="margin-right:15px; border-radius: 6px;" type="text" name="playername1" id="playername1"  pattern="[A-Z]{1,1}[a-z]{1,9}" required="1234" placeholder="Username" oninvalid="setCustomValidity('Please match the requested format ')"/>
+            <input style="margin-right:15px; border-radius: 6px;" type="text" name="playername1" id="playername1"  pattern="[A-Z]{1,1}[a-z]{1,9}" required="1234" placeholder="Username" oninvalid="this.setCustomValidity(this.willValidate?'':'Please match the requested format')"/>
         </div>
 
     </div>

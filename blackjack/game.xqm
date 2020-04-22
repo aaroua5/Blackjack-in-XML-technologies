@@ -496,7 +496,7 @@ declare %updating function blackjack-game:updateSeats($gameID as xs:string) {
 declare %updating function blackjack-game:newRound($gameID as xs:string){
         let $game := blackjack-game:getGame($gameID)
         let $nonEmptyPlayers:= for $p in $game/players/player
-                                where $p/totalmonney >= $game/minBet
+                                where $p/totalmonney >= $game/minBet cast as xs:integer
                                 return $p
         let $emptyPlayersEvents := <events>
                                  { for $p in $game/players/player
@@ -517,7 +517,7 @@ declare %updating function blackjack-game:newRound($gameID as xs:string){
                 replace value of node $game/dealer/cards with <cards></cards>,
 
                  for $p in $game/players/player
-                 where $p/totalmonney < $game/minBet
+                 where $p/totalmonney < $game/minBet  cast as xs:integer
                  return(
                          delete node $p,
                          insert node $p into $game/loosers,

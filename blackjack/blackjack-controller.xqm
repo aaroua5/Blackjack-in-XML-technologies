@@ -5,6 +5,7 @@ import module namespace request = "http://exquery.org/ns/request";
 import module namespace blackjack-ws ="blackjack/WS" at "blackjack-ws.xqm";
 import module namespace blackjack-player = "blackjack/Player" at "player.xqm";
 import module namespace blackjack-action = "blackjack/Action" at "action.xqm";
+import module namespace helper = "blackjack/helper" at "helper.xqm";
 
 
 
@@ -195,18 +196,20 @@ function blackjack-controller:showGames(){
             return(
                     for $wsID in $wsIDs
                   return(  let $playerID := blackjack-ws:get($wsID,"playerID")
-                    let $playerName := $casino/users/player[$playerID = @id]/name
-                    let $balance := $casino/users/player[$playerID = @id]/totalmonney
+                           where blackjack-ws:get($wsID,"applicationID") = "bj"
 
-                    let $map := map{"playerName":$playerName,"balance":$balance}
-                    let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
-                    return(
-                        if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
-                                blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
-                        )
+                            let $playerName := $casino/users/player[$playerID = @id]/name
+                            let $balance := $casino/users/player[$playerID = @id]/totalmonney
 
-                     )
-                    )
+                            let $map := map{"playerName":$playerName,"balance":$balance}
+                            let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
+                            return(
+                                if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
+                                        blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
+                                )
+
+                             )
+                            )
             )
 
 };
@@ -222,6 +225,21 @@ function blackjack-controller:join($gameID as xs:string , $playerName as xs:stri
 
 
                    update:output(web:redirect(fn:concat("/bj/draw/",$gameID))) , blackjack-game:join($gameID, $playerName,$balance)
+};
+
+declare
+%rest:POST
+%rest:path("/bj/random/{$playerName}/{$balance}")
+%output:method("html")
+%updating
+function blackjack-controller:random($playerName as xs:string, $balance as xs:string){
+            let $randomNumber := helper:randomNumber(fn:count(blackjack-game:getCasino()/blackjack))
+            let $gameID := blackjack-game:getCasino()/blackjack[fn:position() = $randomNumber]/@id
+         return(
+                update:output(web:redirect(fn:concat("/bj/draw/",$gameID))),blackjack-game:join($gameID, $playerName, $balance)
+         )
+
+
 };
 
 
@@ -309,15 +327,7 @@ function blackjack-controller:drawScores($gameID as xs:string){
             let $title := "blackjackscores"
             return(blackjack-controller:generatePage($game, $xslStylesheet, $title))
 };
-declare
-%rest:POST
-%output:method("html")
-%rest:path("/bj/beforeBet/{$gameID}")
-%updating
-function blackjack-controller:beforeBet($gameID as xs:string){
-        let $redirectLink := fn:concat("/bj/draw/",$gameID)
-        return (blackjack-action:beforeBet($gameID), update:output(web:redirect($redirectLink)))
-};
+
 
 declare
 %rest:GET
