@@ -252,7 +252,7 @@
                     </form>
                 </foreignObject>
             </xsl:if>
-            <xsl:if test="count(blackjack) > 1">
+            <xsl:if test="count(blackjack) > 0">
             <foreignObject x="43.8%" y="65.7%" width="100%" height="100%" >
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/random/{$playerName}/{$balance}" method="post" id="formRandom" style="display: inline;"  target="hiddenFrame">
                     <button type="submit" form="formRandom" value="Submit" style="height:77px; width:225px;

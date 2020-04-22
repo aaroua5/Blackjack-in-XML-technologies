@@ -183,7 +183,7 @@ declare %updating function blackjack-action:double($gameID as xs:string){
                         if($activeplayer/totalSumCards < 11) then(
 
                                 if($activeplayer/totalmonney <  $activeplayer/currentBet) then(
-                                      replace node $game/events with <events><event id="{$activeplayer/@id}"><message>"You can't double down!"</message></event></events>
+                                      replace node $game/events with <events><event id="{$activeplayer/@id}"><message>You can't double down!</message></event></events>
 
                                 ) else(
                                           delete node $card,
