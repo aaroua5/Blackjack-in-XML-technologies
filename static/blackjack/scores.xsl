@@ -40,7 +40,7 @@
 
                 <svg id="buttons" width="100%" height="100%" viewBox="0 0 100 100">
                          <xsl:choose>
-                             <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
+                             <xsl:when test="quitters/player[$playerID = @id]/totalmonney = 0">
                                  <rect x="40.75" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
                                  <text x="50" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                        fill="#EFCB68">MENU</text>
@@ -99,7 +99,7 @@
 
 
             <xsl:choose>
-                <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
+                <xsl:when test="quitters/player[$playerID = @id]/totalmonney = 0">
                     <foreignObject x="45.3%" y="47.8%" width="100%" height="100%" >
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToLobby/{$id}/{$playerID}" method="get" id="form1" style="display: inline;" >
                             <button type="submit" form="form1" value="Submit" style="height:76px; width:170px;
@@ -109,7 +109,7 @@
 
                 </xsl:when>
                 <xsl:otherwise>
-                <xsl:variable name="playerName" select="loosers/player[$playerID = @id]/name"></xsl:variable>
+                <xsl:variable name="playerName" select="quitters/player[$playerID = @id]/name"></xsl:variable>
                     <foreignObject x="39.9%" y="47.8%" width="100%" height="100%" >
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToGames/{$id}/{$playerID}" method="get" id="form2" style="display: inline;"  target="hiddenFrame">
                             <button type="submit" form="form2" value="Submit" style="height:76px; width:170px;

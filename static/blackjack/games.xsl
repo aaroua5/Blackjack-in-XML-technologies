@@ -4,7 +4,7 @@
     <xsl:param name="balance"/>
     <xsl:template match="casino">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0, 0, 1800, 900">
-            <xsl:variable name="playerID" select="users/player[name = $playerName]/@id"/>
+            <xsl:variable name="playerID" select="users/user[name = $playerName]/@id"/>
             <defs>
 
                 <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
@@ -61,7 +61,7 @@
 
                         <svg id="players" width="100%" height="100%" viewBox="0 0 100 100">
                             <text y="14.5" fill="white" font-size="4" >
-                                <xsl:for-each select="users/player">
+                                <xsl:for-each select="users/user">
                                     <xsl:sort select="points"  order="descending" data-type="number" />
 
                                     <xsl:if test=" not(position() > 8)">
@@ -191,11 +191,11 @@
                             </tspan>
                             <tspan text-anchor="middle">
                                 <tspan  x="50" fill="white" dy="1.5em">Balance: </tspan>
-                                <tspan fill="#fbda79" text-anchor="middle">$<xsl:value-of select=" round(users/player[name = $playerName]/totalmonney -0.5)"/></tspan>
+                                <tspan fill="#fbda79" text-anchor="middle">$<xsl:value-of select=" round(users/user[name = $playerName]/totalmonney -0.5)"/></tspan>
                             </tspan>
                             <tspan text-anchor="middle">
                                 <tspan  x="50" fill="white" dy="1.5em">Score: </tspan>
-                                <tspan fill="#fbda79" text-anchor="middle"><xsl:value-of select=" round(users/player[name = $playerName]/points - 0.5)"/> ✯</tspan>
+                                <tspan fill="#fbda79" text-anchor="middle"><xsl:value-of select=" round(users/user[name = $playerName]/points - 0.5)"/> ✯</tspan>
                             </tspan>
                         </text>
                     </svg>

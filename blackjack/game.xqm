@@ -56,7 +56,7 @@ declare %updating function blackjack-game:insertNewPlayer($gameID as xs:string, 
                 let $game := blackjack-game:getGame($gameID)
                 return(
 
-                            let $player := blackjack-player:newPlayer($playerName,$casino/users/player[$playerName = name]/totalmonney,$id,$tableSeat)
+                            let $player := blackjack-player:newPlayer($playerName,$casino/users/user[$playerName = name]/totalmonney,$id,$tableSeat)
                             return(
                                     if($tableSeat < 0) then(
                                                 insert node $player into $game/waitPlayers
@@ -89,7 +89,7 @@ declare %updating function blackjack-game:join($gameID as xs:string , $playerNam
 
             let $game :=blackjack-game:getGame($gameID)
             let $casino := blackjack-game:getCasino()
-            let $id := $casino/users/player[name = $playerName]/@id
+            let $id := $casino/users/user[name = $playerName]/@id
             (:this tableSeat will be changed to count the case  if one joins and one player is already out:)
             let $tableSeat := $game/freeSeats/seat[fn:position() = 1]
 
@@ -179,7 +179,7 @@ declare function blackjack-game:createNewGame($maxBet as xs:integer, $minBet as 
                                 <seat>5</seat>
                             </freeSeats>
 
-                            <loosers/>
+                            <quitters/>
 
                       </blackjack>
  };
@@ -319,18 +319,18 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
                                        if($p/status != 'loser') then(
                                             if($p/status = 'blackjack') then(
                                                     replace value of node $p/totalmonney with $p/totalmonney + 2.5 *$p/currentBet,
-                                                    replace value of node $casino/users/player[@id = $p/@id]/totalmonney with $casino/users/player[@id = $p/@id]/totalmonney + 2.5 * $p/currentBet,
-                                                    replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 1.5 * $p/currentBet
+                                                    replace value of node $casino/users/user[@id = $p/@id]/totalmonney with $casino/users/user[@id = $p/@id]/totalmonney + 2.5 * $p/currentBet,
+                                                    replace value of node $casino/users/user[@id = $p/@id]/points with $casino/users/user[@id = $p/@id]/points + 1.5 * $p/currentBet
                                             )  else (
                                                     if($p/status!= 'surrendered') then(
                                                         replace value of node $p/totalmonney with $p/totalmonney + 2 * $p/currentBet,
-                                                        replace value of node $casino/users/player[@id = $p/@id]/totalmonney with $casino/users/player[@id = $p/@id]/totalmonney + 2 * $p/currentBet,
-                                                        replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 1 *$p/currentBet,
+                                                        replace value of node $casino/users/user[@id = $p/@id]/totalmonney with $casino/users/user[@id = $p/@id]/totalmonney + 2 * $p/currentBet,
+                                                        replace value of node $casino/users/user[@id = $p/@id]/points with $casino/users/user[@id = $p/@id]/points + 1 *$p/currentBet,
                                                         replace value of node $p/status with 'winner'
                                                     )
                                             )
                                        ) else(
-                                                        replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points - 1 * $p/currentBet
+                                                        replace value of node $casino/users/user[@id = $p/@id]/points with $casino/users/user[@id = $p/@id]/points - 1 * $p/currentBet
 
                                        )
 
@@ -338,20 +338,20 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
                                             if($p/status != 'loser') then(
                                                 if($p/status = 'blackjack') then(
                                                          replace value of node $p/totalmonney with $p/totalmonney +2.5 *$p/currentBet,
-                                                         replace value of node $casino/users/player[@id = $p/@id]/totalmonney with $casino/users/player[@id = $p/@id]/totalmonney + 2.5 * $p/currentBet,
-                                                         replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 1.5 * $p/currentBet
+                                                         replace value of node $casino/users/user[@id = $p/@id]/totalmonney with $casino/users/user[@id = $p/@id]/totalmonney + 2.5 * $p/currentBet,
+                                                         replace value of node $casino/users/user[@id = $p/@id]/points with $casino/users/user[@id = $p/@id]/points + 1.5 * $p/currentBet
                                                     ) else (
                                                         if($p/status != 'surrendered') then(
                                                                 let $amountOfPlayerCards := blackjack-card:calculateCurrentCardValue($game,$p,0)
                                                                 return(
                                                                         if($amountOfPlayerCards >= $amountOfCardsOfDealer) then(
                                                                             replace value of node $p/totalmonney with $p/totalmonney + 2 * $p/currentBet,
-                                                                            replace value of node $casino/users/player[@id = $p/@id]/totalmonney with $casino/users/player[@id = $p/@id]/totalmonney + 2 * $p/currentBet,
-                                                                            replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points + 1 * $p/currentBet,
+                                                                            replace value of node $casino/users/user[@id = $p/@id]/totalmonney with $casino/users/user[@id = $p/@id]/totalmonney + 2 * $p/currentBet,
+                                                                            replace value of node $casino/users/user[@id = $p/@id]/points with $casino/users/user[@id = $p/@id]/points + 1 * $p/currentBet,
                                                                             replace value of node $p/status with 'winner'
                                                                         )   else (
                                                                             replace value of node $p/status with 'loser',
-                                                                            replace value of node $casino/users/player[@id = $p/@id]/points with $casino/users/player[@id = $p/@id]/points - 1 * $p/currentBet
+                                                                            replace value of node $casino/users/user[@id = $p/@id]/points with $casino/users/user[@id = $p/@id]/points - 1 * $p/currentBet
                                                                         )
                                                                 )
 
@@ -363,7 +363,7 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
 
 
                                             ) else(
-                                                         replace value of node $casino/users/player[@id = $p/@id]/points with ( $casino/users/player[@id = $p/@id]/points - 1 * $p/currentBet)
+                                                         replace value of node $casino/users/user[@id = $p/@id]/points with ( $casino/users/user[@id = $p/@id]/points - 1 * $p/currentBet)
                                             )
 
                                 )
@@ -501,7 +501,7 @@ declare %updating function blackjack-game:newRound($gameID as xs:string){
                  where $p/totalmonney < $game/minBet  cast as xs:integer
                  return(
                          delete node $p,
-                         insert node $p into $game/loosers,
+                         insert node $p into $game/quitters,
                          insert node <seat>{$p/tableSeat cast as xs:integer}</seat> into $game/freeSeats
                  ),
 
@@ -528,13 +528,13 @@ declare %updating function blackjack-game:newRound($gameID as xs:string){
 
 declare %updating function blackjack-game:addUser($playerName as xs:string,$balance as xs:string ,$id as xs:integer,$numberOfUsers as xs:integer){
         if($id = $numberOfUsers) then(
-                if(blackjack-game:getCasino()/users/player[$playerName =name]) then(
+                if(blackjack-game:getCasino()/users/user[$playerName =name]) then(
 
-                   insert node blackjack-player:newUser($playerName, blackjack-game:getCasino()/users/player[$playerName = name]/totalmonney,blackjack-game:getCasino()/users/player[$playerName = name]/points,  $numberOfUsers) into blackjack-game:getCasino()/users,
+                   insert node blackjack-player:newUser($playerName, blackjack-game:getCasino()/users/user[$playerName = name]/totalmonney,blackjack-game:getCasino()/users/user[$playerName = name]/points,  $numberOfUsers) into blackjack-game:getCasino()/users,
 
                    insert node <lobby><id>{$numberOfUsers}</id></lobby> into blackjack-game:getCasino()/lobbys,
 
-                   delete node blackjack-game:getCasino()/users/player[$playerName = name]
+                   delete node blackjack-game:getCasino()/users/user[$playerName = name]
 
                 ) else(
 

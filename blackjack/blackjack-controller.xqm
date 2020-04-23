@@ -102,7 +102,7 @@ declare
 %updating
 function blackjack-controller:returnToGames($gameID as xs:string ,$playerID as xs:integer){
         insert node <lobby><id>{$playerID}</id></lobby> into blackjack-game:getCasino()/lobbys,
-        delete node blackjack-game:getGame($gameID)/loosers/player[@id =$playerID],
+        delete node blackjack-game:getGame($gameID)/quitters/player[@id =$playerID],
         update:output(web:redirect("/bj/showGames"))
 };
 
@@ -112,7 +112,7 @@ declare
 %updating
 function blackjack-controller:returnToLobby($gameID as xs:string , $playerID as xs:integer){
 
-  delete node blackjack-game:getGame($gameID)/loosers/player[@id =$playerID],
+  delete node blackjack-game:getGame($gameID)/quitters/player[@id =$playerID],
         update:output(web:redirect("/bj/lobby"))
 };
 
@@ -160,7 +160,7 @@ function blackjack-controller:wsInit($playerName as xs:string, $balance as xs:st
 
 
 declare function blackjack-controller:getID($numberOfUsers as xs:integer, $playerName as xs:string){
-            let $id := blackjack-game:getCasino()/users/player[name = $playerName]/@id
+            let $id := blackjack-game:getCasino()/users/user[name = $playerName]/@id
             let $wsIDs := blackjack-ws:getIDs()
             return(
                     if($id) then(
@@ -198,8 +198,8 @@ function blackjack-controller:showGames(){
                   return(  let $playerID := blackjack-ws:get($wsID,"playerID")
                            where blackjack-ws:get($wsID,"applicationID") = "bj"
 
-                            let $playerName := $casino/users/player[$playerID = @id]/name
-                            let $balance := $casino/users/player[$playerID = @id]/totalmonney
+                            let $playerName := $casino/users/user[$playerID = @id]/name
+                            let $balance := $casino/users/user[$playerID = @id]/totalmonney
 
                             let $map := map{"playerName":$playerName,"balance":$balance}
                             let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
@@ -279,7 +279,7 @@ function blackjack-controller:draw($gameID as xs:string){
                                 blackjack-ws:send($transformedGame,concat("/bj/",$playerID))
                         )
                         else (
-                            if($game/loosers/player[@id= $playerID]) then(
+                            if($game/quitters/player[@id= $playerID]) then(
                                 blackjack-ws:send($endGame,concat("/bj/",$playerID))
                             )
                         )

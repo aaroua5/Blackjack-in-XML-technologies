@@ -12,7 +12,7 @@ declare %updating function blackjack-player:deletePlayer($gameID as xs:string){
     let $casino := blackjack-game:getCasino()
     let $game := blackjack-game:getGame($gameID)
     return(
-         for $p in $game/loosers/player
+         for $p in $game/quitters/player
             return(
                     delete node $p
             )
@@ -81,13 +81,13 @@ declare function blackjack-player:newPlayer($name as xs:string, $balance, $id as
  : @return              the new User
 :)
 
-declare function blackjack-player:newUser($name as xs:string, $balance, $points , $id as xs:integer ) as element(player){
-          <player id = "{$id}">
+declare function blackjack-player:newUser($name as xs:string, $balance, $points , $id as xs:integer ) as element(user){
+          <user id = "{$id}">
 
                   <name>{$name}</name>
                   <totalmonney>{if($balance < 10) then 100 else fn:round($balance cast as xs:double - 0.5)  cast as xs:integer}</totalmonney>
                   <points>{$points}</points>
-          </player>
+          </user>
 };
 
 
