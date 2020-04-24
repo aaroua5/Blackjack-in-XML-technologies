@@ -188,7 +188,7 @@ declare
 function blackjack-controller:showGames(){
 
            let $casino := blackjack-game:getCasino()
-            let $xslStyleSheet:= "games.xsl"
+            let $xslStyleSheet:= "lounge.xsl"
             let $stylesheet := doc(concat($blackjack-controller:staticPath, "/XSL/", $xslStyleSheet))
             let $wsIDs := blackjack-ws:getIDs()
             return(
@@ -259,7 +259,7 @@ declare
 function blackjack-controller:draw($gameID as xs:string){
         let $wsIDs := blackjack-ws:getIDs()
         let $stylesheet := doc("../static/blackjack/XSL/blackjack.xsl")
-        let $gameOverStylesheet := doc("../static/blackjack/XSL/scores.xsl")
+        let $gameOverStylesheet := doc("../static/blackjack/XSL/endGame.xsl")
         let $game := blackjack-game:getGame($gameID)
         let $gameIDs := for $p in $game/players/player
                         return($p/@id)
@@ -302,27 +302,6 @@ function blackjack-controller:bet($gameID as xs:string,$betAmount as xs:integer)
 
 
 
-
-declare
-%rest:GET
-%output:method("html")
-%rest:path("/bj/checkScores/{$gameID}")
-%updating
-function blackjack-controller:checkScores($gameID as xs:string){
-        let $redirectLink := fn:concat("/bj/drawScores/",$gameID)
-        return(blackjack-game:checkScores($gameID),update:output(web:redirect($redirectLink)))
-};
-
-declare
-%rest:GET
-%output:method("html")
-%rest:path("/bj/drawScores/{$gameID}")
-function blackjack-controller:drawScores($gameID as xs:string){
-            let $game := blackjack-game:getGame($gameID)
-            let $xslStylesheet := "scores.xsl"
-            let $title := "blackjackscores"
-            return(blackjack-controller:generatePage($game, $xslStylesheet, $title))
-};
 
 
 declare

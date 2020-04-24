@@ -331,10 +331,10 @@
                         <text x="60.3" y="60" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=3]/totalSumCards"/></text>
                         <text x="100.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=2]/totalSumCards"/></text>
                         <text x="140.3" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=1]/totalSumCards"/></text>
+                        <xsl:if test="step='roundOver'">
+                                <text x="60.3" y="7" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="dealer/totalSumCards"/></text>
+                        </xsl:if>
 
-                        <text x="60.3" y="7" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">Score here</text>
-
-                        
                     </svg>
 
                     <xsl:if test="step ='bet'">

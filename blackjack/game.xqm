@@ -167,6 +167,7 @@ declare function blackjack-game:createNewGame($maxBet as xs:integer, $minBet as 
                           <dealer id = "0">
                                 <name>dealer</name>
                                 <cards></cards>
+                                <totalSumCards>0</totalSumCards>
                            </dealer>
                           {$players}
                           <waitPlayers></waitPlayers>
@@ -312,7 +313,8 @@ declare %updating function blackjack-game:checkWinnings($gameID as xs:string){
             let $game := blackjack-game:getGame($gameID)
             let $casino := blackjack-game:getCasino()
             let $amountOfCardsOfDealer := blackjack-card:calculateCurrentCardValue($game, $game/dealer,0)
-            return( replace value of node $game/playerTurn with 1,
+            return( replace value of node $game/dealer/totalSumCards with $amountOfCardsOfDealer,
+                    replace value of node $game/playerTurn with 1,
                     for $p in $game/players/player
                     return(
                                 if($amountOfCardsOfDealer > 21 ) then(
