@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+    <xsl:include href="bj_global_variables.xsl" />
     <xsl:param name="Jack"/>
     <xsl:template match="blackjack">
 
@@ -838,235 +839,235 @@
 
         <!-- card design, value = A -->
         <xsl:if test="card_number='A'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size ="25" fill="{$color}" >A</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size ="25" fill="{$color}">A</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" font-size ="25" fill="{$color} ">A</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" font-size="25" fill="{$color}">A</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="{$color}">  <xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="{$color}"> <xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%"  dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size="18" fill="{$color}"> <xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%"  dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size="18" fill="{$color}"> <xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size="50"> <xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="{$color}">  <xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="{$color}"> <xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%"  dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size="18" fill="{$color}"> <xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%"  dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size="18" fill="{$color}"> <xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size="50"> <xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 2 -->
         <xsl:if test="card_number='2'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20"  fill="{$color}" font-size ="25">2</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280"  fill="{$color}" font-size ="25">2</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25">2</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280"  fill="{$color}" font-size ="25" >2</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%"  fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%"  fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="50%" y="30%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="50%" y="80%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%"  fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%"  fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 3 -->
         <xsl:if test="card_number='3'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size ="25" fill="{$color}">3</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size ="25" fill="{$color}">3</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18"><xsl:value-of select="card_type"/></text>
                     <text class="cardText"  text-anchor="middle" dy="0.3em" x="167" y="20" font-size ="25" fill="{$color}" >3</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" font-size ="25" fill="{$color}">3</text>
-                    <text class="cardTextBig"  x="50%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="50%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 4 -->
         <xsl:if test="card_number='4'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >4</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >4</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >4</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >4</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18"  ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig "  x="33%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="30%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18"  ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig "  x="{$VerLine1}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 5 -->
         <xsl:if test="card_number='5'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >5</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >5</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >5</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >5</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 6 -->
         <xsl:if test="card_number='6'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >6</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >6</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >6</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >6</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="55%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="80%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="30%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="55%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="80%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle"  fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 7 -->
         <xsl:if test="card_number='7'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >7</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >7</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >7</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >7</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="49.5%" y="42.5%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine4}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 8 -->
         <xsl:if test="card_number='8'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >8</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >8</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >8</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >8</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="80%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="49.5%" y="42.5%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="49.5%" y="67.5%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine2}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine10}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine4}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine8}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 9 -->
         <xsl:if test="card_number='9'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >9</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >9</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >9</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >9</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="25%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="65%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="25%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="65%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="49.5%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine1}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine5}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine7}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine11}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine1}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine5}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine7}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine11}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine6}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = 10 -->
         <xsl:if test="card_number='10'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >10</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" fill="{$color}" font-size ="25" >10</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="167" y="20" fill="{$color}" font-size ="25" >10</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-18" y="-280" fill="{$color}" font-size ="25" >10</text>
-                    <text class="cardTexth"  x="91%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="9%" y="18%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-91%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTexth"  x="-9%" y="-82%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="25%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="65%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="33%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="25%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="65%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="66%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="49.5%" y="35%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
-                    <text class="cardTextBig"  x="49.5%" y="75%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardRightPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="{$cardLeftPosition}%" y="{$cardDownPosition}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardRightPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTexth"  x="-{$cardLeftPosition}%" y="{$cardTopPosition}%" fill="{$color}" dominant-baseline="middle" text-anchor="middle" transform="scale(-1,-1)" font-size ="18" ><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine1}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine5}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine7}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine1}%" y="{$HorLine11}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine1}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine5}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine7}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine3}%" y="{$HorLine11}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine3}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
+                    <text class="cardTextBig"  x="{$VerLine2}%" y="{$HorLine9}%" dominant-baseline="middle" text-anchor="middle" fill="{$color}" font-size ="50"><xsl:value-of select="card_type"/></text>
                 </svg>
             </svg>
         </xsl:if>
 
         <!-- card design, value = J -->
         <xsl:if test="card_number='J'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Jack.png"/>
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect width="cardWidth" height="cardHeight" rx="10" ry="10" fill="white"/>
+                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17} y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Jack.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">J</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">J</text>
                     <text class="cardTexth"  x="154" y="65"  fill="{$color}" font-size="35"><xsl:value-of select="card_type"/></text>
@@ -1081,10 +1082,10 @@
 
         <!-- card design, value = Q -->
         <xsl:if test="card_number='Q'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Queen.png"/>
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect width="cardWidth" height="cardHeight" rx="10" ry="10" fill="white"/>
+                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17} y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Queen.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardTexth"  x="154" y="65"  fill="{$color}" font-size="35"><xsl:value-of select="card_type"/></text>
@@ -1099,10 +1100,10 @@
 
         <!-- card design, value = K -->
         <xsl:if test="card_number='K'">
-            <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5"  href="http://localhost:8984/static/blackjack/King.png"/>
+            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+                <svg width="cardWidth" height="cardHeight" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect width="cardWidth" height="cardHeight" rx="10" ry="10" fill="white"/>
+                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5"  href="http://localhost:8984/static/blackjack/King.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">K</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">K</text>
                     <text class="cardTexth"  x="154" y="65"  fill="{$color}" font-size="35"><xsl:value-of select="card_type"/></text>
