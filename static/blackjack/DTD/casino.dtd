@@ -1,0 +1,36 @@
+<!ELEMENT casino(numberOfUsers,users,lobbys,numberOfGames,blackjack*)>
+<!ELEMENT numberOfUsers (#PCDATA)>
+<!ELEMENT users (user*)>
+<!ELEMENT lobbys (lobby*)>
+<!ELEMENT numberOfGames (#PCDATA)>
+<!ELEMENT user (name,totalmonney,points)>
+<!ELEMENT  lobby (id)>
+<!ELEMENT  name (#PCDATA)>
+<!ELEMENT  totalmonney (#PCDATA)>
+<!ELEMENT points (#PCDATA)>
+<!ELEMENT  id (#PCDATA)>
+<!ELEMENT blackjack (step,maxBet,minBet,events,dealer,players,waitPlayers,cards,freeSeats,quitters)>
+<!ELEMENT  step (#PCDATA)>
+<!ELEMENT maxBet (#PCDATA)>
+<!ELEMENT  minBet (#PCDATA)>
+<!ELEMENT events (event*)>
+<!ELEMENT  dealer (name,cards)>
+<!ELEMENT players (player*)>
+<!ELEMENT waitPlayers (player*)>
+<!ELEMENT  cards (card*)>
+<!ELEMENT freeSeats (seat*)>
+<!ELEMENT seat (#PCDATA)>
+<!ELEMENT  quitters (player*)>
+<!ATTLIST event id #REQUIRED>
+<!ELEMENT event (message)>
+<!ELEMENT message (#PCDATA)>
+<!ELEMENT player (name,status,tableSeat,totalmonney,currentBet)>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT tableSeat (#PCDATA)>
+<!ELEMENT currentBet (#PCDATA)>
+<!ELEMENT card (card_number,card_type,color,card_Value)>
+<!ELEMENT card_number (#PCDATA)>
+<!ELEMENT card_type (#PCDATA)>
+<!ELEMENT color (#PCDATA)>
+<!ELEMENT card_Value (#PCDATA)>
+

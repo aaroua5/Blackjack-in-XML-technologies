@@ -200,44 +200,44 @@
 
                         <svg id="stickers" width="100%" height="100%" viewBox="0 0 100 100">
                             <xsl:if test="players/player[tableSeat =5]/status = 'blackjack'">
-                                  <image height="20" width="20" x="-40" y="25" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                                  <image height="20" width="20" x="-40" y="25" xlink:href="http://localhost:8984/static/blackjack/blackjack.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat =4]/status = 'blackjack'">
 
-                            <image height="20" width="20" x="0" y="37" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            <image height="20" width="20" x="0" y="37" xlink:href="http://localhost:8984/static/blackjack/blackjack.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat =3]/status = 'blackjack'">
 
-                            <image height="20" width="20" x="40" y="43" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            <image height="20" width="20" x="40" y="43" xlink:href="http://localhost:8984/static/blackjack/blackjack.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat =2]/status = 'blackjack'">
 
-                            <image height="20" width="20" x="80" y="37" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            <image height="20" width="20" x="80" y="37" xlink:href="http://localhost:8984/static/blackjack/blackjack.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat = 1]/status = 'blackjack'">
 
-                            <image height="20" width="20" x="120" y="25" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
+                            <image height="20" width="20" x="120" y="25" xlink:href="http://localhost:8984/static/blackjack/blackjack.gif"/>
                             </xsl:if>
 
 
                             <xsl:if test="players/player[tableSeat=5]/status ='surrendered'">
-                            <image height="20" width="20" x="-27" y="43" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
+                            <image height="20" width="20" x="-27" y="43" xlink:href="http://localhost:8984/static/blackjack/whiteFlag.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat=4]/status ='surrendered'">
 
-                            <image height="20" width="20" x="13" y="55" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
+                            <image height="20" width="20" x="13" y="55" xlink:href="http://localhost:8984/static/blackjack/whiteFlag.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat=3]/status ='surrendered'">
 
-                            <image height="20" width="20" x="53" y="61" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
+                            <image height="20" width="20" x="53" y="61" xlink:href="http://localhost:8984/static/blackjack/whiteFlag.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat=2]/status ='surrendered'">
 
-                            <image height="20" width="20" x="93" y="55" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
+                            <image height="20" width="20" x="93" y="55" xlink:href="http://localhost:8984/static/blackjack/whiteFlag.gif"/>
                             </xsl:if>
                             <xsl:if test="players/player[tableSeat=1]/status ='surrendered'">
 
-                            <image height="20" width="20" x="133" y="43" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
+                            <image height="20" width="20" x="133" y="43" xlink:href="http://localhost:8984/static/blackjack/whiteFlag.gif"/>
                             </xsl:if>
 
                             <xsl:if test="players/player[tableSeat=5]">
@@ -245,11 +245,11 @@
                                 <xsl:choose>
 
                                     <xsl:when test="players/player[tableSeat=5]/status='loser'">
-                                        <image height="12" width="12" x="-23" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                                        <image height="12" width="12" x="-23" y="47" xlink:href="http://localhost:8984/static/blackjack/lost.gif"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:if test ="players/player[tableSeat=5]/status !='free' and players/player[tableSeat=5]/status !='surrendered'">
-                                            <image height="12" width="12" x="-23" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                            <image height="12" width="12" x="-23" y="47" xlink:href="http://localhost:8984/static/blackjack/clap.webp"/>
                                         </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -260,12 +260,12 @@
 
                                 <xsl:choose>
                                     <xsl:when test="players/player[tableSeat=4]/status='loser'">
-                                        <image height="12" width="12" x="17" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                                        <image height="12" width="12" x="17" y="59" xlink:href="http://localhost:8984/static/blackjack/lost.gif"/>
 
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:if test="players/player[tableSeat=4]/status !='free' and players/player[tableSeat=4]/status !='surrendered'">
-                                            <image height="12" width="12" x="17" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                            <image height="12" width="12" x="17" y="59" xlink:href="http://localhost:8984/static/blackjack/clap.webp"/>
                                         </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -276,13 +276,13 @@
                                 <xsl:choose>
                                     <xsl:when test="players/player[tableSeat=3]/status='loser'">
 
-                                        <image height="12" width="12" x="57" y="65" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                                        <image height="12" width="12" x="57" y="65" xlink:href="http://localhost:8984/static/blackjack/lost.gif"/>
 
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:if test="players/player[tableSeat=3]/status !='free'and players/player[tableSeat=3]/status !='surrendered'">
 
-                                            <image height="12" width="12" x="57" y="65" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                            <image height="12" width="12" x="57" y="65" xlink:href="http://localhost:8984/static/blackjack/clap.webp"/>
                                         </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -290,13 +290,13 @@
                             <xsl:if test="players/player[tableSeat=2]">
                                 <xsl:choose>
                                     <xsl:when test="players/player[tableSeat=2]/status='loser'">
-                                        <image height="12" width="12" x="97" y="59" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                                        <image height="12" width="12" x="97" y="59" xlink:href="http://localhost:8984/static/blackjack/lost.gif"/>
 
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:if test="players/player[tableSeat=2]/status !='free' and players/player[tableSeat=2]/status !='surrendered'">
 
-                                            <image height="12" width="12" x="97" y="59" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                            <image height="12" width="12" x="97" y="59" xlink:href="http://localhost:8984/static/blackjack/clap.webp"/>
                                         </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -307,13 +307,13 @@
 
                                 <xsl:choose>
                                     <xsl:when test="players/player[tableSeat=1]/status='loser'">
-                                        <image height="12" width="12" x="137" y="47" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
+                                        <image height="12" width="12" x="137" y="47" xlink:href="http://localhost:8984/static/blackjack/lost.gif"/>
 
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:if test="players/player[tableSeat=1]/status !='free' and players/player[tableSeat=1]/status !='surrendered'">
 
-                                            <image height="12" width="12" x="137" y="47" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
+                                            <image height="12" width="12" x="137" y="47" xlink:href="http://localhost:8984/static/blackjack/clap.webp"/>
                                         </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -974,9 +974,9 @@
         </xsl:if>
         <xsl:if test="card_number='J'">
             <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+                <svg width="185" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="https://i.ibb.co/V3SzTpK/Jack.png"/>
+                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Jack.png"/>
 
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">J</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)"
@@ -993,9 +993,9 @@
         </xsl:if>
         <xsl:if test="card_number='Q'">
             <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+                <svg width="185" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="https://i.ibb.co/CJmLR83/Queen.png"/>
+                    <image width="180" height="283" y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Queen.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)"
                           x="-167" y="-280" font-size="25"  fill="{$color}">Q</text>
@@ -1011,9 +1011,9 @@
         </xsl:if>
         <xsl:if test="card_number='K'">
             <svg width="225" height="340" filter="url(#f1)">
-                <svg width="185" height="300">
+                <svg width="185" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
-                    <image width="180" height="283" y="8.5" x="2.5" href="https://i.ibb.co/P6NHWwf/King.png"/>
+                    <image width="180" height="283" y="8.5" x="2.5"  href="http://localhost:8984/static/blackjack/King.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">K</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)"
                           x="-167" y="-280" font-size="25"  fill="{$color}">K</text>

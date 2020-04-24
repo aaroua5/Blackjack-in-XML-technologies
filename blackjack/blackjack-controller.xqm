@@ -11,12 +11,10 @@ import module namespace helper = "blackjack/helper" at "helper.xqm";
 
 
 declare variable $blackjack-controller:staticPath := "../static/blackjack";
-declare variable $blackjack-controller:initPlayers := doc("../static/blackjack/initPlayers.html");
-declare variable $blackjack-controller:lobby := doc("../static/blackjack/lobby.html");
-declare variable $blackjack-controller:rules := doc("../static/blackjack/rules.html");
-declare variable $blackjack-controller:about := doc("../static/blackjack/about.html");
-declare variable $blackjack-controller:initJoin := doc("../static/blackjack/initplayerJoin.html");
-declare variable $blackjack-controller:Jack := doc("../static/blackjack/Jack.svg");
+declare variable $blackjack-controller:initPlayers := doc("../static/blackjack/HTML/initPlayers.html");
+declare variable $blackjack-controller:lobby := doc("../static/blackjack/HTML/lobby.html");
+declare variable $blackjack-controller:rules := doc("../static/blackjack//HTML/rules.html");
+declare variable $blackjack-controller:about := doc("../static/blackjack/HTML/about.html");
 
 
 
@@ -191,7 +189,7 @@ function blackjack-controller:showGames(){
 
            let $casino := blackjack-game:getCasino()
             let $xslStyleSheet:= "games.xsl"
-            let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStyleSheet))
+            let $stylesheet := doc(concat($blackjack-controller:staticPath, "/XSL/", $xslStyleSheet))
             let $wsIDs := blackjack-ws:getIDs()
             return(
                     for $wsID in $wsIDs
@@ -208,7 +206,7 @@ function blackjack-controller:showGames(){
                                         blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
                                 )
 
-                             )
+                            )
                             )
             )
 
@@ -222,9 +220,7 @@ declare
 %output:method("html")
 %updating
 function blackjack-controller:join($gameID as xs:string , $playerName as xs:string, $balance as xs:string){
-
-
-                   update:output(web:redirect(fn:concat("/bj/draw/",$gameID))) , blackjack-game:join($gameID, $playerName,$balance)
+       update:output(web:redirect(fn:concat("/bj/draw/",$gameID))) , blackjack-game:join($gameID, $playerName,$balance)
 };
 
 declare
@@ -235,9 +231,9 @@ declare
 function blackjack-controller:random($playerName as xs:string, $balance as xs:string){
             let $randomNumber := helper:randomNumber(fn:count(blackjack-game:getCasino()/blackjack))
             let $gameID := blackjack-game:getCasino()/blackjack[fn:position() = $randomNumber]/@id
-         return(
+             return(
                 update:output(web:redirect(fn:concat("/bj/draw/",$gameID))),blackjack-game:join($gameID, $playerName, $balance)
-         )
+            )
 
 
 };
@@ -262,8 +258,8 @@ declare
 %rest:GET
 function blackjack-controller:draw($gameID as xs:string){
         let $wsIDs := blackjack-ws:getIDs()
-        let $stylesheet := doc("../static/blackjack/blackjack.xsl")
-        let $gameOverStylesheet := doc("../static/blackjack/scores.xsl")
+        let $stylesheet := doc("../static/blackjack/XSL/blackjack.xsl")
+        let $gameOverStylesheet := doc("../static/blackjack/XSL/scores.xsl")
         let $game := blackjack-game:getGame($gameID)
         let $gameIDs := for $p in $game/players/player
                         return($p/@id)
@@ -489,13 +485,6 @@ function blackjack-controller:checkWinnings($gameID as xs:string){
         return(blackjack-game:checkWinnings($gameID),update:output(web:redirect($redirectLink)))
 };
 
-declare
-%rest:GET
-%rest:path("/bj/getJack")
-%output:method("html")
-function blackjack-controller:getJack(){
-        <html> <head></head> <body> <object data="../static/blackjack/Jack.png"></object></body></html>
-};
 
 
 declare
@@ -516,7 +505,7 @@ function blackjack-controller:stand($gameID as xs:string){
 };
 
 declare function blackjack-controller:generatePage($game as element(*), $xslStylesheet as xs:string, $title as xs:string ){
-    let $stylesheet := doc(concat($blackjack-controller:staticPath, "/", $xslStylesheet))
+    let $stylesheet := doc(concat($blackjack-controller:staticPath, "/XSL/", $xslStylesheet))
     let $transformed := xslt:transform($game, $stylesheet)
     return
 
