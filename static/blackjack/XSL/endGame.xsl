@@ -89,7 +89,7 @@
 
             <xsl:choose>
 
-                <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
+                <xsl:when test="not(quitters/player[$playerID = @id]/totalmonney >= 0)">
                     <!-- Menu button -->
                     <foreignObject x="45.3%" y="47.8%" width="100%" height="100%" >
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToLobby/{$id}/{$playerID}" method="get" id="form1" style="display: inline;" >
@@ -100,7 +100,7 @@
                 </xsl:when>
 
                 <xsl:otherwise>
-      <xsl:variable name="playerName" select="loosers/player[$playerID = @id]/name"></xsl:variable>
+      <xsl:variable name="playerName" select="quitters/player[$playerID = @id]/name"></xsl:variable>
                     <!-- Lounge button -->
                     <foreignObject x="39.9%" y="47.8%" width="100%" height="100%" >
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToGames/{$id}/{$playerID}" method="get" id="form2" style="display: inline;"  target="hiddenFrame">
