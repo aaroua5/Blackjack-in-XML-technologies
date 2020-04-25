@@ -13,77 +13,6 @@
 
             <defs>
 
-                <!-- Radial gradient for filling the table-->
-                <radialGradient id="gradTable" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                    <stop offset="50%" stop-color="#09846F" />
-                    <stop offset="95%" stop-color="#026A54" />
-                </radialGradient>
-
-                <!-- Gold gradient used mainly for the stroke of the buttons -->
-                <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="5%" stop-color="#efcf76"></stop>
-                    <stop offset="33%" stop-color="#fcdd7a"></stop>
-                    <stop offset="66%" stop-color="#cfba65"></stop>
-                    <stop offset="100%" stop-color="#988058"></stop>
-                </linearGradient>
-
-                <!-- Filter used for creating a drop shadow -->
-                <filter id="f1" x="0" y="0" width="200%" height="200%" filterUnits="userSpaceOnUse">
-                    <feOffset result="offOut" in="SourceAlpha" dx="4" dy="4" />
-                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
-                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                </filter>
-
-                <!-- Filter used for creating a drop shadow -->
-                <filter id="f2" x="0" y="0" width="200%" height="200%" filterUnits="userSpaceOnUse">
-                    <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
-                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />
-                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                </filter>
-
-                <!-- Filter used for creating an inner shadow -->
-                <filter id="inner-shadow">
-                    <feFlood flood-color="black"/>
-                    <feComposite in2="SourceAlpha" operator="out"/>
-                    <feGaussianBlur stdDeviation="2" result="blur"/>
-                    <feComposite operator="atop" in2="SourceGraphic"/>
-                </filter>
-
-                <!-- Filter used for creating an inner greenish glow -->
-                <filter id="inner-glow">
-                    <feFlood flood-color="#09846F"/>
-                    <feComposite in2="SourceAlpha" operator="out"/>
-                    <feGaussianBlur stdDeviation="1" result="blur"/>
-                    <feComposite operator="atop" in2="SourceGraphic"/>
-                </filter>
-
-                <!-- Filter used for creating an outer glow -->
-                <filter id="outer-glow" height="300%" width="300%" x="-75%" y="-75%">
-                    <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thicken" />
-                    <feGaussianBlur in="thicken" stdDeviation="3" result="blurred" />
-                    <feFlood flood-color="black" result="glowColor" />
-                    <feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
-                    <feMerge>
-                        <feMergeNode in="softGlow_colored"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-
-                <!-- Clip path used for creating a fake 3D effect for the chips - works by substracting two shapes -->
-                <clipPath id="cut-off-bottom">
-                    <circle cx="20" cy="30" r="12" />
-                </clipPath>
-
-                <!-- Clip path used for showing the white rectangles around the chips - works by substracting two shapes -->
-                <clipPath id="chip-white-rectangles">
-                    <rect id="up"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" />
-                    <rect id="upLeft"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-60 20 20)"/>
-                    <rect id="downLeft"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-120 20 20)"/>
-                    <rect id="down"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-180 20 20)"/>
-                    <rect id="downRight"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(120 20 20)"/>
-                    <rect id="upRight"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(60 20 20)"/>
-                </clipPath>
-
                 <!-- Background of the game -->
                 <g id="background">
                     <svg width="100%" height="100%">
@@ -571,6 +500,77 @@
                     <xsl:apply-templates select="players/player"/>
 
                 </g>
+                
+                <!-- Radial gradient for filling the table-->
+                <radialGradient id="gradTable" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="50%" stop-color="#09846F" />
+                    <stop offset="95%" stop-color="#026A54" />
+                </radialGradient>
+
+                <!-- Gold gradient used mainly for the stroke of the buttons -->
+                <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="5%" stop-color="#efcf76"></stop>
+                    <stop offset="33%" stop-color="#fcdd7a"></stop>
+                    <stop offset="66%" stop-color="#cfba65"></stop>
+                    <stop offset="100%" stop-color="#988058"></stop>
+                </linearGradient>
+
+                <!-- Filter used for creating a drop shadow -->
+                <filter id="f1" x="0" y="0" width="200%" height="200%" filterUnits="userSpaceOnUse">
+                    <feOffset result="offOut" in="SourceAlpha" dx="4" dy="4" />
+                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
+
+                <!-- Filter used for creating a drop shadow -->
+                <filter id="f2" x="0" y="0" width="200%" height="200%" filterUnits="userSpaceOnUse">
+                    <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
+
+                <!-- Filter used for creating an inner shadow -->
+                <filter id="inner-shadow">
+                    <feFlood flood-color="black"/>
+                    <feComposite in2="SourceAlpha" operator="out"/>
+                    <feGaussianBlur stdDeviation="2" result="blur"/>
+                    <feComposite operator="atop" in2="SourceGraphic"/>
+                </filter>
+
+                <!-- Filter used for creating an inner greenish glow -->
+                <filter id="inner-glow">
+                    <feFlood flood-color="#09846F"/>
+                    <feComposite in2="SourceAlpha" operator="out"/>
+                    <feGaussianBlur stdDeviation="1" result="blur"/>
+                    <feComposite operator="atop" in2="SourceGraphic"/>
+                </filter>
+
+                <!-- Filter used for creating an outer glow -->
+                <filter id="outer-glow" height="300%" width="300%" x="-75%" y="-75%">
+                    <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thicken" />
+                    <feGaussianBlur in="thicken" stdDeviation="3" result="blurred" />
+                    <feFlood flood-color="black" result="glowColor" />
+                    <feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
+                    <feMerge>
+                        <feMergeNode in="softGlow_colored"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+
+                <!-- Clip path used for creating a fake 3D effect for the chips - works by substracting two shapes -->
+                <clipPath id="cut-off-bottom">
+                    <circle cx="20" cy="30" r="12" />
+                </clipPath>
+
+                <!-- Clip path used for showing the white rectangles around the chips - works by substracting two shapes -->
+                <clipPath id="chip-white-rectangles">
+                    <rect id="up"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" />
+                    <rect id="upLeft"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-60 20 20)"/>
+                    <rect id="downLeft"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-120 20 20)"/>
+                    <rect id="down"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(-180 20 20)"/>
+                    <rect id="downRight"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(120 20 20)"/>
+                    <rect id="upRight"  x="18" y="12.2" height="2" width="4" rx="0.3" ry="0.3" transform ="rotate(60 20 20)"/>
+                </clipPath>
 
             </defs>
 
