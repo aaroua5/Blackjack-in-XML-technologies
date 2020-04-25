@@ -34,7 +34,7 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup(){
-       let $bjModel := doc("../static/blackjack/blackjack.xml")
+       let $bjModel := doc("../static/blackjack/casino.xml")
 
        let $redirectLink := "/bj/lobby"
        return(db:create("bj",$bjModel),update:output(web:redirect($redirectLink)))

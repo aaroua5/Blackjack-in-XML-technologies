@@ -840,7 +840,7 @@
 
         <!-- card design, value = A -->
         <xsl:if test="card_number='A'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size ="25" fill="{$color}" >A</text>
@@ -858,7 +858,7 @@
 
         <!-- card design, value = 2 -->
         <xsl:if test="card_number='2'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20"  fill="{$color}" font-size ="25">2</text>
@@ -877,7 +877,7 @@
 
         <!-- card design, value = 3 -->
         <xsl:if test="card_number='3'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size ="25" fill="{$color}">3</text>
@@ -897,7 +897,7 @@
 
         <!-- card design, value = 4 -->
         <xsl:if test="card_number='4'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >4</text>
@@ -918,7 +918,7 @@
 
         <!-- card design, value = 5 -->
         <xsl:if test="card_number='5'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >5</text>
@@ -940,7 +940,7 @@
 
         <!-- card design, value = 6 -->
         <xsl:if test="card_number='6'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >6</text>
@@ -963,7 +963,7 @@
 
         <!-- card design, value = 7 -->
         <xsl:if test="card_number='7'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >7</text>
@@ -987,7 +987,7 @@
 
         <!-- card design, value = 8 -->
         <xsl:if test="card_number='8'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >8</text>
@@ -1012,7 +1012,7 @@
 
         <!-- card design, value = 9 -->
         <xsl:if test="card_number='9'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >9</text>
@@ -1038,7 +1038,7 @@
 
         <!-- card design, value = 10 -->
         <xsl:if test="card_number='10'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="185" height="300" rx="10" ry="10" fill="white"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" fill="{$color}" font-size ="25" >10</text>
@@ -1065,9 +1065,9 @@
 
         <!-- card design, value = J -->
         <xsl:if test="card_number='J'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
-                <svg width="{$cardWidth}" height="{$cardHeight}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="cardWidth" height="cardHeight" rx="10" ry="10" fill="white"/>
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
+                <svg width="{$cardWidth}" height="{$cardHeight}">
+                    <rect width="{$cardWidth}" height="{$cardHeight}" rx="10" ry="10" fill="white"/>
                     <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Jack.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">J</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">J</text>
@@ -1083,9 +1083,9 @@
 
         <!-- card design, value = Q -->
         <xsl:if test="card_number='Q'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="cardWidth" height="cardHeight" rx="10" ry="10" fill="white"/>
+                    <rect width="{$cardWidth}" height="{$cardHeight}" rx="10" ry="10" fill="white"/>
                     <image width="{$cardWidth - 5}" height="{$cardHeight - 17}"      y="8.5" x="2.5" href="http://localhost:8984/static/blackjack/Queen.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">Q</text>
@@ -1101,9 +1101,9 @@
 
         <!-- card design, value = K -->
         <xsl:if test="card_number='K'">
-            <svg width="cardWidthDimension" height="cardHeightDimension" filter="url(#f1)">
+            <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="cardWidth" height="cardHeight" rx="10" ry="10" fill="white"/>
+                    <rect width="{$cardWidth}" height="{$cardHeight}" rx="10" ry="10" fill="white"/>
                     <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5"  href="http://localhost:8984/static/blackjack/King.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">K</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">K</text>
