@@ -26,6 +26,20 @@
     <xsl:variable name="betZoneWidth" select="8"/>
     <xsl:variable name="betZoneHeight" select="4"/>
     
+    <!-- chips -->
+    <xsl:variable name="chipCenter" select="20"/>
+    <xsl:variable name="chipRadius" select="5"/>
+    <xsl:variable name="chip50X" select="-5"/>
+    <xsl:variable name="chip50Y" select="79"/>
+    <xsl:variable name="chip25X" select="-18"/>
+    <xsl:variable name="chip25Y" select="76"/>
+    <xsl:variable name="chip10X" select="-31"/>
+    <xsl:variable name="chip10Y" select="72"/>
+    <xsl:variable name="chip5X" select="-44"/>
+    <xsl:variable name="chip5Y" select="67"/>
+    <xsl:variable name="chip1X" select="-57"/>
+    <xsl:variable name="chip1Y" select="60"/>
+    
     <!-- Card dimensions -->
     <xsl:variable name="cardWidthDimension" select="225"/>
     <xsl:variable name="cardHeightDimension" select="340"/>
