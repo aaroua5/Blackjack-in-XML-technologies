@@ -257,7 +257,7 @@
                         </svg>
                     </xsl:if>
 
-                    <!-- new round button - displayed only after betting and before the player starts playing -->
+                    <!-- give up button - displayed only after betting and before the player starts playing -->
                     <xsl:if test="step = 'play'">
                         <svg id="give up" width="100%" height="100%" viewBox="0 0 100 100">
                             <rect x="41.5" y="89" width="17" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
