@@ -37,7 +37,7 @@
     <xsl:variable name="VerLine2" select="50"/>
     <xsl:variable name="VerLine3" select="66"/>
 
-    <!--                                             menu.xsl                                            -->
+    <!--                                             lounge.xsl                                            -->
 
     <!-- Table dimensions for the leader board and games -->
     <xsl:variable name="tableWidth" select="49"/>
