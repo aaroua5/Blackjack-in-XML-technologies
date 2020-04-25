@@ -153,25 +153,25 @@
 
                     <!-- hit button -->
                     <svg id="hit" width="100%" height="100%" viewBox="0 0 100 100">
-                        <circle cx="100" cy="91" r="6" fill="black" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                        <circle cx="100" cy="91" r="5.3" fill="#060C1A" filter="url(#inner-glow)" />
-                        <text x="100" y="91" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                        <circle cx="{$hitX}" cy="{$hitY}" r="{$hitRadius}" fill="black" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                        <circle cx="{$hitX}" cy="{$hitY}" r="{$hitRadius - 0.7}" fill="#060C1A" filter="url(#inner-glow)" />
+                        <text x="{$hitX}" y="{$hitY}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#fcdd7a">HIT</text>
                     </svg>
 
                     <!-- stand button -->
                     <svg id="stand" width="100%" height="100%" viewBox="0 0 100 100">
-                        <circle cx="120" cy="87" r="6.7" fill="black" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                        <circle cx="120" cy="87" r="6" fill="#060C1A" filter="url(#inner-glow)"/>
-                        <text x="120" y="87" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                        <circle cx="{$standX}" cy="{$standY}" r="{$standRadius}" fill="black" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                        <circle cx="{$standX}" cy="{$standY}" r="{$standRadius - 0.7}" fill="#060C1A" filter="url(#inner-glow)"/>
+                        <text x="{$standX}" y="{$standY}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#fcdd7a">STAND</text>
                     </svg>
 
                     <!-- double button -->
                     <svg id="double" width="100%" height="100%" viewBox="0 0 100 100">
-                        <circle cx="140" cy="80" r="7.4" fill="black" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                        <circle cx="140" cy="80" r="6.7" fill="#060C1A" filter="url(#inner-glow)"/>
-                        <text x="140" y="80" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                        <circle cx="{$doubleX}" cy="{$doubleY}" r="{$doubleRadius}" fill="black" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                        <circle cx="{$doubleX}" cy="{$doubleY}" r="{$doubleRadius - 0.7}" fill="#060C1A" filter="url(#inner-glow)"/>
+                        <text x="{$doubleX}" y="{$doubleY}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                               fill="#fcdd7a">DOUBLE</text>
                     </svg>
 
@@ -179,9 +179,9 @@
                     <xsl:if test="step ='roundOver'">
                         <svg id="new round" width="100%" height="100%" viewBox="0 0 100 100">
 
-                            <rect x="39.5" y="89" width="21" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                            <rect x="40" y="89.5" width="20" height="8" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
-                            <text x="50" y="93.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                            <rect x="{$newRoundX}" y="{$newRoundY}" width="{$newRoundWidth}" height="{$newRoundHeight}" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                            <rect x="{$newRoundX + 0.5}" y="{$newRoundY + 0.5}" width="{$newRoundWidth - 1}" height="{$newRoundHeight - 1}" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
+                            <text x="{$newRoundX + 10.5}" y="{$newRoundY + 4.5}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                   fill="#fcdd7a">NEW ROUND</text>
                         </svg>
                     </xsl:if>
@@ -189,9 +189,9 @@
                     <!-- give up button - displayed only after betting and before the player starts playing -->
                     <xsl:if test="step = 'play'">
                         <svg id="give up" width="100%" height="100%" viewBox="0 0 100 100">
-                            <rect x="41.5" y="89" width="17" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                            <rect x="42" y="89.5" width="16" height="8" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
-                            <text x="50" y="93.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                            <rect x="{$giveUpX}" y="{$giveUpY}" width="{$giveUpWidth}" height="{$giveUpHeight}" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                            <rect x="{$giveUpX + 0.5}" y="{$giveUpY + 0.5}" width="{$giveUpWidth - 1}" height="{$giveUpHeight - 1}" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
+                            <text x="{$giveUpX + 8.5}" y="{$giveUpY + 4.5}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                   fill="#fcdd7a">GIVE UP</text>
                         </svg>
                     </xsl:if>
@@ -201,17 +201,17 @@
                         <!-- deal button -->
                         <svg id="deal" width="100%" height="100%" viewBox="0 0 100 100">
 
-                            <rect x="51.5" y="89" width="17" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                            <rect x="52" y="89.5" width="16" height="8" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
-                            <text x="60" y="93.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                            <rect x="{$dealX}" y="{$dealY}" width="{$dealWidth}" height="{$dealHeight}" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                            <rect x="{$dealX + 0.5}" y="{$dealY + 0.5}" width="{$dealWidth - 1}" height="{$dealHeight - 1}" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
+                            <text x="{$dealX + 8.5}" y="{$dealY + 4.5}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                   fill="#fcdd7a">DEAL</text>
                         </svg>
 
                         <!-- clear button -->
                         <svg id="clear" width="100%" height="100%" viewBox="0 0 100 100">
-                            <rect x="31.5" y="89" width="17" height="9" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
-                            <rect x="32" y="89.5" width="16" height="8" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
-                            <text x="40" y="93.5" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
+                            <rect x="{$clearX}" y="{$clearY}" width="{$clearWidth}" height="{$clearHeight}" rx="2.5" ry="2.5" stroke-width="0.8" stroke="url(#goldGradient)" filter="url(#f2)"/>
+                            <rect x="{$clearX + 0.5}" y="{$clearY + 0.5}" width="{$clearWidth - 1}" height="{$clearHeight - 1}" rx="2" ry="2" fill="#060C1A" filter="url(#inner-glow)"/>
+                            <text x="{$clearX + 8.5}" y="{$clearY + 4.5}" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                   fill="#fcdd7a">CLEAR</text>
                         </svg>
                     </xsl:if>
@@ -219,11 +219,11 @@
                     <!-- exit button - always displayed except when the game is finished -->
                     <xsl:if test="step ='play' or step='bet'">
                         <svg id="close" width="100%" height="100%" viewBox="0 0 100 100">
-                            <svg x="133.5" y="-5.7" width="100%" height="100%" >
+                            <svg x="{$exitX}" y="{$exitY}" width="100%" height="100%" >
                                 <g transform="scale(.56)" >
-                                    <circle cx="20" cy="20" r="5.4" fill="#c33931"/>
-                                    <circle cx="20" cy="20" r="5" fill="#f13a44"/>
-                                    <circle cx="20" cy="20" r="5" fill="#ee535b" clip-path="url(#cut-off-bottom)"/>
+                                    <circle cx="{$exitCenter}" cy="{$exitCenter}" r="{$exitRadius + 0.4}" fill="#c33931"/>
+                                    <circle cx="{$exitCenter}" cy="{$exitCenter}" r="{$exitRadius}" fill="#f13a44"/>
+                                    <circle cx="{$exitCenter}" cy="{$exitCenter}" r="{$exitRadius}" fill="#ee535b" clip-path="url(#cut-off-bottom)"/>
                                     <rect height="8" width="2" x="19" y="16" rx="1" ry="1" fill="white" transform="rotate(45 20 20)"/>
                                     <rect height="8" width="2" x="19" y="16" rx="1" ry="1" fill="white" transform="rotate(-45 20 20)"/>
                                 </g>
