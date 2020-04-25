@@ -86,7 +86,7 @@ declare function blackjack-player:newUser($name as xs:string, $balance, $points 
 
                   <name>{$name}</name>
                   <totalmonney>{if($balance < 10) then 100  else fn:round($balance cast as xs:double - 0.5)  cast as xs:integer}</totalmonney>
-                  <points>{$points cast as xs:integer}</points>
+                  <points>{fn:round($points cast as xs:double - 0.5) cast as xs:integer}</points>
           </user>
 };
 
