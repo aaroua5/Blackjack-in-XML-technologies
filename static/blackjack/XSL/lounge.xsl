@@ -31,28 +31,29 @@
                 <g id="leader board"> <!-- Leader board table -->
                     <svg x="-499" y="45">
                         <svg id="table" width="100%" height="100%" viewBox="0 0 100 100"> <!-- Leader board table design -->
-                            <rect x="30" y="4" width="49" height="79" rx="2" ry="2" fill="#095584" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                            <rect x="{$tablePositionX}" y="{$tablePositionY}" width="{$tableWidth}" height="{$tableHeight}" 
+                                  rx="2" ry="2" fill="#095584" stroke-width="0.5" stroke="url(#goldGradient)"/>
 
                             <!-- Title zone -->
-                            <rect x="33" y="7" width="43" height="6" rx="2" ry="2" fill="#043b5c"/>
-                            <text x="54.5" y="3.5" dy="2em" fill="#fbda79" font-size="4" text-anchor="middle">✯ LEADERBOARD ✯</text>
+                            <rect x="{$titleZoneX}" y="{$titleZoneY}" width="{$TitleZoneWidth}" height="{$titleZoneHeight}" rx="2" ry="2" fill="#043b5c"/>
+                            <text x="{$titleTextX}" y="{$titleTextY}" dy="2em" fill="#fbda79" font-size="4" text-anchor="middle">✯ LEADERBOARD ✯</text>
 
                             <!-- Players zone -->
-                            <rect x="33" y="18" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="26" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 8}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="34" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 16}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="42" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 24}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="50" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 32}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="58" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 40}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="66" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 48}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
-                            <rect x="33" y="74" width="43" height="6" rx="2" ry="2" fill="#07486e"/>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 56}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
 
                         </svg>
 
@@ -85,36 +86,37 @@
                 <g id="games table"> <!-- Games table -->
                     <svg x="450" y="45">
                         <svg id="table" width="100%" height="100%" viewBox="0 0 100 100"> <!-- Games table design -->
-                            <rect x="30" y="4" width="49" height="79" rx="2" ry="2" fill="#09846F" stroke-width="0.5" stroke="url(#goldGradient)"/>
+                            <rect x="{$tablePositionX}" y="{$tablePositionY}" width="{$tableWidth}" height="{$tableHeight}" 
+                                  rx="2" ry="2" fill="#09846F" stroke-width="0.5" stroke="url(#goldGradient)"/>
 
                             <!-- Title zone -->
-                            <rect x="33" y="7" width="43" height="6" rx="2" ry="2" fill="#035c4b"/>
-                            <text x="54.5" y="3.5" dy="2em" fill="#fbda79" font-size="4" text-anchor="middle">GAMES</text>
+                            <rect x="{$titleZoneX}" y="{$titleZoneY}" width="{$TitleZoneWidth}" height="{$titleZoneHeight}" rx="2" ry="2" fill="#035c4b"/>
+                            <text x="{$titleTextX}" y="{$titleTextY}" dy="2em" fill="#fbda79" font-size="4" text-anchor="middle">GAMES</text>
 
                             <!-- Players zone -->
-                            <rect x="33" y="18" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="21" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="26" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="29" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 8}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 8}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="34" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="37" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 16}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 16}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="42" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="45" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 24}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 24}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="50" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="53" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 32}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 32}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="58" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="61" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 40}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 40}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="66" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="69" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 48}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 48}" r="3" fill="#076e5c"></circle>
 
-                            <rect x="33" y="74" width="34" height="6" rx="2" ry="2" fill="#076e5c"/>
-                            <circle cx="73" cy="77" r="3" fill="#076e5c"></circle>
+                            <rect x="{$firstRowX}" y="{$firstRowY + 56}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
+                            <circle cx="{$joinCircleX}" cy="{$joinCircleY + 56}" r="3" fill="#076e5c"></circle>
                         </svg>
 
                         <!-- Display of the created games -->
@@ -187,18 +189,18 @@
                     <svg id="table" width="100%" height="100%" viewBox="0 0 100 100">
                         <text x="35" y="27" fill="white" font-size="4">
                             <tspan text-anchor="middle">
-                                <tspan x="50" dy="2em">Good luck, </tspan>
+                                <tspan x="{$paragraphCentered}" dy="2em">Good luck, </tspan>
                                 <tspan fill="#fbda79"><xsl:value-of select="$playerName"/></tspan>
                                 <!-- calls the player name -->
                             </tspan>
                             <tspan text-anchor="middle">
-                                <tspan  x="50" fill="white" dy="1.5em">Balance: </tspan>
+                                <tspan  x="{$paragraphCentered}" fill="white" dy="1.5em">Balance: </tspan>
 
                                 <tspan fill="#fbda79" text-anchor="middle">$<xsl:value-of select=" round(users/user[name = $playerName]/totalmonney -0.5)"/></tspan>
                                 <!-- calls the balance of the player -->
                             </tspan>
                             <tspan text-anchor="middle">
-                                <tspan  x="50" fill="white" dy="1.5em">Score: </tspan>
+                                <tspan  x="{$paragraphCentered}" fill="white" dy="1.5em">Score: </tspan>
                                 <tspan fill="#fbda79" text-anchor="middle"><xsl:value-of select=" round(users/user[name = $playerName]/points - 0.5)"/> ✯</tspan>
                                 <!-- calls the score of the player -->
                             </tspan>
