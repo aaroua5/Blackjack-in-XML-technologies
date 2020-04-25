@@ -97,24 +97,19 @@
                     <!-- table where the game will take place -->
                     <svg id="table big circle" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <circle cx="50" cy="-95" r="181" fill="#503D2D"  filter="url(#outer-glow)"/>
-                        <circle cx="50" cy="-95" r="178" fill="url(#gradTable)" filter="url(#inner-shadow)"/>
+                        <circle cx="{$tableCenterX}" cy="{$tableCenterY}" r="{$tableRadius + 3}" fill="#503D2D"  filter="url(#outer-glow)"/>
+                        <circle cx="{$tableCenterX}" cy="{$tableCenterY}" r="{$tableRadius}" fill="url(#gradTable)" filter="url(#inner-shadow)"/>
 
                     </svg>
 
                     <!-- card zones in form of circles for each player -->
                     <svg id="card zones" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <circle cx="-30%" cy="45" r="8" fill="#0F2822"/>
-                        <circle r="8" cx="-30" cy="45" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
-                        <circle cx="10" cy="57" r="8" fill="#0F2822"/>
-                        <circle r="8" cx="10" cy="57" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
-                        <circle cx="50" cy="63" r="8" fill="#0F2822"/>
-                        <circle r="8" cx="50" cy="63" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
-                        <circle cx="90" cy="57" r="8" fill="#0F2822"/>
-                        <circle r="8" cx="90" cy="57" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
-                        <circle cx="130" cy="45" r="8" fill="#0F2822"/>
-                        <circle r="8" cx="130" cy="45" class="external-circle" stroke-width="0.3" fill="none" stroke="#80A323"></circle>
+                        <circle r="{$cardZoneRadius}" cx="{$cardZoneX5}" cy="{$cardZoneY1and5}" class="external-circle" stroke-width="0.3" fill="#0F2822" stroke="#80A323"></circle>
+                        <circle r="{$cardZoneRadius}" cx="{$cardZoneX4}" cy="{$cardZoneY2and4}" class="external-circle" stroke-width="0.3" fill="#0F2822" stroke="#80A323"></circle>
+                        <circle r="{$cardZoneRadius}" cx="{$cardZoneX3}" cy="{$cardZoneY3}" class="external-circle" stroke-width="0.3" fill="#0F2822" stroke="#80A323"></circle>
+                        <circle r="{$cardZoneRadius}" cx="{$cardZoneX2}" cy="{$cardZoneY2and4}" class="external-circle" stroke-width="0.3" fill="#0F2822" stroke="#80A323"></circle>
+                        <circle r="{$cardZoneRadius}" cx="{$cardZoneX1}" cy="{$cardZoneY1and5}" class="external-circle" stroke-width="0.3" fill="#0F2822" stroke="#80A323"></circle>
 
                     </svg>
 
