@@ -22,6 +22,10 @@
     <xsl:variable name="cardZoneY3" select="63"/>
     <xsl:variable name="cardZoneRadius" select="8"/>
     
+     <!-- bet text zone dimensions -->
+    <xsl:variable name="betZoneWidth" select="8"/>
+    <xsl:variable name="betZoneHeight" select="4"/>
+    
     <!-- Card dimensions -->
     <xsl:variable name="cardWidthDimension" select="225"/>
     <xsl:variable name="cardHeightDimension" select="340"/>
