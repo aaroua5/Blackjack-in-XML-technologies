@@ -44,6 +44,24 @@
     <xsl:variable name="stickerBig" select="20"/>
     <xsl:variable name="stickerSmall" select="12"/>
     
+    <!-- messages - Top Left Box -->
+    <xsl:variable name="LeftBoxX" select="-47"/>
+    <xsl:variable name="LeftBoxY" select="3"/>
+    <xsl:variable name="LeftBoxWidth" select="53"/>
+    <xsl:variable name="LeftBoxHeight" select="5"/>
+
+    <!-- messages - Balance Box -->
+    <xsl:variable name="BalanceBoxX" select="114"/>
+    <xsl:variable name="BalanceBoxY" select="3"/>
+    <xsl:variable name="BalanceBoxWidth" select="25"/>
+    <xsl:variable name="BalanceBoxHeight" select="5"/>
+
+    <!-- messages - Your turn Box -->
+    <xsl:variable name="YourTurnBoxX" select="93"/>
+    <xsl:variable name="YourTurnBoxY" select="3"/>
+    <xsl:variable name="YourTurnBoxWidth" select="18"/>
+    <xsl:variable name="YourTurnBoxHeight" select="5"/>
+    
     <!-- Card dimensions -->
     <xsl:variable name="cardWidthDimension" select="225"/>
     <xsl:variable name="cardHeightDimension" select="340"/>
