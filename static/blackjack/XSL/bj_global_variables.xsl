@@ -40,6 +40,10 @@
     <xsl:variable name="chip1X" select="-57"/>
     <xsl:variable name="chip1Y" select="60"/>
     
+    <!-- stickers dimensions -->
+    <xsl:variable name="stickerBig" select="20"/>
+    <xsl:variable name="stickerSmall" select="12"/>
+    
     <!-- Card dimensions -->
     <xsl:variable name="cardWidthDimension" select="225"/>
     <xsl:variable name="cardHeightDimension" select="340"/>
