@@ -4,6 +4,8 @@
     exclude-result-prefixes="xs"
     version="2.0">
 
+    <!--                                          blackjack.xsl                                        -->
+
     <!-- Card dimensions -->
     <xsl:variable name="cardWidthDimension" select="225"/>
     <xsl:variable name="cardHeightDimension" select="340"/>
@@ -34,6 +36,38 @@
     <xsl:variable name="VerLine1" select="33"/>
     <xsl:variable name="VerLine2" select="50"/>
     <xsl:variable name="VerLine3" select="66"/>
+
+    <!--                                             menu.xsl                                            -->
+
+    <!-- Table dimensions for the leader board and games -->
+    <xsl:variable name="tableWidth" select="49"/>
+    <xsl:variable name="tableHeight" select="79"/>
+    <xsl:variable name="tablePositionX" select="30"/>
+    <xsl:variable name="tablePositionY" select="4"/>
+
+    <!-- Title zone in the table -->
+    <xsl:variable name="titleZoneX" select="33"/>
+    <xsl:variable name="titleZoneY" select="7"/>
+    <xsl:variable name="TitleZoneWidth" select="43"/>
+    <xsl:variable name="titleZoneHeight" select="6"/>
+    <xsl:variable name="titleTextX" select="54.5"/>
+    <xsl:variable name="titleTextY" select="3.5"/>
+
+    <!-- First player/game zone in the table -->
+    <xsl:variable name="firstRowX" select="33"/>
+    <xsl:variable name="firstRowY" select="18"/>
+    <xsl:variable name="zoneHeight" select="6"/>
+    <xsl:variable name="playerZoneWidth" select="43"/>
+    <xsl:variable name="gameZoneWidth" select="34"/>
+
+    <!-- join button first circle -->
+    <xsl:variable name="joinCircleX" select="73"/>
+    <xsl:variable name="joinCircleY" select="21"/>
+
+    <!-- text showing player name, balance and score -->
+    <xsl:variable name="paragraphX" select="35"/>
+    <xsl:variable name="paragraphY" select="27"/>
+    <xsl:variable name="paragraphCentered" select="50"/>
 
 
 </xsl:stylesheet>
