@@ -8,27 +8,24 @@
 
             <defs>
 
-                <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1"> <!-- Gold gradient used for the stroke of the buttons -->
+                <!-- Gold gradient used for the stroke of the buttons -->
+                <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1"> 
                     <stop offset="5%" stop-color="#efcf76"></stop>
                     <stop offset="33%" stop-color="#fcdd7a"></stop>
                     <stop offset="66%" stop-color="#cfba65"></stop>
                     <stop offset="100%" stop-color="#988058"></stop>
                 </linearGradient>
 
-                <filter id="inner-glow"> <!-- Filter used for the inner glow effect of the buttons -->
+                <!-- Filter used for the inner glow effect of the buttons -->
+                <filter id="inner-glow">
                     <feFlood flood-color="#09846F"/>
                     <feComposite in2="SourceAlpha" operator="out"/>
                     <feGaussianBlur stdDeviation="1" result="blur"/>
                     <feComposite operator="atop" in2="SourceGraphic"/>
                 </filter>
 
-                <filter id="f2" x="0" y="0" width="200%" height="200%" filterUnits="userSpaceOnUse">
-                    <feOffset result="offOut" in="SourceAlpha" dx="1.5" dy="1.5" />
-                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />
-                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                </filter>
-
-                <g id="background" > <!-- Background of the page -->
+                <!-- Background of the page -->
+                <g id="background" >
                     <svg width="100%" height="100%">
                         <rect x="0"  y="0" width="100%" height="100%" fill="#0F2822" />
                     </svg>
@@ -37,7 +34,8 @@
                 <!-- Button design -->
                 <svg id="buttons" width="100%" height="100%" viewBox="0 0 100 100">
 
-                         <xsl:choose>      <!-- 1st case: Player lost all of his money / 2nd case: Player still got money-->
+                    
+                         <xsl:choose> 
 
                              <!-- In this case we have one buttons: Menu -->
                              <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
