@@ -133,16 +133,7 @@
                         <path
                                 d="M24.5,63.5a17.5,17.5,0,0,1,2.4.3c14,4,28,8.3,42.1,11.7,9.2,2.3,18.5,4.1,27.9,5.9,7.4,1.4,15.3,5.4,20-1.7s6.7-16.7,9.3-24.1,4.4-16.8,9-22c22.3,19,48.2,30,75.7,39.5,15,5.1,30.3,9.5,45.5,13.7,7.1,2,14.2,3.8,21.3,5.6s18.7,3,23.9,7.2c-16,2.4-33.2.4-49.3,1l-51.6,1.9c-8.5.3-16.9.7-25.4.9-6.1.2-14.1-1.9-17.2,3.9s-.3,18.2-.4,24.2c-.1,8.6-.2,17.3-.2,26-23.8-7.2-46.3-17.5-68.3-29a163.5,163.5,0,0,1-27.4-18.3A148,148,0,0,1,47.5,97.1,141.8,141.8,0,0,1,34,80.7c-3.7-5.2-6.6-10.9-9.9-16.5Z"
                                 transform="translate(-10.5 -17.8)" fill="#0d735f"/>
-                        <!-- Path used to display the text: INSURANCE PAYS 2 TO 1 -->
-                        <path
-                                id="MyPath3"
-                                d="M185.6,209.6c114.6,27.7,232.3,42.7,350,48.7,134.1,6.9,269.1,2.4,402.2-15.6A1762.6,1762.6,0,0,0,1116,209.6"
-                                transform="translate(-70 15) scale(1.1)" fill="none"/>
-                        <text font-family="DIN Condensed" font-size="27" fill="#0d5545" letter-spacing="4">
-                            <textPath href="#MyPath3" startOffset="72%">
-                                INSURANCE PAYS 2 TO 1
-                            </textPath>
-                        </text>
+                        
                         <!-- Path used to display the text: BLACKJACK   PAYS   3   TO   2 -->
                         <path
                                 id="MyPath2"
@@ -153,6 +144,7 @@
                                 BLACKJACK   PAYS   3   TO   2
                             </textPath>
                         </text>
+                        
                         <!-- Path used to display the text: DEALER MUST DRAW TO 16 AND STAND ON ALL 17'S -->
                         <path
                                 id="MyPath1"
