@@ -6,6 +6,22 @@
 
     <!--                                          blackjack.xsl                                        -->
 
+    <!-- table dimensions -->
+    <xsl:variable name="tableCenterX" select="50"/>
+    <xsl:variable name="tableCenterY" select="-95"/>
+    <xsl:variable name="tableRadius" select="178"/>
+
+    <!-- Card zone -->
+    <xsl:variable name="cardZoneX5" select="-30"/>
+    <xsl:variable name="cardZoneX4" select="10"/>
+    <xsl:variable name="cardZoneX3" select="50"/>
+    <xsl:variable name="cardZoneX2" select="90"/>
+    <xsl:variable name="cardZoneX1" select="130"/>
+    <xsl:variable name="cardZoneY1and5" select="45"/>
+    <xsl:variable name="cardZoneY2and4" select="57"/>
+    <xsl:variable name="cardZoneY3" select="63"/>
+    <xsl:variable name="cardZoneRadius" select="8"/>
+    
     <!-- Card dimensions -->
     <xsl:variable name="cardWidthDimension" select="225"/>
     <xsl:variable name="cardHeightDimension" select="340"/>
