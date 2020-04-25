@@ -337,8 +337,8 @@
                     <!-- message box displayed in the top left of the screen - shows various messages -->
                     <svg id="messages box" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <rect id="rect99" x="-47" y="3" width="53" height="5" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <text x="-45" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
+                        <rect id="rect99" x="{$LeftBoxX}" y="{$LeftBoxY}" width="{$LeftBoxWidth}" height="{$LeftBoxHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <text x="{$LeftBoxX + 2}" y="{$LeftBoxY + 3.5}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
                             <xsl:for-each select="./events/event">
                                 <xsl:if test="@id =$playerID or @id = 0">
                                     <xsl:value-of select="message"></xsl:value-of>
@@ -352,9 +352,9 @@
                     <svg id="balance box" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <xsl:if test="./players/player[@id = $playerID]">
-                            <rect id="rect99" x="114" y="3" width="25" height="5" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                            <text x="116" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">Balance:</text>
-                            <text x="128.5" y="6.5" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
+                            <rect id="rect99" x="{$BalanceBoxX}" y="{$BalanceBoxY}" width="{$BalanceBoxWidth}" height="{$BalanceBoxHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                            <text x="{$BalanceBoxX + 2}" y="{$BalanceBoxY + 3.5}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">Balance:</text>
+                            <text x="{$BalanceBoxX + 14.5}" y="{$BalanceBoxY + 3.5}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start">
                                 <xsl:value-of select="round(./players/player[@id = $playerID]/totalmonney - 0.5)"/>$
                             </text>
                         </xsl:if>
@@ -364,14 +364,14 @@
                     <!-- message box displayed in the top next to the balance box - shows "waiting..." or "your turn!" for each player -->
                     <svg id="player turn box" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <rect id="rect99" x="93" y="3" width="18" height="5" rx="0.8" ry="0.8" fill="#0c5544"/>
+                        <rect id="rect99" x="{$YourTurnBoxX}" y="{$YourTurnBoxY}" width="{$YourTurnBoxWidth}" height="{$YourTurnBoxHeight}" rx="0.8" ry="0.8" fill="#0c5544"/>
                         <xsl:if test="$playerID = players/player[$activePlayer= position()]/@id">
-                            <text x="95" y="6.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="start">
+                            <text x="{$YourTurnBoxX + 2}" y="{$YourTurnBoxY + 3.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="start">
                                 Your turn!
                             </text>
                         </xsl:if>
                         <xsl:if test="$playerID != players/player[$activePlayer= position()]/@id">
-                            <text x="95" y="6.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="start">
+                            <text x="{$YourTurnBoxX + 2}" y="{$YourTurnBoxY + 3.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="start">
                                 Waiting...
                             </text>
                         </xsl:if>
