@@ -310,18 +310,18 @@
                     <svg id="bet score" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <!-- text zone for displaying the bet score -->
-                        <rect x="-20" y="43" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="20" y="55" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="60" y="61" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="100" y="55" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
-                        <rect x="140" y="43" width="8" height="4" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="{$cardZoneX5 + 10}" y="{$cardZoneY1and5 - 2}" width="{$betZoneWidth}" height="{$betZoneHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="{$cardZoneX4 + 10}" y="{$cardZoneY2and4 - 2}" width="{$betZoneWidth}" height="{$betZoneHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="{$cardZoneX3 + 10}" y="{$cardZoneY3 - 2}" width="{$betZoneWidth}" height="{$betZoneHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="{$cardZoneX2 + 10}" y="{$cardZoneY2and4 - 2}" width="{$betZoneWidth}" height="{$betZoneHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
+                        <rect x="{$cardZoneX1 + 10}" y="{$cardZoneY1and5 - 2}" width="{$betZoneWidth}" height="{$betZoneHeight}" rx="0.8" ry="0.8" fill="#0F2822" stroke-width="0.3" stroke="#80A323"/>
 
                         <!-- bet score for each player -->
-                        <text x="-12.7" y="46" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 5]/currentBet"/>$</text>
-                        <text x="27.3" y="58" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 4]/currentBet"/>$</text>
-                        <text x="67.3" y="64" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 3]/currentBet"/>$</text>
-                        <text x="107.3" y="58" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 2]/currentBet"/>$</text>
-                        <text x="147.3" y="46" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 1]/currentBet"/>$</text>
+                        <text x="{$cardZoneX5 + 17.3}" y="{$cardZoneY1and5 + 1}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 5]/currentBet"/>$</text>
+                        <text x="{$cardZoneX4 + 17.3}" y="{$cardZoneY2and4 + 1}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 4]/currentBet"/>$</text>
+                        <text x="{$cardZoneX3 + 17.3}" y="{$cardZoneY3 + 1}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 3]/currentBet"/>$</text>
+                        <text x="{$cardZoneX2 + 17.3}" y="{$cardZoneY2and4 + 1}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"> <xsl:value-of select="players/player[tableSeat = 2]/currentBet"/>$</text>
+                        <text x="{$cardZoneX1 + 17.3}" y="{$cardZoneY1and5 + 1}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="end"><xsl:value-of select="players/player[tableSeat = 1]/currentBet"/>$</text>
 
                     </svg>
 
