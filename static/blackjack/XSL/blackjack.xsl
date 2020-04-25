@@ -160,22 +160,22 @@
                     <!-- name is displayed below to the card zone for each player -->
                     <svg id="player name" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <text x="-30" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 5]/name"/></text>
-                        <text x="10" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 4]/name"/></text>
-                        <text x="50" y="75.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 3]/name"/></text>
-                        <text x="90" y="69.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 2]/name"/></text>
-                        <text x="130" y="57.5" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 1]/name"/></text>
+                        <text x="{$cardZoneX5}" y="{$cardZoneY1and5 + 12.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 5]/name"/></text>
+                        <text x="{$cardZoneX4}" y="{$cardZoneY2and4 + 12.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 4]/name"/></text>
+                        <text x="{$cardZoneX3}" y="{$cardZoneY3 + 12.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 3]/name"/></text>
+                        <text x="{$cardZoneX2}" y="{$cardZoneY2and4 + 12.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 2]/name"/></text>
+                        <text x="{$cardZoneX1}" y="{$cardZoneY1and5 + 12.5}" font-family="Arial" font-size="3" fill="#80A323" text-anchor="middle"><xsl:value-of select="players/player[tableSeat= 1]/name"/></text>
 
                     </svg>
 
                     <!-- card sum is displayed in the right side of the card zone for each player -->
                     <svg id="cards sum" width="100%" height="100%" viewBox="0 0 100 100">
 
-                        <text x="-19.7" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=5]/totalSumCards"/></text>
-                        <text x="20.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=4]/totalSumCards"/></text>
-                        <text x="60.3" y="60" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=3]/totalSumCards"/></text>
-                        <text x="100.3" y="54" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=2]/totalSumCards"/></text>
-                        <text x="140.3" y="42" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=1]/totalSumCards"/></text>
+                        <text x="{$cardZoneX5 + 10.3}" y="{$cardZoneY1and5 - 3}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=5]/totalSumCards"/></text>
+                        <text x="{$cardZoneX4 + 10.3}" y="{$cardZoneY2and4 - 3}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=4]/totalSumCards"/></text>
+                        <text x="{$cardZoneX3 + 10.3}" y="{$cardZoneY3 - 3}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=3]/totalSumCards"/></text>
+                        <text x="{$cardZoneX2 + 10.3}" y="{$cardZoneY2and4 - 3}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=2]/totalSumCards"/></text>
+                        <text x="{$cardZoneX1 + 10.3}" y="{$cardZoneY1and5 - 3}" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="players/player[tableSeat=1]/totalSumCards"/></text>
                         <xsl:if test="step='roundOver'">
                             <text x="60.3" y="7" font-family="Arial" font-size="3" fill="#EBEBEB" text-anchor="start"><xsl:value-of select="dealer/totalSumCards"/></text>
                         </xsl:if>
@@ -186,31 +186,31 @@
                     <svg id="active player arrow" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '5'">
-                            <text x="-32" y="28" font-size="4" fill="#80A323">
+                            <text x="{$cardZoneX5 - 2}" y="{$cardZoneY1and5 - 17}" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
                         <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '4'">
-                            <text x="8" y="40" font-size="4" fill="#80A323">
+                            <text x="{$cardZoneX4 - 2}" y="{$cardZoneY2and4 - 17}" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
                         <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '3'">
-                            <text x="48" y="46" font-size="4" fill="#80A323">
+                            <text x="{$cardZoneX3 - 2}" y="{$cardZoneY3 - 17}" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
                         <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '2'">
-                            <text x="88" y="40" font-size="4" fill="#80A323">
+                            <text x="{$cardZoneX2 - 2}" y="{$cardZoneY2and4 - 17}" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
 
                         <xsl:if test="./players/player[position() = $activePlayer]/tableSeat = '1'">
-                            <text x="128" y="28" font-size="4" fill="#80A323">
+                            <text x="{$cardZoneX1 - 2}" y="{$cardZoneY1and5 - 17}" font-size="4" fill="#80A323">
                                 ▼
                             </text>
                         </xsl:if>
