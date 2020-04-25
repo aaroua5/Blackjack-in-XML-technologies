@@ -329,70 +329,70 @@
                     <svg id="chips" width="100%" height="100%" viewBox="0 0 100 100">
 
                         <!-- chip design - 50 -->
-                        <svg id="50" x="-5" y="79" width="100%" height="100%" >
+                        <svg id="50" x="{$chip50X}" y="{$chip50Y}" width="100%" height="100%" >
                             <g transform="scale(.7)" >
-                                <circle cx="20" cy="20" r="7" fill="#b1017d" />
-                                <circle cx="20" cy="20" r="7" fill="#C92E9A" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="5.4" fill="#6e0369" stroke="url(#goldGradient)" stroke-width=".2" />
-                                <circle cx="20" cy="20" r="5" fill="#b1017d"  />
-                                <circle cx="20" cy="20" r="5" fill="#C92E9A" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#b1017d" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#C92E9A" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 0.4}" fill="#6e0369" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#b1017d"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#C92E9A" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
                                 <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
                                       fill="#ffffff">50</text>
                             </g>
                         </svg>
 
                         <!-- chip design - 25 -->
-                        <svg id="25" x="-18" y="76" width="100%" height="100%" >
+                        <svg id="25" x="{$chip25X}" y="{$chip25Y}" width="100%" height="100%" >
                             <g transform="scale(.72)" >
-                                <circle cx="20" cy="20" r="7" fill="#19ae4a" />
-                                <circle cx="20" cy="20" r="7" fill="#38b561" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="5.4" fill="#08772a" stroke="url(#goldGradient)" stroke-width=".2" />
-                                <circle cx="20" cy="20" r="5" fill="#19ae4a"  />
-                                <circle cx="20" cy="20" r="5" fill="#38b561" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#19ae4a" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#38b561" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 0.4}" fill="#08772a" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#19ae4a"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#38b561" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
                                 <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
                                       fill="#ffffff">25</text>
                             </g>
                         </svg>
 
                         <!-- chip design - 10 -->
-                        <svg id="10" x="-31" y="72" width="100%" height="100%" >
+                        <svg id="10" x="{$chip10X}" y="{$chip10Y}" width="100%" height="100%" >
                             <g transform="scale(.74)" >
-                                <circle cx="20" cy="20" r="7" fill="#f13a44" />
-                                <circle cx="20" cy="20" r="7" fill="#ee535b" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="5.4" fill="#c33931" stroke="url(#goldGradient)" stroke-width=".2" />
-                                <circle cx="20" cy="20" r="5" fill="#f13a44"  />
-                                <circle cx="20" cy="20" r="5" fill="#ee535b" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#f13a44" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ee535b" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 0.4}" fill="#c33931" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#f13a44"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#ee535b" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
                                 <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
                                       fill="#ffffff">10</text>
                             </g>
                         </svg>
 
                         <!-- chip design - 5 -->
-                        <svg id="5" x="-44" y="67" width="100%" height="100%" >
+                        <svg id="5" x="{$chip5X}" y="{$chip5Y}" width="100%" height="100%" >
                             <g transform="scale(.77)" >
-                                <circle cx="20" cy="20" r="7" fill="#f1703b" />
-                                <circle cx="20" cy="20" r="7" fill="#f18156" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="5.4" fill="#bc3c17" stroke="url(#goldGradient)" stroke-width=".2" />
-                                <circle cx="20" cy="20" r="5" fill="#f1703b"  />
-                                <circle cx="20" cy="20" r="5" fill="#f18156" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#f1703b" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#f18156" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 0.4}" fill="#bc3c17" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#f1703b"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#f18156" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
                                 <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
                                       fill="#ffffff">5</text>
                             </g>
                         </svg>
 
                         <!-- chip design - 1 -->
-                        <svg id="1" x="-57" y="60" width="100%" height="100%" >
+                        <svg id="1" x="{$chip1X}" y="{$chip1Y}" width="100%" height="100%" >
                             <g transform="scale(.81)" >
-                                <circle cx="20" cy="20" r="7" fill="#febe38" />
-                                <circle cx="20" cy="20" r="7" fill="#ffcb5f" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="5.4" fill="#ee7005" stroke="url(#goldGradient)" stroke-width=".2" />
-                                <circle cx="20" cy="20" r="5" fill="#febe38"  />
-                                <circle cx="20" cy="20" r="5" fill="#ffcb5f" clip-path="url(#cut-off-bottom)" />
-                                <circle cx="20" cy="20" r="7" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#febe38" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ffcb5f" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 0.4}" fill="#ee7005" stroke="url(#goldGradient)" stroke-width=".2" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#febe38"  />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius}" fill="#ffcb5f" clip-path="url(#cut-off-bottom)" />
+                                <circle cx="{$chipCenter}" cy="{$chipCenter}" r="{$chipRadius + 2}" fill="#ffffff" clip-path="url(#chip-white-rectangles)"  />
                                 <text x="20" y="20" font-family="Arial" font-size="5" text-anchor="middle" alignment-baseline="central"
                                       fill="#ffffff">1</text>
                             </g>
