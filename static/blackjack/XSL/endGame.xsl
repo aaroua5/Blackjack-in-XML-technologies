@@ -38,7 +38,7 @@
                          <xsl:choose> 
 
                              <!-- In this case we have one buttons: Menu -->
-                             <xsl:when test="loosers/player[$playerID = @id]/totalmonney = 0">
+                             <xsl:when test="not(quitters/player[$playerID = @id]/totalmonney >= 10) ">
                                  <!-- Menu button -->
                                  <rect x="40.75" y="48" width="18.5" height="8" rx="2" ry="2" fill="#091b17" stroke-width="0.5" stroke="url(#goldGradient)"/>
                                  <text x="50" y="52" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"

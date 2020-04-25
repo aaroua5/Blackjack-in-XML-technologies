@@ -101,12 +101,12 @@ declare %updating function blackjack-game:join($gameID as xs:string , $playerNam
                                       if(fn:count($game/freeSeats/seat) = 0 or $game/step !='bet') then(
 
                                                 blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,-1),
-                                                delete node $casino/lobbys/lobby[id = $id]
+                                                delete node $casino/lougnes/lounge[id = $id]
 
                                       )  else (
                                                 blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,$tableSeat),
                                                 delete node $tableSeat ,
-                                                delete node $casino/lobbys/lobby[id = $id],
+                                                delete node $casino/lounges/lounge[id = $id],
                                                 replace node $game/events with  <events><event id='0'><message>{$playerName} joined the Game!</message></event></events>
                                       )
 
@@ -534,7 +534,7 @@ declare %updating function blackjack-game:addUser($playerName as xs:string,$bala
 
                    insert node blackjack-player:newUser($playerName, blackjack-game:getCasino()/users/user[$playerName = name]/totalmonney,blackjack-game:getCasino()/users/user[$playerName = name]/points,  $numberOfUsers) into blackjack-game:getCasino()/users,
 
-                   insert node <lobby><id>{$numberOfUsers}</id></lobby> into blackjack-game:getCasino()/lobbys,
+                   insert node <lounge><id>{$numberOfUsers}</id></lounge> into blackjack-game:getCasino()/lounges,
 
                    delete node blackjack-game:getCasino()/users/user[$playerName = name]
 
@@ -542,7 +542,7 @@ declare %updating function blackjack-game:addUser($playerName as xs:string,$bala
 
                    insert node blackjack-player:newUser($playerName, $balance cast as xs:integer, 0, $id ) into blackjack-game:getCasino()/users,
 
-                   insert node <lobby><id>{$id}</id></lobby> into blackjack-game:getCasino()/lobbys
+                   insert node <lounge><id>{$id}</id></lounge> into blackjack-game:getCasino()/lounges
 
                 )
         )

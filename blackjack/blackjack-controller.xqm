@@ -99,7 +99,7 @@ declare
 %rest:path("/bj/returnToGames/{$gameID}/{$playerID}")
 %updating
 function blackjack-controller:returnToGames($gameID as xs:string ,$playerID as xs:integer){
-        insert node <lobby><id>{$playerID}</id></lobby> into blackjack-game:getCasino()/lobbys,
+        insert node <lounge><id>{$playerID}</id></lounge> into blackjack-game:getCasino()/lounges,
         delete node blackjack-game:getGame($gameID)/quitters/player[@id =$playerID],
         update:output(web:redirect("/bj/showGames"))
 };
@@ -119,7 +119,7 @@ declare
 %rest:path("/bj/menu/{$playerID}")
 %updating
 function blackjack-controller:menu($playerID as xs:integer){
-        delete node blackjack-game:getCasino()/lobbys/lobby[id = $playerID],
+        delete node blackjack-game:getCasino()/lounges/lounge[id = $playerID],
         update:output(web:redirect("/bj/lobby"))
 
 };
@@ -202,7 +202,7 @@ function blackjack-controller:showGames(){
                             let $map := map{"playerName":$playerName,"balance":$balance}
                             let $transformedCasino := xslt:transform($casino,$stylesheet,$map)
                             return(
-                                if(fn:count($casino/lobbys[lobby = $playerID]) > 0) then(
+                                if(fn:count($casino/lounges[lounge = $playerID]) > 0) then(
                                         blackjack-ws:send($transformedCasino,concat("/bj/",$playerID))
                                 )
 

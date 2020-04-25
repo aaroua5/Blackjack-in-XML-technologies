@@ -3,6 +3,7 @@
     <xsl:param name="playerName"/>
     <xsl:param name="balance"/>
     <xsl:template match="casino">
+        <xsl:include href="bj_global_variables.xsl" />
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0, 0, 1800, 900">
             <xsl:variable name="playerID" select="users/user[name = $playerName]/@id"/>
