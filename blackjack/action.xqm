@@ -10,7 +10,7 @@ import module namespace blackjack-card = "blackjack/Cards" at "cards.xqm";
  : @return      Update the game model
 :)
 
-declare %updating function blackjack-action:nextBet($gameID as xs:string){
+declare %updating function blackjack-action:nextBet($gameID as xs:string) {
 
     let $game := blackjack-game:getGame($gameID)
     let $numberOfPlayers := fn:count($game/players/player)
@@ -23,7 +23,7 @@ declare %updating function blackjack-action:nextBet($gameID as xs:string){
             )
             else (
                 if($game/playerTurn = $numberOfPlayers) then(
-                    update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
+                    update:output(web:redirect(fn:concat("/webSbj/startGame/",$gameID)))
                 ),
                 replace value of node $game/playerTurn with ($game/playerTurn +1) mod ($numberOfPlayers + 1),
                 replace value of node $currentPlayer/totalmonney  with $currentPlayer/totalmonney - $currentPlayer/currentBet,
@@ -78,7 +78,7 @@ declare  %updating function blackjack-action:hit($gameID as xs:string){
                                      delete node $game/cards/card[fn:position()=1],
                                      replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfPlayers ,
                                                              if(($game/playerTurn +1) mod $numberOfPlayers = 0)  then(
-                                                                 update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                                                 update:output(web:redirect(fn:concat("/webSbj/dealer/",$gameID)))
                                                              )
 
                                   )
@@ -89,7 +89,7 @@ declare  %updating function blackjack-action:hit($gameID as xs:string){
                                              replace value of node $game/players/player[fn:position()= $game/playerTurn]/status with "loser",
                                              replace value of node $game/playerTurn with ($game/playerTurn + 1 ) mod $numberOfPlayers,
                                              if(($game/playerTurn +1) mod $numberOfPlayers = 0)  then(
-                                                    update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                                    update:output(web:redirect(fn:concat("/webSbj/dealer/",$gameID)))
                                              )
                                     else()
                                    )
@@ -125,8 +125,8 @@ declare %updating function blackjack-action:bet($gameID as xs:string, $betAmount
         )
 };
 (:~
- : This function is called when the player wants to stand
- : @gameID              The ID of the game
+     : This function is called when the player wants to stand
+ :
  : @return              Update the game model
 :)
 declare %updating function blackjack-action:stand($gameID as xs:string){
@@ -151,7 +151,7 @@ declare %updating function blackjack-action:stand($gameID as xs:string){
 
 
 
-                        update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))                    )
+                        update:output(web:redirect(fn:concat("/webSbj/dealer/",$gameID)))                    )
 
                     else(
                           if(blackjack-card:calculateCurrentCardValue($game,$activePlayer,0) =21) then(
@@ -194,7 +194,7 @@ declare %updating function blackjack-action:double($gameID as xs:string){
                                           replace value of node $activeUser/totalmonney with $activeUser/totalmonney - $activeplayer/currentBet,
                                           replace value of node $activeplayer/totalSumCards with $currentCardSum,
                                         if($game/playerTurn = $numberOfplayers) then(
-                                                update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                                update:output(web:redirect(fn:concat("/webSbj/dealer/",$gameID)))
                                         )
                                 )
 
@@ -211,7 +211,7 @@ declare %updating function blackjack-action:double($gameID as xs:string){
 
 (:~
  : This function is called when The player which to surrender , only if he has 2  cards
- :  @gameID         The ID of the game
+     :  @gameID         The ID of the game
  :  @return         Update the game model
 :)
 
@@ -223,7 +223,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
         let $numberOfPlayers := fn:count($game/players/player)
         return(
                     if(fn:count($activePlayer/cards/card)> 2) then(
-                        replace node $game/events with <events><event id="{$activePlayer/@id}"><message>"You can't surrender!"</message></event></events>
+                        replace node $game/events with <events><event id="{$activePlayer/@id}"><message>You can't surrender!</message></event></events>
                     )
                     else(
                         replace value of node $activePlayer/totalmonney with $activePlayer/totalmonney + 0.5*$activePlayer/currentBet,
@@ -238,7 +238,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                         ),
 
                         if($game/playerTurn = $numberOfPlayers ) then(
-                                update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                update:output(web:redirect(fn:concat("/webSbj/dealer/",$gameID)))
                         )
 
 
@@ -264,7 +264,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                         if($numberOfplayers > 1) then(
                                                 if($game/players/player[fn:position() = $game/playerTurn]/@id = $playerID) then(
                                                             if($game/playerTurn = $numberOfplayers) then(
-                                                                    update:output(web:redirect(fn:concat("/bj/startGame/",$gameID)))
+                                                                    update:output(web:redirect(fn:concat("/webSbj/startGame/",$gameID)))
                                                             )
                                                 ),
                                                 if($player[fn:position() < $game/playerTurn]) then(
@@ -283,7 +283,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
                                         if($numberOfplayers > 1) then(
                                                      if($game/players/player[fn:position() = $game/playerTurn]/@id = $playerID) then(
                                                             if($game/playerTurn = $numberOfplayers) then(
-                                                                    update:output(web:redirect(fn:concat("/bj/dealer/",$gameID)))
+                                                                    update:output(web:redirect(fn:concat("/webSbj/dealer/",$gameID)))
                                                             )
                                                      ),
                                                        if($player[fn:position() < $game/playerTurn]) then(
@@ -293,7 +293,7 @@ declare %updating function blackjack-action:surrender($gameID as xs:string){
 
 
                                         )  else(
-                                                     update:output(web:redirect(fn:concat("/bj/newRound/",$gameID)))
+                                                     update:output(web:redirect(fn:concat("/webSbj/newRound/",$gameID)))
                                            ),
                                             delete node $player,
                                             insert node $player into $game/quitters,

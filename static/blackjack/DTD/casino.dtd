@@ -1,4 +1,5 @@
-<!ELEMENT casino(numberOfUsers,users,lobbys,numberOfGames,blackjack*)>
+<!DOCTYPE casino[
+<!ELEMENT casino (numberOfUsers,users,lobbys,numberOfGames,blackjack*)>
 <!ELEMENT numberOfUsers (#PCDATA)>
 <!ELEMENT users (user*)>
 <!ELEMENT lobbys (lobby*)>
@@ -33,4 +34,5 @@
 <!ELEMENT card_type (#PCDATA)>
 <!ELEMENT color (#PCDATA)>
 <!ELEMENT card_Value (#PCDATA)>
+]>
 

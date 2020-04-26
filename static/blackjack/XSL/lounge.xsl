@@ -261,7 +261,7 @@
             <!-- New game button -->
             <xsl:if test="not(count(blackjack) > 7)">
                 <foreignObject x="45.2%" y="54.7%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newGame" method="POST" id="formMenu" style="display: inline;" target ="hiddenFrame" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/newGame" method="POST" id="formMenu" style="display: inline;" target ="hiddenFrame" >
                         <button type="submit" form="formMenu" value="Submit" style="height:77px; width:170px; border-radius: 20px;  background-color: Transparent;"></button>
                     </form>
                 </foreignObject>
@@ -270,7 +270,7 @@
             <!-- Random game button -->
             <xsl:if test="count(blackjack) > 0">
                 <foreignObject x="43.8%" y="65.7%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/random/{$playerName}/{$balance}" method="post" id="formRandom" style="display: inline;"  target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/random/{$playerName}/{$balance}" method="post" id="formRandom" style="display: inline;"  target="hiddenFrame">
                         <button type="submit" form="formRandom" value="Submit" style="height:77px; width:225px; border-radius: 20px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -280,7 +280,7 @@
             <xsl:if test="blackjack[position() = 1]">
                 <xsl:variable name="id" select="blackjack[position() = 1]/@id"/>
                 <foreignObject x="85%" y="26.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin1" style="display: inline;" target="hiddenFrame" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin1" style="display: inline;" target="hiddenFrame" >
                         <button type="submit" form="formjoin1" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -290,7 +290,7 @@
             <xsl:if test="blackjack[position() = 2]">
                 <xsl:variable name="id" select="blackjack[position() = 2]/@id"/>
                 <foreignObject x="85%" y="34.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin2" style="display: inline;"  target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin2" style="display: inline;"  target="hiddenFrame">
                         <button type="submit" form="formjoin2" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -300,7 +300,7 @@
             <xsl:if test="blackjack[position() = 3]">
                 <xsl:variable name="id" select="blackjack[position() = 3]/@id"/>
                 <foreignObject x="85%" y="42.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin3" style="display: inline;" target="hiddenFrame" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin3" style="display: inline;" target="hiddenFrame" >
                         <button type="submit" form="formjoin3" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -310,7 +310,7 @@
             <xsl:if test="blackjack[position() = 4]">
                 <xsl:variable name="id" select="blackjack[position() = 4]/@id"/>
                 <foreignObject x="85%" y="50.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin4" style="display: inline;"  target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin4" style="display: inline;"  target="hiddenFrame">
                         <button type="submit" form="formjoin4" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -320,7 +320,7 @@
             <xsl:if test="blackjack[position() = 5]">
                 <xsl:variable name="id" select="blackjack[position() = 5]/@id"/>
                 <foreignObject x="85%" y="58.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin5" style="display: inline;" target="hiddenFrame" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin5" style="display: inline;" target="hiddenFrame" >
                         <button type="submit" form="formjoin5" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -330,7 +330,7 @@
             <xsl:if test="blackjack[position() = 6]">
                 <xsl:variable name="id" select="blackjack[position() = 6]/@id"/>
                 <foreignObject x="85%" y="66.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin6" style="display: inline;" target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin6" style="display: inline;" target="hiddenFrame">
                         <button type="submit" form="formjoin6" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -340,7 +340,7 @@
             <xsl:if test="blackjack[position() = 7]">
                 <xsl:variable name="id" select="blackjack[position() = 7]/@id"/>
                 <foreignObject x="85%" y="74.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin7" style="display: inline;" target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin7" style="display: inline;" target="hiddenFrame">
                         <button type="submit" form="formjoin7" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -350,7 +350,7 @@
             <xsl:if test="blackjack[position() = 8]">
                 <xsl:variable name="id" select="blackjack[position() = 8]/@id"/>
                 <foreignObject x="85%" y="82.3%"  width="100%" height="100%">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin8" style="display: inline;" target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/join/{$id}/{$playerName}/{$balance}" method="POST" id="formjoin8" style="display: inline;" target="hiddenFrame">
                         <button type="submit" form="formjoin8" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
                 </foreignObject>
@@ -359,7 +359,7 @@
             <!-- Exit button -->
             <xsl:variable name="counter" select="position()"/>
             <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/menu/{$playerID}" method="get" id="formExit" style="display: inline;">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/menu/{$playerID}" method="get" id="formExit" style="display: inline;">
                     <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px; border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                 </form>
             </foreignObject>

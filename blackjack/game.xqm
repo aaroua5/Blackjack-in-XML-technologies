@@ -9,12 +9,12 @@ import module namespace blackjack-card = "blackjack/Cards" at "cards.xqm";
 
 
 
-declare variable $blackjack-game:casino := db:open("bj")/casino;
+declare variable $blackjack-game:casino := db:open("webSbj")/casino;
 
 (:~
  :this function return the Game using the ID and searches it in our casino
  : @gameID the game Id
- : @return the whole module of that Game
+     : @return the whole module of that Game
 :)
 declare function blackjack-game:getGame($gameID) as element(blackjack){
     $blackjack-game:casino/blackjack[@id = $gameID]
@@ -33,7 +33,7 @@ declare function blackjack-game:getCasino() as element(casino){
  : this function create a new Game by calling the method createNewGame
  : @maxBet      the maximum Bet of the Game
  : @minBet      the minimum Bet of the Game
- : @return      the newly created Game
+     : @return      the newly created Game
 :)
 declare  function blackjack-game:createGame($maxBet as xs:integer, $minBet as xs:integer, $playerNames as xs:string+, $balances as xs:string+){
    let $game := blackjack-game:createNewGame($maxBet,$minBet,$playerNames,$balances)
@@ -101,7 +101,7 @@ declare %updating function blackjack-game:join($gameID as xs:string , $playerNam
                                       if(fn:count($game/freeSeats/seat) = 0 or $game/step !='bet') then(
 
                                                 blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,-1),
-                                                delete node $casino/lougnes/lounge[id = $id]
+                                                delete node $casino/lounges/lounge[id = $id]
 
                                       )  else (
                                                 blackjack-game:insertNewPlayer($gameID,$playerName,$balance,$id,$tableSeat),
@@ -259,6 +259,7 @@ declare %updating function blackjack-game:initliazeSum($gameID as xs:string){
  : @gameID the ID of the game
  : @sum the sum if the dealer widthreaw $limit cards
  : @limit how menny Cards have to be widthrawn so far
+ :@return how many Cards should the dealer withdraw
 :)
 
 declare  function blackjack-game:dealerTurnHelper($gameID as xs:string,$sum ,$limit){

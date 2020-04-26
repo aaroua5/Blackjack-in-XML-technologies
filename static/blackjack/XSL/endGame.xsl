@@ -92,7 +92,7 @@
                 <xsl:when test="not(quitters/player[$playerID = @id]/totalmonney >= 0)">
                     <!-- Menu button -->
                     <foreignObject x="45.3%" y="47.8%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToLobby/{$id}/{$playerID}" method="get" id="form1" style="display: inline;" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/returnToLobby/{$id}/{$playerID}" method="get" id="form1" style="display: inline;" >
                             <button type="submit" form="form1" value="Submit" style="height:76px; width:170px; border-radius: 20px; border: none;
                             background-color: Transparent; outline:none;"></button>
                         </form>
@@ -103,7 +103,7 @@
       <xsl:variable name="playerName" select="quitters/player[$playerID = @id]/name"></xsl:variable>
                     <!-- Lounge button -->
                     <foreignObject x="39.9%" y="47.8%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToGames/{$id}/{$playerID}" method="get" id="form2" style="display: inline;"  target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/returnToGames/{$id}/{$playerID}" method="get" id="form2" style="display: inline;"  target="hiddenFrame">
                             <button type="submit" form="form2" value="Submit" style="height:76px; width:170px; border-radius: 20px; border: none;
                             background-color: Transparent; outline:none;"></button>
                         </form>
@@ -111,7 +111,7 @@
 
                     <!-- Menu button -->
                     <foreignObject x="50.6%" y="47.8%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/returnToLobby/{$id}/{$playerID}" method="get" id="form3" style="display: inline;" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/returnToLobby/{$id}/{$playerID}" method="get" id="form3" style="display: inline;" >
                             <button type="submit" form="form3" value="Submit" style="height:76px; width:170px; border-radius: 20px; border: none;
                             background-color: Transparent; outline:none;"></button>
                         </form>

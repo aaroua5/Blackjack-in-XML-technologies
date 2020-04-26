@@ -596,7 +596,7 @@
 
                     <!-- chip button, value = 1 -->
                     <foreignObject x="1.8%" y="70.5%" width="100%" height="100%" >
-                        <xsl:variable name="executeTurnLink" select="concat('/bj/bet/', $id,'/1')" />
+                        <xsl:variable name="executeTurnLink" select="concat('/webSbj/bet/', $id,'/1')" />
                         <form xmlns="http://www.w3.org/1999/xhtml" action="{$executeTurnLink}" method="POST" id="form1" target="hiddenFrame" style="display: inline;">
                             <button type="submit" form="form1" value="Submit" style="height:102px; width:102px;
                      border-radius: 51px; border: none; background-color: Transparent; outline:none;"></button>
@@ -605,7 +605,7 @@
 
                     <!-- chip button, value = 5 -->
                     <foreignObject x="8%" y="77%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/5"  method="POST" id="form5" style="display: inline;" target="hiddenFrame" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/bet/{$id}/5"  method="POST" id="form5" style="display: inline;" target="hiddenFrame" >
                             <button type="submit" form="form5" value="Submit" style="height:98px; width:98px;
                     border-radius: 49px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -613,7 +613,7 @@
 
                     <!-- chip button, value = 10 -->
                     <foreignObject x="14.3%" y="81.6%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/10"  method="POST" id="form10" style="display: inline;" target="hiddenFrame" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/bet/{$id}/10"  method="POST" id="form10" style="display: inline;" target="hiddenFrame" >
                             <button type="submit" form="form10" value="Submit" style="height:94px; width:94px;
                     border-radius: 46px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -621,7 +621,7 @@
 
                     <!-- chip button, value = 25 -->
                     <foreignObject x="20.7%" y="85.3%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/25" method="POST" id="form25" style="display: inline;"  target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/bet/{$id}/25" method="POST" id="form25" style="display: inline;"  target="hiddenFrame">
                             <button type="submit" form="form25" value="Submit" style="height:90px; width:90px;
                     border-radius: 45px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -629,7 +629,7 @@
 
                     <!-- chip button, value = 50 -->
                     <foreignObject x="27%" y="88%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/bet/{$id}/50" method="POST" id="form50" style="display: inline;" target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/bet/{$id}/50" method="POST" id="form50" style="display: inline;" target="hiddenFrame">
                             <button type="submit" form="form50" value="Submit" style="height:90px; width:90px;
                     border-radius: 45px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -637,7 +637,7 @@
 
                     <!-- clear button -->
                     <foreignObject x="40.5%" y="88.7%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/clear/{$id}" method="post" id="formClear" style="display: inline;"  target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/clear/{$id}" method="post" id="formClear" style="display: inline;"  target="hiddenFrame">
                             <button type="submit" form="formClear" value="Submit" style="height:86px; width:160px;
                     border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -645,7 +645,7 @@
 
                     <!-- deal button -->
                     <foreignObject x="50.5%" y="88.7%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/nextBet/{$id}" method="post" id="formDeal" style="display: inline;" target="hiddenFrame" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/nextBet/{$id}" method="post" id="formDeal" style="display: inline;" target="hiddenFrame" >
                             <button type="submit" form="formDeal" value="Submit" style="height:86px; width:160px;
                     border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -658,7 +658,7 @@
             <!-- new round button -->
             <xsl:if test="step ='roundOver'">
                 <foreignObject x="44.5%" y="88.7%" width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/newRound/{$id}" method="get" id="formNewRound" style="display: inline;" target="hiddenFrame" >
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/newRound/{$id}" method="get" id="formNewRound" style="display: inline;" target="hiddenFrame" >
                         <button type="submit" form="formNewRound" value="Submit" style="height:86px; width:197px;
                     border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
@@ -668,7 +668,7 @@
             <!-- exit button -->
             <xsl:if test="step ='bet' or step='play'">
                 <foreignObject x="95.85%" y="2.5%"  width="100%" height="100%" >
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/exitGame/{$id}/{$playerID}" method="post" id="formExit" style="display: inline;"  target="hiddenFrame">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/exitGame/{$id}/{$playerID}" method="post" id="formExit" style="display: inline;"  target="hiddenFrame">
                         <button   type="submit" form="formExit" value="Submit" style="height:54px; width:54px;
                              border-radius: 27px; border: none; background-color: Transparent; outline:none;"></button>
                     </form>
@@ -682,7 +682,7 @@
 
                     <!-- give up button -->
                     <foreignObject x="45.5%" y="88.7%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/surrender/{$id}" method="POST" id="formGiveUp" style="display: inline;"  target="hiddenFrame" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/surrender/{$id}" method="POST" id="formGiveUp" style="display: inline;"  target="hiddenFrame" >
                             <button type="submit" form="formGiveUp" value="Submit" style="height:86px; width:160px;
                     border-radius: 25px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -690,7 +690,7 @@
 
                     <!-- hit button -->
                     <foreignObject x="71.9%" y="84.7%"  width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/hit/{$id}" method="post" id="formHit" style="display: inline;"  target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/hit/{$id}" method="post" id="formHit" style="display: inline;"  target="hiddenFrame">
                             <button   type="submit" form="formHit" value="Submit" style="height:114px; width:114px;
                              border-radius: 57px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -698,7 +698,7 @@
 
                     <!-- stand button -->
                     <foreignObject x="81.5%" y="80%"  width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/stand/{$id}" method="post" id="formStand" style="display: inline;" target="hiddenFrame" >
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/stand/{$id}" method="post" id="formStand" style="display: inline;" target="hiddenFrame" >
                             <button type="submit" form="formStand" value="Submit" style="height:126px; width:126px;
                             border-radius: 63px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>
@@ -706,7 +706,7 @@
 
                     <!-- double button -->
                     <foreignObject x="91%" y="72.1%" width="100%" height="100%" >
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/bj/double/{$id}" method="post" id="formDouble" style="display: inline;" target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/webSbj/double/{$id}" method="post" id="formDouble" style="display: inline;" target="hiddenFrame">
                             <button type="submit" form="formDouble" value="Submit" style="height:140px; width:140px;
                             border-radius: 70px; border: none; background-color: Transparent; outline:none;"></button>
                         </form>

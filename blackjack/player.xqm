@@ -61,7 +61,6 @@ declare function blackjack-player:newPlayer($name as xs:string, $balance, $id as
 
 
     <player id = "{$id}">
-
         <name>{$name}</name>
         <status>free</status>
         <tableSeat>{$tableSeat}</tableSeat>
