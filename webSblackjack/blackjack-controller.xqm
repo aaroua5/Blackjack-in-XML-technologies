@@ -10,11 +10,11 @@ import module namespace helper = "blackjack/helper" at "helper.xqm";
 
 
 
-declare variable $blackjack-controller:staticPath := "../static/blackjack";
-declare variable $blackjack-controller:initPlayers := doc("../static/blackjack/HTML/initPlayers.html");
-declare variable $blackjack-controller:lobby := doc("../static/blackjack/HTML/lobby.html");
-declare variable $blackjack-controller:rules := doc("../static/blackjack//HTML/rules.html");
-declare variable $blackjack-controller:about := doc("../static/blackjack/HTML/about.html");
+declare variable $blackjack-controller:staticPath := "../static/webSblackjack";
+declare variable $blackjack-controller:initPlayers := doc("../static/webSblackjack/HTML/initPlayers.html");
+declare variable $blackjack-controller:lobby := doc("../static/webSblackjack/HTML/lobby.html");
+declare variable $blackjack-controller:rules := doc("../static/webSblackjack//HTML/rules.html");
+declare variable $blackjack-controller:about := doc("../static/webSblackjack/HTML/about.html");
 
 
 
@@ -34,7 +34,7 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup(){
-       let $bjModel := doc("../static/blackjack/casino.xml")
+       let $bjModel := doc("../static/webSblackjack/casino.xml")
 
        let $redirectLink := "/webSbj/lobby"
        return(db:create("webSbj",$bjModel),update:output(web:redirect($redirectLink)))
@@ -258,8 +258,8 @@ declare
 %rest:GET
 function blackjack-controller:draw($gameID as xs:string){
         let $wsIDs := blackjack-ws:getIDs()
-        let $stylesheet := doc("../static/blackjack/XSL/blackjack.xsl")
-        let $gameOverStylesheet := doc("../static/blackjack/XSL/endGame.xsl")
+        let $stylesheet := doc("../static/webSblackjack/XSL/blackjack.xsl")
+        let $gameOverStylesheet := doc("../static/webSblackjack/XSL/endGame.xsl")
         let $game := blackjack-game:getGame($gameID)
         let $gameIDs := for $p in $game/players/player
                         return($p/@id)
@@ -279,8 +279,6 @@ function blackjack-controller:draw($gameID as xs:string){
                                 blackjack-ws:send($endGame,concat("/webSbj/",$playerID))
                             )
                         )
-
-
                 ),
                 blackjack-controller:showGames()
         )
