@@ -48,7 +48,7 @@
                                  <text x="50" y="40" font-family="Arial" font-size="3" text-anchor="middle" alignment-baseline="central"
                                        fill="#EBEBEB">
                                      <tspan x="50" >GAME OVER!</tspan>
-                                     <tspan x="50" dy="1.5em">You lost all of your money!</tspan>
+                                     <tspan x="50" dy="1.5em">You can't play anymore!</tspan>
                                  </text>
                              </xsl:when>
 
