@@ -1,0 +1,2185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://docbook.org/xml/5.1/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://docbook.org/xml/5.1/sch/docbook.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.1">
+    <title>BlackJack Documentation</title>
+    <info>
+        <author>
+            <orgname><emphasis role="bold">WebSocket Group</emphasis></orgname>
+        </author>
+        <author>
+            <personname>Achraf Aroua</personname>
+        </author>
+        <author>
+            <personname>Ali Rabeh</personname>
+        </author>
+        <author>
+            <personname>Mariia Borysova</personname>
+        </author>
+        <author>
+            <personname>Yousri Cherif</personname>
+        </author>
+    </info>
+    <sect1>
+        <title>I. Introduction</title>
+        <sect2>
+            <title>Project Requirements</title>
+            <para>Our task during this project was to create an online Blackjack game. The project
+                description contained some functional and non-functional requirements.</para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Functional
+                        requirements:</emphasis></emphasis></para>
+            <itemizedlist>
+                <listitem>
+                    <para>Multi-client solution (several people should be able to play in their own
+                        browser window).</para>
+                </listitem>
+                <listitem>
+                    <para>Lounge where a game can be selected, or a new game can be started.</para>
+                </listitem>
+                <listitem>
+                    <para>Players should have a possibility to register. It is sufficient to choose
+                        a name; password is not necessary.</para>
+                </listitem>
+                <listitem>
+                    <para>Lounge has to contain a high score table for the finished games. </para>
+                </listitem>
+            </itemizedlist>
+            <para><emphasis role="underline"><emphasis role="bold">Non-functional
+                        requirements:</emphasis></emphasis><itemizedlist>
+                    <listitem>
+                        <para>Blackjack must be designed, implemented and documented as a web
+                            application, using only XML technologies (no JavaScript).</para>
+                    </listitem>
+                    <listitem>
+                        <para>On the server side, BaseX in a WebSocket / STOMP-capable web server
+                            (Jetty) must be used to store XML data and to perform XQuery
+                            functions.</para>
+                    </listitem>
+                    <listitem>
+                        <para>To map requests to XQuery functions, annotations must be used in
+                            XQuery modules according to RestXQ.</para>
+                    </listitem>
+                    <listitem>
+                        <para>On the client side, HTML with embedded forms and SVG with the
+                            WebSocket element must be used.</para>
+                    </listitem>
+                    <listitem>
+                        <para>A blackjack server must support parallel games from different
+                            clients.</para>
+                    </listitem>
+                    <listitem>
+                        <para>The documentation should contain installation instructions and, among
+                            other things, specify which databases should be created in BaseX and via
+                            which URL the game can be started.</para>
+                    </listitem>
+                    <listitem>
+                        <para>MVC architectural style must be used.</para>
+                    </listitem>
+                    <listitem>
+                        <para>The documentation should be done with DocBook.</para>
+                    </listitem>
+                </itemizedlist></para>
+        </sect2>
+        <sect2>
+            <title>Use Case</title>
+            <figure>
+                <title>Use Case Diagram for the Blackjack Application</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="images/use_case_general.png" width="90%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            
+            <para dir="ltr"><emphasis role="bold"><emphasis role="underline">Starting the
+                        Game</emphasis></emphasis></para>
+            <para dir="ltr">Start screen of the game is called menu and contains 3 buttons. “Rules”
+                button will lead the user to the page where he can find an explanation about the
+                rules in our casino, points system in the leaderboard and will also show the minimum
+                and maximum bets for each round. Minimum and maximum bets are the same for all games
+                and cannot be changed by the user. By clicking the “About” button the player will be
+                directed to a page where the team behind this game will be introduced. By clicking
+                on the “Games” button the user enters the registration screen. There he needs to
+                choose a name which must comply with the format indicated on the screen. Afterwards
+                he enters the lounge and 100$ are assigned to his balance.</para>
+            <para dir="ltr"><emphasis role="bold"><emphasis role="underline">The lounge
+                    </emphasis></emphasis></para>
+            <para dir="ltr">There are 2 tables in the lounge – “Leaderboard” and “Games”. In the
+                leaderboard the names and the points (score) of the TOP-8 players of the casino are
+                listed by descending order. When a player first enters the game, he has 0 points.
+                The second table contains a list of all of the ongoing games. In a casino there can
+                be from 0 to 8 simultaneously running games. If there are less than 8 games, the
+                player can create a new one by clicking the “New Game” button. The player can join
+                any ongoing game. If all the places in the game are occupied, he will watch and wait
+                until a seat becomes free. There is also a “Random Game” button in the lounge that
+                will let the player join a random game. Once a game is created, it cannot be
+                deleted.</para>
+            <para dir="ltr"><emphasis role="bold"><emphasis role="underline">The
+                    Game</emphasis></emphasis></para>
+            <para dir="ltr">There is no strictly defined set of rules for blackjack. In fact, they
+                differ from one casino to another. Below are the rules that our team set for our
+                variant.</para>
+            <para dir="ltr">Up to 5 players can take part in one game. Blackjack is played against
+                the dealer. Even if there are several players at the table, they all play against
+                the dealer, and not against each other. Therefore, the main goal is to collect a
+                combination of cards that is superior to the dealer’s hand, but without exceeding
+                21, also called busting. The value of a hand in blackjack is determined by adding up
+                the values of the player’s cards. Any combination of the cards that sums up to 21
+                regardless of the number of cards is called “blackjack” in our casino. The best hand
+                has a sum of 21. Any combination with a total score of more than 21 is automatically
+                eliminated from the game.</para>
+            <para dir="ltr">The player does not always need to get 21 points in order to win against
+                the dealer. To do this, it is enough to have a hand, the sum of which exceeds the
+                total amount of the sum of the dealer. At the beginning of the game, players receive
+                two cards face down, and the dealer puts out his cards as follows: one card face up,
+                and the second down. Dealer must continue drawing cards until he reaches a total of
+                17. During each round one full deck of cards is used (52 cards).</para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">The
+                    Bets</emphasis></emphasis></para>
+            <para dir="ltr">Before the start of the round, all players make bets in turn from right
+                to left. The minimum bid is $10; the maximum is $100. The active player is
+                identified by a pointer above his card zone. A player can leave the game without
+                losing funds only before making a bet. The game uses chips in denominations of 1, 5,
+                10, 25, 50. After placing the bets all the players and the dealer get the cards. </para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Card
+                    Values</emphasis></emphasis></para>
+            <para dir="ltr">All cards with faces (king, queen and jack) bring 10 points. An ace can
+                cost either 1 or 11 points, depending on which value is more profitable at the
+                moment. The cost of the remaining cards is equal to their numerical value. Card
+                suits have nothing to do with their value.</para>
+            <para><emphasis role="underline"><emphasis role="bold">Player’s
+                    actions</emphasis></emphasis><itemizedlist>
+                    <listitem>
+                        <para><emphasis role="underline">Hit</emphasis> - add another card to the
+                            player's hand. The player can ask for as many cards as he wants, as long
+                            as their amount is greater than or equal to 21. If a player received
+                            blackjack immediately after the bet, he can still click “Hit” and
+                            continue playing.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="underline">Stand</emphasis> - this tells the dealer
+                            that the player is refraining from further distribution.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="underline">Double Down</emphasis> - player doubles his
+                            initial bet if the value of his cards is less than 11, but after that
+                            player will receive exactly one card.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="underline">Surrender </emphasis>- after the initial
+                            distribution, the player can choose to continue the game or to give up
+                            and pick up half of his original bet. Only available before any other
+                            action is performed.</para>
+                    </listitem>
+                </itemizedlist></para>
+            <para><emphasis role="underline"><emphasis role="bold">Possible
+                    outcomes</emphasis></emphasis><itemizedlist>
+                    <listitem>
+                        <para>If the amount of player’s cards exceeds 21 points - the bet is
+                            withdrawn in favor of the casino.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If the amount of player’s cards is exactly 21 points (“blackjack”) –
+                            the player automatically wins, no matter what cards the dealer has.
+                            Blackjack pays 3:2 to the initial bet. </para>
+                    </listitem>
+                    <listitem>
+                        <para>If the sum for player’s cards is less than 21 points, but more than
+                            the sum for the dealer’s cards; or if the dealer busts, the player wins.
+                            Win is paid 1:1 to the initial bet. </para>
+                    </listitem>
+                    <listitem>
+                        <para>If the amount of player’s cards is less than that of the dealer, the
+                            bet is withdrawn in favor of the casino.</para>
+                    </listitem>
+                    <listitem>
+                        <para>There are no draws in our casino. Thus, if the sum of the player's
+                            cards matches the sum of the dealer’s cards, the player wins and is paid
+                            1:1. </para>
+                    </listitem>
+                </itemizedlist></para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">End of the
+                        Round</emphasis></emphasis></para>
+            <para>After the end of the round, any player can start a new round by clicking on the
+                corresponding button. If a player does not have enough money for a minimum bet, he
+                will be automatically excluded from the game. After that, if another player is on
+                the waiting list, he will be able to take a free seat. A quitting player can enter
+                the lounge by creating a new name, or by using the old one. In the second case, he
+                will receive a new 100 $, but his points in the leaderboard will remain the same as
+                before.</para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Leaderboard
+                        points</emphasis></emphasis></para>
+            <para dir="ltr">The number of points in the table corresponds to the number of money
+                won/lost for all rounds played by the player in all games. Points can be both
+                positive and negative.</para>
+            <para><emphasis role="underline"><emphasis role="bold">Other
+                    actions:</emphasis></emphasis></para>
+            <itemizedlist>
+                <listitem>
+                    <para><emphasis role="underline">Insurance.</emphasis> By opening an ace at the
+                        dealer during the distribution, the player can prevent probable blackjack.
+                        The level of insurance is equal to 50% of the rate made initially. If the
+                        dealer has blackjack, the player’s bet will be returned, and the game
+                        continues as usual. This function will not be implemented in our
+                        casino.</para>
+                </listitem>
+                <listitem>
+                    <para><emphasis role="underline">Split.</emphasis> A hand is split into two if
+                        both cards have the same value. If both hands win, the player gets a double
+                        win. If both lose, the player loses twice. Split is done by pulling the
+                        cards to the sides and repeating the original bet. This function will not be
+                        implemented in our casino.</para>
+                </listitem>
+                
+            </itemizedlist>
+            <para>Following activity diagram represents the complete flow of the game. Following Use Case diagram shows
+                interactions between the user and the application. </para>
+            <figure>
+                <title>Activity Diagram for the Blackjack Application</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="images/ActivityV2.png" width="80%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+        </sect2>
+        <sect2>
+            <title>WebSocket Team</title>
+            <para>Our team is called WebSocket (ws) and consists of 4 students:<itemizedlist>
+                    <listitem>
+                        <para>Achraf Aroua (Informatics, Bachelor 6th semester)</para>
+                    </listitem>
+                    <listitem>
+                        <para>Ali Rabeh (Mechanical engineering, Bachelor, 8th semester)</para>
+                    </listitem>
+                    <listitem>
+                        <para>Mariia Borysova (Informatics, Bachelor 6th semester)</para>
+                    </listitem>
+                    <listitem>
+                        <para>Yousri Cherif (Informatics, Bachelor 6th semester)</para>
+                    </listitem>
+                </itemizedlist></para>
+            <para dir="ltr">We decided to use WhatsApp for communication between the team members.
+                We had regular meetings approximately every 2 weeks at the university before
+                Christmas to divide tasks from the exercise sheets and discuss problems. Our team
+                presented the solution for the second exercise sheet “SVG” on the 14th of November.
+                After the winter examination phase we started to hold weekly online meetings via
+                Zoom due to the Coronavirus outbreak. To share our implementation between the team
+                members a Github directory was used. To share the presentation slides, notes and
+                other written materials we created a Google Drive directory. For the implementation
+                all of the four team members decided to use an IntelliJ IDEA IDE. </para>
+            <para dir="ltr">Every team member wrote a part of the code and a part of the
+                documentation, but main responsibilities were divided as follows:<itemizedlist>
+                    <listitem>
+                        <para>Achraf was responsible for the functionality of the game.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Yousri was responsible for the design.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Mariia and Ali were responsible for the preparation of the
+                            documentation, the presentation and the testing.</para>
+                    </listitem>
+                </itemizedlist></para>
+        </sect2>
+    </sect1>
+    <sect1>
+        <title>II. Modeling and Implementing</title>
+        <para/>
+        <sect2>
+            <title>Client-Server Architecture</title>
+            <para>To model and implement our web application we used a client-server architecture.
+                This means that the client runs in the web browser, the server runs in the web
+                server (Jetty) and these two components communicate with each other using the HTTP
+                protocol. The server contains the application code that manipulates the data and the
+                database in which the data is stored. Only application code can access the database
+                and the database is architecturally one level below the server. That’s why we get a
+                typical three-tier web application architecture. To the Tier 1 belong any number of
+                browsers through which users interact with the game. Web server is situated on the
+                Tier 2 and a database system is Tier 3. Tier 1 and 2 communicate via HTTP requests
+                and responses, Tier 2 and 3 communicate via XQuery methods. There is no direct
+                connection between Tier 1 and 3.</para>
+        </sect2>
+        <sect2>
+            <title>MVC for a Single-Client Web-Application</title>
+            <para dir="ltr">One of the project’s requirements is to implement the application using
+                the Model-View-Controller architectural style. We used an MVC with Passive View
+                variant to implement our application. This means that Model and View can communicate
+                only via Controller and Model will not directly notify View about the updates. </para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Task of the View
+                        component:</emphasis></emphasis> displaying the information to the user
+                (state of the application), tracking the user interactions, sending the user’s
+                responses to the Controller, waiting for the response of the controller and
+                displaying the changes to the user. The data exchanged between the View and the
+                Controller uses XML for the representation. </para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Task of the Model
+                        component:</emphasis></emphasis> storing, providing access and manipulating
+                the data. Methods in Model are called by the Controller and it’s a single
+                opportunity for the Model to change its state. </para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Task of the
+                        Controller:</emphasis></emphasis> Controller is a bridge between the View
+                and the Model. It receives the information about all of the user’s interactions,
+                calls the methods in Model (if needed), gets the information from Model, converts it
+                to the information for View and sends it back to View, so the View can display a new
+                state of the application to the user.</para>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Mapping MCV to the
+                        three-tier architecture</emphasis></emphasis></para>
+            <para dir="ltr">Since our application is an XML-based application, both Controller and
+                Model are XQuery-Modules and are run in Tier 3 by a single backend XQuery processor
+                (in our case BaseX Database system). Thus, Controller and Model are situated
+                together on Tier 3 and communicate using the XQuery methods. Web server on the Tier
+                2 is a generic component and is responsible for HTTP requests from users and HTTP
+                responses to users. Controller has to translate the HTTP requests to the XQuery
+                functions. Rules for this translation are defined by RestXQ annotations within
+                Controller. Controller also needs to convert XQuery back to HTTP to create a
+                response (the features of this process will be described later in the chapter
+                “Implementing the Model component”). There is no application-specific software on
+                the Tier 2. Tier 2 and 3 are both run on the BaseX HTTP Server. MVC architecture for
+                single-client version with distribution at various Tiers is shown at the deployment
+                diagram below.</para>
+            <figure>
+                <title>MVC Deployment Diagram for a Single-Client Application</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="images/mvc_deployment.png" width="70%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+        </sect2>
+        <sect2>
+            <title>WebSocket</title>
+            <para dir="ltr">One of the main requirements for the game was to make it multi-client.
+                By using the regular HTTP, the client will get the response from the server only as
+                an answer to its prior request. That is why, for example, the screen of the Player1
+                will not be updated after Player2 finishes betting. Websocket is an HTTP extension
+                protocol, which allows us to create a bidirectional communication between the client
+                and the server. Now the server has a possibility to send a response to the client
+                without the prior request (do a server push). The server must use a STOMP (Simple
+                Text Oriented Messaging Protocol) on top of the Websocket. </para>
+            <para dir="ltr">The Use Case diagram below demonstrates how the player now interacts
+                with the application and how information is transmitted within the system.</para>
+            <para/>
+            <figure>
+                <title>Use Case Diagram for the MVC with WebSocket</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="images/use_case_mvc_ws.png" width="70%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <para dir="ltr"><emphasis role="underline"><emphasis role="bold">Changes in architecture
+                        compared to the single-client version</emphasis></emphasis></para>
+            <para dir="ltr">WebSocket protocol is used for the responses from server to client
+                instead of HTTP.</para>
+            <para dir="ltr">MVC architecture for multi-client version is shown at the deployment
+                diagram below.</para>
+            <figure>
+                <title>MVC Deployment Diagram for a Multi-Client Application</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="images/mvc_ws_deployment.png" width="70%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+        </sect2>
+        <sect2>
+            <title>Modeling and Implementing MVC</title>
+            <para dir="ltr"><emphasis role="bold"><emphasis role="underline">SHORT
+                        INTRODUCTION:</emphasis></emphasis></para>
+            <para dir="ltr">The word <emphasis role="bold">LOUNGE</emphasis> is used to describe the
+                screen that contains games and leaderboard. The word <emphasis role="bold"
+                    >LOBBY</emphasis> is used to describe the screen containig the three buttons
+                “Games”, “Rules” and “About”. Word <emphasis role="bold">LOBBY</emphasis> is used
+                everywhere throughout the implementation except for the game interface, where we
+                decided to use the word <emphasis role="bold">MENU</emphasis> as it seems more
+                user-friendly to us. Thus, words <emphasis role="bold">LOBBY</emphasis> and
+                    <emphasis role="bold">MENU</emphasis> are used synonymously throughout the
+                implementation and documentation.</para>
+            <sect3>
+                <title><emphasis role="bold">Modeling the Component Model</emphasis></title>
+                <para>UML Class diagram below represents the structure and the relationships between
+                    the objects as they are stored in the database. To make the diagram more
+                    understandable, we divided it into two parts. The first contains only
+                    attributes, and the second contains only functions.</para>
+                <figure>
+                    <title>Class Diagram for the Model Component (attributes only)</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/model_class.png" width="80%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <para dir="ltr">The main element of the application is Casino class. Casino can
+                    simultaneously contain from 0 to 8 <option>games</option> and the list of all of
+                    the registered <option>users</option>. The casino also contains the list of
+                        <option>lounges</option>. Each lounge displays the information to one
+                    specific user; therefore, lounge and user are connected and share the same
+                        <option>id</option> attribute. Whenever the user enters the lounge, he is
+                    stored there. Whenever the user leaves the lounge, he is removed. It was modeled
+                    so that we could know who is in the lounge at the moment and could send them an
+                    update via WebSocket whenever an update occurs. For example, when one user
+                    creates a new game, all users in the lounge are notified. </para>
+                <para dir="ltr">The next important part of the application is the game itself. Class
+                    for the game is called Blackjack. It contains the following attributes:
+                        <option>id, step, maxBet, minBet</option> and <option>playerTurn</option>.
+                    The <option>step</option> attribute controls the current state of the game and
+                    can have three values: “bet” when the player is betting, “play” when players are
+                    playing or “roundOver” when the round is over. Besides, Blackjack has one
+                        <option>dealer</option>, one deck of <option>cards</option>, which is full
+                    at the beginning of each round and three lists of players. First one –
+                        <option>players</option> are the players currently participating in the
+                    game. Second – <option>waitPlayer</option> are the players currently watching
+                    the game and the last one – <option>quitters</option> are players who are
+                    leaving the game. If a player pressed the exit button or lost all of his money,
+                    he will be added to the <option>quitters</option> list. This is necessary for
+                    sending the player to the endGame screen via Websocket instead of the game table
+                    (Blackjack screen). </para>
+                <para dir="ltr">Blackjack and Player are also connected via the Seat class. The
+                    game keeps track of the <option>freeSeats</option> and the player has a <option>seat</option> attribute that
+                    assigns a particular place on the table to the player. </para>
+                <para dir="ltr">Dealer class has attributes <option>id</option> and <option>name</option>, which are predefined and
+                    will not be changed during the game. Dealer and Player can either not have <option>cards</option>
+                    at all (during betting) or have from 2 to 10 (for Dealer) or from 2 to 11 (for
+                    Player). Class Card have attributes <option>cardNumber, cardType, color</option> and <option>cardValue</option>. </para>
+                <para dir="ltr">User class is a parent of the Player class. They have the same <option>id,
+                    name, totalMoney</option> and <option>points</option> attribute. Actually, the user is a player in the
+                    lounge. After the user enters the game, he gets additional attributes
+                    <option>currentBet, status, totalSumCards</option> and turns into a player. <option>status</option> identifies
+                    whether the player lost, won, surrendered or got a blackjack. </para>
+                <para dir="ltr">Last two classes in the diagram are Event and Message.
+                        <option>events</option> are an attribute of Blackjack and this attribute is
+                    necessary to show the messages to the player. Event has an <option>id</option>
+                    which defines the player to be shown the message and if the <option>id</option>
+                    of the message is 0 then all players will get the message. Message class
+                    contains <option>text</option> of the message itself. </para>
+                <para dir="ltr">To make the game dynamic, we added numerous XQuery functions in
+                    different <emphasis role="bold">.xqm</emphasis> files. </para>
+                <para dir="ltr">We tried to assign each function to different classes based on the
+                    UML-Class-diagram to make the game more consistent and clear. For example, the
+                    function <option>shuffleCards()</option>, which is a function that returns a shuffled deck, is
+                    part of the Card class. However, not all functions are mapped into classes, the
+                    helper function can be directly called from each other function and just useful
+                    to compute an output (e,g a random number). Getters are omitted too. Next class
+                    diagram represents our mapping of the functions to classes. </para>
+                <figure>
+                    <title>Class Diagram for the Model Component (methods only)</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/class_model_fun.png" width="80%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <para dir="ltr">Full list with all of these functions can be found in <emphasis role="bold"><link linkend="app_a">Appendix A</link></emphasis>.</para>
+                <para dir="ltr">Basically these functions are reacting to some sort of event. There
+                    are two types of functions. Functions of the first type react by making an
+                    update to the model (like for example <option>insertNewPlayer()</option>) and functions of the
+                    second type return a static result like XML-Node or an HTML-page (for example,
+                    <option>createGame()</option>). Functions of the second type do not operate on the existing
+                    object and act like constructors in other programming languages. </para>
+            </sect3>
+            <sect3>
+                <title>Implementing the Component Model</title>
+                <para dir="ltr">Classes of the UML Class diagram are stored as XML objects in a
+                    BaseX Database.</para>
+                <para dir="ltr">Functions are divided into separate files for easier and more clear
+                    structuring of code. The file <emphasis role="bold">action.xqm</emphasis>
+                    represents the actions that players can perform during the game (e.g. bet, stand
+                    etc.). The <emphasis role="bold">cards.xqm</emphasis> collects the functions
+                    that are related to the cards and to the calculation of their sums. The file
+                        <emphasis role="bold">player.xqm</emphasis> is needed, for example, to
+                    create a new user and player. <emphasis role="bold">Game.xml</emphasis>
+                    maintains operations to create, launch and conduct a game. <emphasis role="bold"
+                        >Helper.xqm</emphasis> contains secondary functions.</para>
+                <para dir="ltr">All of the methods from the table above are implemented as an XQuery
+                    method and some of them use the XQuery Update Facility extension. Methods are
+                    executed by BaseX. Usual Xquery method can either return a value or make an
+                    update in the database, but not both. This is known as XQuery Update Constraint.
+                    However, most of our methods require a return value and an update within a
+                    single query. That is why we use the <option>update:output</option> method in our functions. This
+                    method gets the return value of the XQuery function and uses it to update the
+                    state of the database. </para>
+                <para dir="ltr">We also used web-redirect to resolve the constraint. Using it we can
+                    go from one RESTXQ function to another. We used it after <option>update:output</option> to make
+                    one function call another function after the update.Thus, to redirect the user
+                    after updating we used <option>update:out(web:redirect(URL_of_another_function))</option>.</para>
+                <para dir="ltr">After updating the Model we want to send a response back to the
+                    user. We need to go with the Xquery Update Facility, thus, we call a method that
+                    generates a response to users using XQuery. In our implementation the <option>draw</option> and
+                    <option>showGames</option> methods are responsible for it. First one generates a response when
+                    the player is in the game and second one generates a response when the player is
+                    in the lounge. </para>
+            </sect3>
+            <sect3>
+                <title>Modeling the Component View</title>
+                <para>View component contains a number of different screens. In the following table
+                    we modelled all of the important information about each of them. Table describes
+                    all of the specific attributes that are needed to show information to the
+                    particular user and the interaction that are offered to the user. Last column
+                    contains the information which View sends to the Controller using the HTTP
+                    Request. The lobby can be accessed through the web browser via <emphasis role="bold">localhost:8984/webSbj/lobby</emphasis>.<table frame="all">
+                        <title>Domain model for component View</title>
+                        <tgroup cols="4">
+                            <colspec colname="c1" colnum="1" colwidth="1*"/>
+                            <colspec colname="c2" colnum="2" colwidth="1*"/>
+                            <colspec colname="c3" colnum="3" colwidth="1*"/>
+                            <colspec colname="c4" colnum="4" colwidth="1*"/>
+                            <thead>
+                                <row>
+                                    <entry><emphasis role="italic"><emphasis role="bold">Screen
+                                                Type</emphasis></emphasis></entry>
+                                    <entry><emphasis role="italic"><emphasis role="bold">Information</emphasis></emphasis></entry>
+                                    <entry><emphasis role="italic"><emphasis role="bold">Interaction</emphasis></emphasis></entry>
+                                    <entry><emphasis role="italic"><emphasis role="bold">Request</emphasis></emphasis></entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry/>
+                                    <entry/>
+                                    <entry/>
+                                    <entry>lobby()</entry>
+                                </row>
+                                <row>
+                                    <entry>lobbyScreen</entry>
+                                    <entry/>
+                                    <entry>
+                                        <para dir="ltr">goToAbout</para>
+                                        <para dir="ltr">goToRules</para>
+                                        <para dir="ltr">goToInitPlayer</para>
+                                    </entry>
+                                    <entry>
+                                        <para dir="ltr">rules()</para>
+                                        <para dir="ltr">about()</para>
+                                        <para dir="ltr">initPlayers()</para>
+                                    </entry>
+                                </row>
+                                <row>
+                                    <entry>aboutScreen</entry>
+                                    <entry/>
+                                    <entry>goToLobby</entry>
+                                    <entry>lobby()</entry>
+                                </row>
+                                <row>
+                                    <entry>rulesScreen</entry>
+                                    <entry/>
+                                    <entry>goToLobby</entry>
+                                    <entry>lobby()</entry>
+                                </row>
+                                <row>
+                                    <entry>initPlayerScreen</entry>
+                                    <entry/>
+                                    <entry>goToLounge</entry>
+                                    <entry>handleInit()</entry>
+                                </row>
+                                <row>
+                                    <entry>loungeScreen</entry>
+                                    <entry>
+                                        <para dir="ltr">playerName</para>
+                                        <para dir="ltr">playerBalance</para>
+                                        <para dir="ltr">playerPoints</para>
+                                        <para dir="ltr">playerId</para>
+                                    </entry>
+                                    <entry>
+                                        <para dir="ltr">goToLobby</para>
+                                        <para dir="ltr">newGame</para>
+                                        <para dir="ltr">randomGame</para>
+                                        <para dir="ltr">joinGame</para>
+                                    </entry>
+                                    <entry>
+                                        <para dir="ltr">join(gameID, playerName, balance)</para>
+                                        <para dir="ltr">newGame()</para>
+                                        <para dir="ltr">random(playerName, balance)</para>
+                                        <para dir="ltr">menu(playerID)</para>
+                                    </entry>
+                                </row>
+                                <row>
+                                    <entry>blackjackScreen</entry>
+                                    <entry>See UML class diagram below</entry>
+                                    <entry>
+                                        <para dir="ltr">hit</para>
+                                        <para dir="ltr">stand</para>
+                                        <para dir="ltr">double</para>
+                                        <para dir="ltr">surrender</para>
+                                        <para dir="ltr">bet(1, 5, 10, 25, 50)</para>
+                                        <para dir="ltr">clear</para>
+                                        <para dir="ltr">deal</para>
+                                        <para dir="ltr">exit</para>
+                                        <para dir="ltr">newRound</para>
+                                    </entry>
+                                    <entry>
+                                        <para dir="ltr">hit(gameID)</para>
+                                        <para dir="ltr">stand(gameID)</para>
+                                        <para dir="ltr">double(gameID)</para>
+                                        <para dir="ltr">surrender(gameID)</para>
+                                        <para dir="ltr">bet(gameID, betAmount )</para>
+                                        <para dir="ltr">clear(gameID)</para>
+                                        <para dir="ltr">nextBet(gameID)</para>
+                                        <para dir="ltr">exitGame(gameID, playerID)</para>
+                                        <para dir="ltr">newRound(gameID)</para>
+                                    </entry>
+                                </row>
+                                <row>
+                                    <entry>endGameScreen</entry>
+                                    <entry/>
+                                    <entry>
+                                        <para dir="ltr">goToLounge</para>
+                                        <para dir="ltr">goToLobby</para>
+                                    </entry>
+                                    <entry>
+                                        <para dir="ltr">returnToLounge(gameID, playerID)</para>
+                                        <para dir="ltr">returnToLobby(gameID, playerID)</para>
+                                    </entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table></para>
+                <para dir="ltr">Following UML Class diagram shows the objects and their attributes
+                    that the View component needs to show the correct state of the game
+                    (blackjackScreen) to each particular player. </para>
+                <figure>
+                    <title>Class Diagram for the View Component</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/view_class.png" width="80%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <para dir="ltr">We decided to include the Chip and Button classes to the diagram as
+                    well. They do not change their own values during the game and they do not
+                    directly indicate the state of the game. However, they are necessary for the
+                    player to interact (make bets or perform actions) and this implies changes
+                    during the game. Thus, they indirectly affect the state of the game. </para>
+                <para dir="ltr">Stickers are the animation that are shown when a player wins, loses,
+                    surrenders or gets a blackjack.</para>
+            </sect3>
+            <sect3>
+                <title>Implementing the Component View</title>
+                <para dir="ltr">All of the files that belong to the View component are contained in
+                    the folder named <emphasis role="bold">static</emphasis>. View component
+                    contains the <emphasis role="bold">casino.dtd</emphasis> file that defines the
+                    structure of the elements in the <emphasis role="bold">casino.xml</emphasis>
+                    file. DTD also defines which attributes and elements can be used in the
+                    document. The <emphasis role="bold">casino.dtd</emphasis> can be found in
+                        <emphasis role="bold">/static/DTD/casino.dtd</emphasis>. For implementing
+                    the View, we used XSLT. XSLT stands for Extensible Stylesheet Language
+                    Transformation and is a language for transforming XML documents into other XML
+                    documents, or other formats such as HTML for web pages, SVGs, plain text or XSL
+                    Formatting Objects, which may subsequently be converted to other formats, such
+                    as PDF, PostScript and PNG. In <emphasis role="bold">static/XSL</emphasis>, one
+                    can find 4 files with <emphasis role="bold">.xsl</emphasis> extension. <emphasis
+                        role="bold">blackjack.xsl</emphasis>, <emphasis role="bold"
+                        >endGame.xsl</emphasis> and <emphasis role="bold">lounge.xsl</emphasis> are
+                    responsible for transforming the XML document to SVG and the screens that can be
+                    seen in <emphasis role="bold"><link linkend="imagedata_k5v_zwk_mlb">Figure "Game
+                            Table"</link></emphasis>. In these files, we used global variables which
+                    are stored in <emphasis role="bold">bj_global_variables.xsl</emphasis> and can
+                    be linked through the <option>&lt;xsl:include></option> keyword.</para>
+                <para dir="ltr">For transforming the XML document into an SVG , we used
+                        <option>&lt;xsl:apply-templates></option> and select to specify in which
+                    order the child elements are to be processed. </para>
+                <para>Graphic elements were created with SVG and combined with XSLT. Thus, we could
+                    control which elements to show and which elements to hide. While implementing
+                    this part, we made sure to parameterize the SVG files and to make them reusable
+                    and responsive. A file named <emphasis role="bold"
+                        >bj_global_variables.xsl</emphasis> was created to contain all global
+                    variables of our three XSL files. By means of these global variables it was
+                    possible to change how elements were displayed without modifying all the values
+                    of that element. Giving SVG properties such as <option>height, width</option>, and <option>aspect ratio</option>
+                    is the first step to getting it to scale. We used the <option>view box</option> attribute for
+                    this. The view box defines how all the lengths and coordinates used inside the
+                    SVG should be scaled to fit the total space available and it defines the aspect
+                    ratio of the image. SVG <option>&lt;defs></option> elements were also used to embed definitions
+                    that can be reused inside the SVG file. Since they can not be directly
+                    displayed, we referenced them by a <option>&lt;use></option> element which specifies where to
+                    show the reused shapes via its <option>x</option> and <option>y</option> attributes. Different gradients, shadows
+                    and other filters were defined also and reused in many elements such as buttons
+                    or chips. </para>
+                <para dir="ltr">Below we see the interface during a game. Achieving this result took
+                    us a lot of time brainstorming and then prototyping. The background is a simple
+                    fill color. Moving to the table, it is basically composed of two circles with
+                    different radius values. The interior circle has a gradient fill. In order to
+                    create the printed label on the table we created that shape in Adobe Illustrator
+                    and then we exported it as an SVG file. The text on the label was assigned a
+                    path created also in Adobe Illustrator to make it bend. Players and bet zones
+                    were created with simple circles with a stroke. Using XSLT we displayed cards
+                    according to a rule so that they always stay centered to the player zone. For
+                    that, we had to take in consideration the amount of cards a player has. The
+                    arrow pointing to each active player is a text element (symbol). Text zones for
+                    messages or for bets were created with rectangles with rounded corners. For
+                    creating the chips a more detailed description of the process can be found in
+                    the next paragraph. Similar techniques used for designing the chips were used
+                    also for designing the other buttons.</para>
+                <figure>
+                    <title>Game Table</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/game_table.png" width="100%" xml:id="imagedata_k5v_zwk_mlb"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <para dir="ltr"><emphasis role="bold"><emphasis role="underline">Chips</emphasis></emphasis></para>
+                <para dir="ltr">All five chips were created in the same way. Just values and colors
+                    differ from one chip to another. In the following example we will take a look at
+                    the steps we performed for creating the chip 50.</para>
+                <figure>
+                    <title>Creating a Chip</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/chips.png" width="100%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <para dir="ltr">The chip is composed mainly of circles. All elements are positioned
+                    according to the center of the chip. For this we used a global variable called
+                        <option>chipCenter</option>. In the first step we created a simple circle
+                    with a fill color. Next we duplicated the same circle but with a lighter color
+                    and used a clip-path that we named <option>cut-off-bottom</option> to subtract a
+                    section from the original shape. This gave us a fake 3D look that we opted for.
+                    In the third step we added another colored circle with a golden stroke. We used
+                    a linear gradient that we called <option>goldGradient</option>. The fourth step
+                    is the same as the second one but with a smaller circle radius. In the fifth
+                    step we used the same technique as in the second step. We created a white circle
+                    as big as the chip and used the clip-path <option>chip-white-rectangles</option>
+                    to subtract the rectangles from the circle. The six rectangles were perfectly
+                    positioned around the circle since we rotated each one 60 degrees according to
+                    the center of the chip (see figure above). Finally, we added a text displaying
+                    the value of the chip and adjusted its attributes like text-anchor and
+                    alignment-baseline to make it perfectly centered inside the chip. </para>
+                <para dir="ltr"><emphasis role="bold"><emphasis role="underline">Cards</emphasis></emphasis></para>
+                <para dir="ltr">During the prototyping phase, we opted for a minimalist design for
+                    the cards. A card is composed of a white rectangle with rounded edges as shown
+                    in step 1. Next we added the value of the card in each corner. The values in the
+                    bottom are rotated 180 degrees. Same for the type of the card, 4 symbols are
+                    displayed next to the values. Moving to the fourth step, vertical and horizontal
+                    lines forming a grid were created as global variables. Depending on the card
+                    value, symbols are shown according to the grid. In this example we used four
+                    horizontal lines and 2 vertical lines. Finally, a drop shadow is applied on the
+                    whole card using a filter called <option>f1</option>. This drop shadow creates a depth effect
+                    that enhances the visual experience of players.</para>
+                <figure>
+                    <title>Creating a Card</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/cards.png" width="100%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+            </sect3>
+            <sect3>
+                <title>Modelling the Component Controller</title>
+                <para>Controller connects the View and the Modell between each other. This component
+                    is stateless. First task of the Controller is to call a method in Model that is
+                    related to the View’s requests. Second task of the Controller is to respond to
+                    the View’s request and to define which screen with which information the View
+                    has to show next. </para>
+            </sect3>
+            <sect3>
+                <title><emphasis role="bold">Implementing the Component
+                    Controller</emphasis></title>
+                <para dir="ltr">Requests that may come from the View are indicated in the last
+                    column of the table in the section “Modeling the component View”. Controller has
+                    to guide and handle them and that is why Component has a XQuery methods with
+                    RestXQ annotations for each possible request. However, not in all cases the
+                    Controller needs to call the Model to respond to the request of the View.
+                    Controller can just return a static file for the functions like <option>lobby,
+                        rules, about</option> and <option>initPlayer</option>. The Controller
+                    component is also responsible for sending notifications whenever an update in
+                    the model occured. In our game the <option>draw</option> function is called by a
+                        <option>gameID</option>, then this function sends the update to all players
+                    subscribed via a Websocket. <option>ShowGames</option> also functions this way,
+                    but sends information only whenever an update in the lounge occurs.</para>
+                <para dir="ltr">The functions that are not directly called by the View are the
+                    helper functions that are called within the Controller. When the Controller
+                    needs to call a Model, it uses a request data to and calls the corresponding
+                    function in Model. Afterwards it gets the data from the Model’s response and
+                    creates a response for the View (information and type of screen that View has to
+                    show next).</para>
+            </sect3>
+        </sect2>
+        <sect2>
+            <title>Implementing WebSocket</title>
+            <para dir="ltr">To have a possibility to use a WebSocket Element, there is a need to
+                have a JavaScript library on the client’s side. Necessary WebSocket files <emphasis role="bold">jquery-3.2.1.min.js</emphasis>, <emphasis role="bold">stomp.js</emphasis> and <emphasis role="bold">ws-element.js</emphasis> are
+                added to the JS folder that is situated in the static package. WebSocket Element
+                connects to the Websocket Server and builds a bidirectional communication between
+                them. </para>
+            <para dir="ltr">Controller component file <emphasis role="bold">blackjack-controller.xqm</emphasis> contains a script for loading the JQuery,
+                STOMP and WebSocket Element.</para>
+            <para dir="ltr">The file <emphasis role="bold">blackjack-ws.xqm</emphasis> from the
+                Controller component contains the functions that handle the requests from the
+                WebSocket element from the client side. Whenever a new client connects and
+                subscribes to a websocket connection the <option>numberOfUsers</option> in <emphasis role="bold">casino.xml</emphasis> is updated and incremented. This element is used later on
+                for generating the <option>ID</option> of the player.</para>
+            <para>Whenever a client subscribes to our game , its <option>ID</option> and
+                applications <option>ID</option> will be mapped to his WebSocket connection using
+                the <option>websocket:set()</option> function. This helps to figure out the client
+                    <option>id</option> based on <option>websocket:id()</option>.</para>
+            <figure>
+                <title>WebSocket as a Response Channel <link linkend="abbrev_jnh_tlj_mlb">[2]</link></title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="images/ws_resp.png" width="80%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <para dir="ltr">The functions that use the WS Element:<itemizedlist>
+                    <listitem>
+                        <para><option>wsInit</option>: this function creates a websocket element for
+                            each player and makes him subscribe to <emphasis role="bold">/webSbj/{his ID}</emphasis></para>
+                    </listitem>
+                    <listitem>
+                        <para><option>draw</option>: this function sends an update of a specific
+                            game to all its players via <option>websocket:send()</option> function</para>
+                    </listitem>
+                    <listitem>
+                        <para><option>showGames</option>: this function sends an update of the lounge to all players
+                            in the lounge via <option>websocket:send()</option> function</para>
+                    </listitem>
+                </itemizedlist></para>
+            <para dir="ltr">For the <option>draw</option> and <option>showGames</option> functions,
+                we used <option>xslt:transform()</option> function which allows us to map our XML
+                file to SVG and send that SVG back to the client.</para>
+            <para dir="ltr">Furthermore, we used the <option>map()</option> function, which allows
+                us to map to variables in the XSLT. This <option>map()</option> function helped us
+                figure out who is seeing that SVG. For example, if the player that sees SVG is the
+                    <option>currentPlayer</option> then he is allowed to hit. </para>
+        </sect2>
+        <sect2>
+            <title>Group Prefix</title>
+            <para>Another requirement was to add our group name as a prefix to the following names:<itemizedlist>
+                    <listitem>
+                        <para>To the folder with our project data in the baseX webapp
+                            directory.</para>
+                    </listitem>
+                    <listitem>
+                        <para>To the name of the folder that we will place in BaseX's <emphasis
+                                role="bold">static</emphasis> directory.</para>
+                    </listitem>
+                    <listitem>
+                        <para>To all paths in RestXQ annotations.</para>
+                    </listitem>
+                    <listitem>
+                        <para>For all names of databases in BaseX.</para>
+                    </listitem>
+                </itemizedlist></para>
+            <para>However, we decided to put not the <emphasis role="bold">WS</emphasis> prefix to
+                all of these names, but a <emphasis role="bold">webS</emphasis>. We did so because
+                we felt that other groups could use the prefix WS to name the functions, pathes and
+                objects related to the WebSocket Element in their code.</para>
+            
+        </sect2>
+    </sect1>
+    <sect1>
+        <title>III. Project Development</title>
+        <sect2>
+            <title>Design Decisions</title>
+            <para dir="ltr">Through the development of the game we had to make multiple decisions
+                and seek compromises so at the end we had the desired Product.</para>
+            <para dir="ltr">We decided against implementing the Split function, since split is a
+                rare occurrence in the game. Besides, there is a theoretical possibility that the
+                split occurs multiple times in one round. It would make the modelling and
+                implementation way complicated.</para>
+            <para dir="ltr">It is mathematically proved that the only case when it really makes
+                sense for the player to do insurance is to guarantee a win in case of the player's
+                blackjack [1]. Since our casino is generous and the player is guaranteed to win, if
+                he scores 21 points, we decided that it makes no sense to implement the “Insurance”
+                function. </para>
+            <para dir="ltr">Between an infinite deck and a finite one, we decide for the finite one
+                with only one deck of 52 cards. We purposely choose that cause with an infinite deck
+                it's possible to draw the same card multiple times. In addition, a finite deck is
+                more realistic.</para>
+            <para dir="ltr">We decided to shuffle the deck at the beginning of the game. We also
+                decided not to use a function that randomly chooses a card from the deck. Basically
+                at the beginning of the game the deck was already shuffled and ordered. We did it
+                this way for optimization reasons.</para>
+            <para dir="ltr">We decided to implement the <option>id</option> of the player as an attribute and not as
+                a node because the attribute would be unique and it is better suited for our
+                situation.</para>
+            <para dir="ltr">After visiting a casino, we decided that 5 players for a table is
+                already enough. Since most tables usually have about 3 players. </para>
+            <para dir="ltr">In actual blackjack the dealer has a 52% chance to win but we wanted our
+                casino to be more customer friendly. So we decided to give victory to the player in
+                case of a draw.</para>
+        </sect2>
+        <sect2>
+            <title>Problems during Development</title>
+            <itemizedlist>
+                <listitem>
+                    <para>One of the biggest difficulties that we had at the beginning was that two
+                        members of our group had problems installing BaseX STOMP. So to solve this
+                        we decided to install the game on a remote server that automatically updates
+                        the Localhost with the latest modifications from Git. This actually helped
+                        us during the testing phase of the game since all the members could join the
+                        game together in the matter of seconds. This decision gave us an opportunity
+                        to extensively test the game and find bugs faster.</para>
+                </listitem>
+                <listitem>
+                    <para>Converting the game from a single-client-version to a multi-client one was
+                        a problem at the beginning. It happened, because our original game model was
+                        developed for a single-client application. </para>
+                </listitem>
+                <listitem>
+                    <para>We could not find a way to locally reference pictures, animations and GIFs
+                        in the multi-client version, so at first we uploaded the files to a remote
+                        server and used HTTP protocol to call them through the internet. Afterwards
+                        the Tutor helped us and showed a method to reference the files
+                        locally.</para>
+                </listitem>
+                <listitem>
+                    <para>Enabling Websockets in the lounge was a tough task at the beginning, since
+                        we were not able to find out which client is currently in the lounge. By the
+                        way, after some adjustments we solved the problem.</para>
+                </listitem>
+                <listitem>
+                    <para>The problem with rounding numbers occurred because the user's balance is
+                        built on integers. For example, the player leaves the game and enters the
+                        lounge with 85.5 on his balance. Then the balance has to be rounded. We
+                        decided to round it down, because we create a new user every time when
+                        somebody enters the lounge from the lobby. Player can keep his 0.5 balance
+                        during the game. Once he leaves, he loses it.</para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+        <sect2>
+            <title>Agile Development, Testing and Possible Improvements</title>
+            <para>We used a modified and simplified version of <emphasis role="bold"><emphasis
+                        role="underline">scrums</emphasis></emphasis>. In every meeting we made a
+                list of the features that we wanted to implement and of the bugs that we wanted to
+                fix. We discussed how we can achieve our goals and compiled the list as Product
+                Backlog. We used Trello to maintain the backlog list and to follow our progress. </para>
+            <para dir="ltr">Since we were using a remote server for development, we decided to
+                extensively <emphasis role="bold"><emphasis role="underline"
+                    >test</emphasis></emphasis> our game together after every big modification. The
+                test protocol was simple: the four of us joined the game server and played multiple
+                games together trying to break the game. At the same time we documented bugs and
+                emerged problems. We used Trello to document the bugs and keep track of them. Such
+                an approach also allowed us to control whether bugs were fixed or not. In addition,
+                each team member was engaged in additional testing of the game in his/her spare
+                time.</para>
+            <para dir="ltr"><emphasis role="bold"><emphasis role="underline">Following features
+                        could be implemented in future releases:</emphasis></emphasis><itemizedlist>
+                    <listitem>
+                        <para>Split</para>
+                    </listitem>
+                    <listitem>
+                        <para>Insurance</para>
+                    </listitem>
+                    <listitem>
+                        <para>An opportunity to delete a game if the game is empty. That option
+                            should only be available for the player who started the game (the host
+                            of the game).</para>
+                    </listitem>
+                    <listitem>
+                        <para>Option to be a spectator during the game and never join it (even if
+                            there is a free seat).</para>
+                    </listitem>
+                    <listitem>
+                        <para>The interface can be improved using other dynamic elements.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Adding background music would probably make the game more enjoyable
+                            for the players.</para>
+                    </listitem>
+                </itemizedlist></para>
+        </sect2>
+        <sect2>
+            <title>Reflection</title>
+            <para dir="ltr">Our Application is not just about the basic requirements. Our team’s
+                goal was to provide high quality for the gaming experience and it’s User Interface.
+                However, the application can still be developed and improved. </para>
+            <para dir="ltr">Thanks to this course, we gained so much information about the
+                XML-Technologies. We learnt how to build a Webapp and at the same time we had fun.
+                We also received the necessary help from the organizers during the lab. Therefore,
+                taking this course is highly recommended for future students</para>
+            <para dir="ltr">Since the game is already on the internet, few members in the team are
+                already interested in developing the game further in the future. One idea was to add
+                Google AdSense to the website to generate an income through advertisement. Because
+                of Corona, a lot of people are staying at home bored. So another idea came from
+                here: start a Facebook Ad campaign for the website to bring traffic and at the same
+                time to generate income through Google AdSense as a result.</para>
+        </sect2>
+    </sect1>
+    <sect1>
+        <title>IV. Tutorials</title>
+        <sect2>
+            <title>Installation Guide</title>
+            <para>There is two possible ways to access the game.</para>
+            <sect3>
+                <title>Local Version</title>
+                <orderedlist>
+                    <listitem>
+                        <para><emphasis role="bold"><emphasis role="underline">Installing the local
+                                    version of the Game</emphasis></emphasis></para>
+                        <para><emphasis role="bold"><emphasis role="underline"
+                                    >Requirements</emphasis></emphasis></para>
+                        <para><emphasis role="bold">Operating System</emphasis><itemizedlist>
+                                <listitem>
+                                    <para>The game is guaranteed to work on Windows, Linux and Mac
+                                        OS.</para>
+                                </listitem>
+                                <listitem>
+                                    <para>The Game functions fully and sometimes partially on some
+                                        versions of Android or IOS.</para>
+                                </listitem>
+                            </itemizedlist></para>
+                        <para><emphasis role="bold">Browser</emphasis><itemizedlist>
+                                <listitem>
+                                    <para>The game works with most browsers, but it's recommended to
+                                        use Google Chrome since the game has been optimized for
+                                        it.</para>
+                                </listitem>
+                            </itemizedlist></para>
+                        <para><emphasis role="bold">Software</emphasis><itemizedlist>
+                                <listitem>
+                                    <para><emphasis role="bold">BaseX</emphasis>: for the
+                                        single-client-version you can download Basex using this link
+                                            <emphasis role="underline"><emphasis role="bold"
+                                                >http://basex.org</emphasis></emphasis>.</para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold">Basex Stomp</emphasis>: needed for
+                                        the multi-client version. Please follow the following
+                                        Tutorial to install Basex Stomp <emphasis role="bold"
+                                                ><emphasis role="underline"
+                                                >http://bstutorial.TheBlackJack.Casino</emphasis></emphasis>
+                                        (Source: XML Praktikum TUM)</para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold">Eclipse:</emphasis> we recommend
+                                        using Eclipse to setup the localhost server.</para>
+                                </listitem>
+                            </itemizedlist></para>
+                        <para><emphasis role="bold">Game</emphasis><itemizedlist>
+                                <listitem>
+                                    <para>You can download the game using the following link
+                                            <emphasis role="bold"><emphasis role="underline"
+                                                >http://Game.TheBlackJack.Casino</emphasis></emphasis></para>
+                                </listitem>
+                            </itemizedlist></para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold"><emphasis role="underline">Setting Up the
+                                    Server</emphasis></emphasis></para>
+                        <para>After following the Basex Stomp Tutorial, you should copy the game’s
+                            files to the main directory of BaseX folder shown by Eclipse in its
+                            console. <orderedlist>
+                                <listitem>
+                                    <para>First copy the complete folder webSblackjack from the main
+                                        directory of of the game in to <emphasis role="bold">[Basex
+                                            main directory Folder(shown in
+                                            Eclipse)/webapp/]</emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para>Copy the the second folder webSblackjack found in the game
+                                        files under <emphasis role="bold">[Game
+                                            Folder/static/]</emphasis> directory to <emphasis
+                                            role="bold">[Basex Folder main directory (shown in
+                                            Eclipse)/webapp/static/]</emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para>At the end open the following link to setup the server
+                                            <emphasis role="bold"><emphasis role="underline"
+                                                >http://localhost:8984/webSbj/Setup</emphasis></emphasis></para>
+                                </listitem>
+                            </orderedlist></para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold"><emphasis role="underline">Accessing the
+                                    Game</emphasis></emphasis></para>
+                        <para>Using the following link the user can access the game: <emphasis
+                                role="underline"><emphasis role="bold"
+                                    >http://localhost:8984/webSbj/lobby</emphasis></emphasis></para>
+                    </listitem>
+                    
+                </orderedlist>
+            </sect3>
+            <sect3>
+                <title>Online Version</title>
+                <para dir="ltr">The easier way to play the game is to directly visit the website
+                    using the following link </para>
+                <para dir="ltr">www.theblackjack.casino</para>
+                <para dir="ltr">Server Setup:</para>
+                <figure>
+                    <title>Informal Model of the Server Setup</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/Webservice.jpg" width="70%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                
+                <para dir="ltr">The game is being hosted on a Remote server. Any developer can push
+                    his modifications and Git will immediately notify the server that there is a new
+                    update available. The server then will automatically pull the new modifications,
+                    update the Localhost server and reset it through a new setup.</para>
+                <para dir="ltr">We are using the service of Ngrok to expose the Localhost to the
+                    external networks.</para>
+                <para dir="ltr">A DNS Service will forward the user after he tries to visit the game
+                    to the right Ngrok server and pass on the information of the user.</para>
+                <para dir="ltr">Some modification has been made to the online version in comparison
+                    to the local one for performance reasons. As an example the animation, GIFs and
+                    Pictures are hosted directly on the remote server and the user accesses them
+                    through http service and not the localhost.</para>
+            </sect3>
+        </sect2>
+        <sect2>
+            <title>Game Tutorial</title>
+            <para dir="ltr">In the first step, you will enter the url <emphasis role="bold"
+                        ><emphasis role="underline">www.TheBlackJack.Casino</emphasis></emphasis>
+                for the online version or using the localhost <emphasis role="underline"><emphasis
+                        role="bold">http://localhost:8984/webSbj/lobby</emphasis></emphasis> for the
+                local version.</para>
+            <para><emphasis role="bold"><emphasis role="underline">Main
+                menu</emphasis></emphasis></para>
+            <para>As soon as you start the game, the main menu appears. It shows three tabs named as
+                Games, Rules and About.<itemizedlist>
+                    <listitem>
+                        <para>Clicking on Games will open the game for you and guide you to the
+                            lounge.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Clicking on Rules will provide you the rules needed to understand this
+                            game.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Clicking on About shows information about this project.</para>
+                    </listitem>
+                </itemizedlist></para>
+            <para><emphasis role="bold"><emphasis role="underline">Rules
+                    Section</emphasis></emphasis></para>
+            <para>In the Rules section, some BlackJack rules are defined.</para>
+            <para><emphasis role="bold"><emphasis role="underline">About
+                    Section</emphasis></emphasis></para>
+            <para>In the about section, team members are mentioned.</para>
+            <para><emphasis role="bold"><emphasis role="underline">Games
+                    Section</emphasis></emphasis></para>
+            <para dir="ltr">In the following section and to access the game you will have to enter
+                your user name. The user name should start with a capital letter and should not
+                exceed 10 letters. </para>
+            <para dir="ltr">If the player joins for the first time, then he will get rewarded $100
+                in his balance. If the player have registered with his username before, then the
+                balance from his last gaming session, will be carried over to the next one. If the
+                player is already registered but his old balance is less than $10 then he will get
+                rewarded a new $100 to his balance since the minimum bet in the game is $10. This
+                feature was added so players get a new chance when they lose all their balance. </para>
+            <para><emphasis role="bold"><emphasis role="underline">Lounge</emphasis></emphasis></para>
+            <para>The lounge contains three sections.<itemizedlist>
+                    <listitem>
+                        <para>In the <emphasis role="bold"><emphasis role="underline">left
+                                    section</emphasis></emphasis> there is the <emphasis role="bold"
+                                >leaderboard</emphasis> with a list of the best players in the game.
+                            The player having the highest score is at the top of the list. As in the
+                            following example the player <emphasis role="bold">Awais</emphasis> has
+                            the highest score and is at the top of it. Before the start of the game
+                            you will get $100 in your balance surplus and after winning every game
+                            that balance will be added to your score.<table frame="all">
+                                <title>The formula of the score for the Leaderboard is as the
+                                    following:</title>
+                                <tgroup cols="2">
+                                    <colspec colname="c1" colnum="1" colwidth="1*"/>
+                                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                                    <thead>
+                                        <row>
+                                            <entry><emphasis role="bold">Game
+                                                scenario</emphasis></entry>
+                                            <entry><emphasis role="bold">Score
+                                                Formula</emphasis></entry>
+                                        </row>
+                                    </thead>
+                                    <tbody>
+                                        <row>
+                                            <entry>Winning or Drawing</entry>
+                                            <entry>New Score = old score + bet from latest
+                                                game</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Winning with blackjack</entry>
+                                            <entry>New Score = old score + 1.5 * bet from latest
+                                                game</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Losing</entry>
+                                            <entry>New Score = old score - bet from latest
+                                                game</entry>
+                                        </row>
+                                    </tbody>
+                                </tgroup>
+                            </table></para>
+                    </listitem>
+                </itemizedlist></para>
+            <itemizedlist>
+                <listitem>
+                    <para>In the <emphasis role="bold"><emphasis role="underline">middle
+                                section</emphasis></emphasis> the player’s name, his available
+                        balance and his total score are shown. The button <emphasis role="bold">New
+                            Game</emphasis> enables the player to start a new game. Only 8 games in
+                        total can be played in parallel and if there are 8 available already, then
+                        the <emphasis role="bold">New</emphasis><emphasis role="bold">Game</emphasis> button will disappear. The button <emphasis role="bold">Random</emphasis><emphasis role="bold">Game</emphasis> enables the
+                        player to join a random game from the current games available. It will only
+                        be visible if there is at least one game available. </para>
+                </listitem>
+                <listitem>
+                    <para>In the <emphasis role="bold"><emphasis role="underline">right
+                                section</emphasis></emphasis>, there is the list of games that the
+                        player can join with the number of players playing currently in each game.
+                        By clicking the <emphasis role="bold">Play Button</emphasis> shown as the
+                        symbol <emphasis role="bold">▷</emphasis>, the player will join the desired
+                        game. If a Player joins a full game with 5 Players, then he will initially
+                        just watch the game being played in front of him. As soon as one of the
+                        playing players leaves, then he will immediately join the game.</para>
+                </listitem>
+            </itemizedlist>
+            <para><emphasis role="bold"><emphasis role="underline">The
+                Game</emphasis></emphasis></para>
+            <para dir="ltr">It’s a simple card game and no hard end tricks are needed. You just need
+                to be sharp and lucky, that’s all. You can bet a minimum of $10 or a maximum of
+                $100. Just select your manoeuvre wisely and be clear for what you want to do. In
+                case you win or draw, you will win the betted amount. If you lose then you will lose
+                the betted amount. If you get a blackjack you will win 3/2 of your Bet. It’s an easy
+                card game. You just need to play it often to get experience in it and then you can
+                easily go forward and win big. </para>
+            <para><emphasis role="underline"><emphasis role="bold">Layout</emphasis></emphasis></para>
+            <para dir="ltr">The button on the right side is <emphasis role="bold">Double</emphasis>,
+                it means doubling the betted amount and adding only one more card to your hand. It's
+                only available if the player has only two cards in his hand and the sum of the hand
+                is less than 11. <emphasis role="bold">Stand</emphasis> means keep the bet going and
+                try your luck, however <emphasis role="bold">Hit</emphasis> means adding a card from
+                the line-up. If you click the <emphasis role="bold">Deal </emphasis>tab, then the
+                round will start. The <emphasis role="bold">Coins</emphasis> at the right side
+                enable the player to raise the amount of the bet. The <emphasis role="bold">Clear
+                </emphasis>button enables the player to clear his bet and it is only available
+                before the bet is placed. The <emphasis role="bold">Give Up</emphasis> button is
+                only available at the beginning of the game and will make the player lose half of
+                his bet. The <emphasis role="bold">New Round</emphasis> button will start a new Game
+                and only one player has to press it to start a new one. At the top right corner
+                there is an <emphasis role="bold">X</emphasis> button, this button will enable the
+                player to close the game or to go back to Lounge. Next to it is the <emphasis
+                    role="bold">Balance</emphasis> of the player being shown. At the top left corner
+                there is a feedback <emphasis role="bold">Message Box</emphasis> that shows the
+                player important information about the state of the game.</para>
+            <para>After joining the game, you will add money to your bet and start playing after
+                pressing the deal button and all you are trying is to beat the dealer either:<itemizedlist>
+                    <listitem>
+                        <para>By drawing a hand value that is higher or equal to the dealer’s hand
+                            value and at the same time less than 22 in value</para>
+                    </listitem>
+                    <listitem>
+                        <para>By drawing a hand value of 21 on your first two cards, when the dealer
+                            does not.</para>
+                    </listitem>
+                </itemizedlist></para>
+            <para><emphasis role="bold"><emphasis role="underline"
+                >Example</emphasis></emphasis></para>
+            <para>In the following example, you got 15 as a hand sum. You can hit to get a new card
+                or stand with your number and let the dealer show his cards.</para>
+            <para>In case you stand with your cards, the dealer hits and gets more points than you
+                and you will end up having less than 21 points and lose your bet. Pressing the new
+                round button will get you to a new round.</para>
+            <para>If all goes well, you will win your Bet.</para>
+            <para>If you click to close you will get two options, by selecting <emphasis role="bold"
+                    >MENU</emphasis> you will go to the step Main Menu. By selecting <emphasis
+                    role="bold">LOUNGE</emphasis> you will go to the lounge, where you can see your
+                score.</para>
+            <para><emphasis role="bold"><emphasis role="underline"
+                    >Troubleshooting</emphasis></emphasis><itemizedlist>
+                    <listitem>
+                        <para>In case there is a problem with the game please try resetting the game
+                            through either <emphasis role="underline"><emphasis role="bold"
+                                    >http://localhost:8984/webSbj/Setup</emphasis></emphasis> for
+                            the local version or <emphasis role="underline"><emphasis role="bold"
+                                    >http://setup.TheBlackJack.Casino</emphasis></emphasis> for the
+                            online version.</para>
+                    </listitem>
+                    <listitem>
+                        <para>To access the database to be able to debug the game please visit
+                                <emphasis role="underline"><emphasis role="bold"
+                                    >http://localhost:8984/dba</emphasis></emphasis> for the local
+                            version or <emphasis role="underline"><emphasis role="bold"
+                                    >http://dba.TheBlackJack.Casino</emphasis></emphasis> for the
+                            online one. For the database username: admin and password: admin.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If a player’s current balance is less than 10$, then he will be kicked
+                            out from the ongoing game since he has less money than the required
+                            minimum bet. To solve this please quit using the <emphasis role="bold"
+                                >X</emphasis> button on the top right corner and go back to the main
+                            menu and sign in again using your user name. After it you will be
+                            rewarded a new 100$.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If you want to leave a current Game, then please make sure to use the
+                                <emphasis role="bold">X</emphasis> Button at the top right corner,
+                            otherwise the current game may get stuck in your turn. If this happens
+                            either reset the server or join a new game.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If a username is not accepted at the login phase, please check that
+                            the username is written in the asked format. Also check that no other
+                            open browser tab uses the same username.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If the game is accessible, but in some way not working, then please
+                            try with another browser.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If the game is not accessible, then please try with another browser.
+                            If you can’t access the online version, try to access it using the
+                            VPN.</para>
+                    </listitem>
+                    <listitem>
+                        <para>If you are having problems installing Basex STOMP, then you should try
+                            changing Central Maven repository in the POM.xml (you will find this
+                            files in the main directory of Basex Stomp) to <emphasis role="bold"
+                                >http://insecure.repo1.maven.org/maven2/</emphasis> and make sure to
+                            replace all the references to <emphasis role="bold"
+                                >http://repo1.maven.org</emphasis> or <emphasis role="bold"
+                                >http://repo.maven.apache.org/</emphasis> with <emphasis role="bold"
+                                >http://insecure.repo1.maven.org</emphasis>.</para>
+                    </listitem>
+                </itemizedlist></para>
+            
+        </sect2>
+    </sect1>
+    <appendix xml:id="app_a">
+        <title xml:id="title_evf_2zj_mlb">Tables with Functions</title>
+        <para>Following tables describe all of the functions that were used in the implementation.
+            Description inherits the following format:<orderedlist>
+                <listitem>
+                    <para>Name of the function</para>
+                </listitem>
+                <listitem>
+                    <para>Parameters</para>
+                </listitem>
+                <listitem>
+                    <para>Explanation</para>
+                </listitem>
+                <listitem>
+                    <para>Return value</para>
+                </listitem>
+            </orderedlist></para>
+        <para>
+            <table frame="all">
+                <title>Functions in game.xqm</title>
+                <tgroup cols="3">
+                    <colspec colname="c1" colnum="1" colwidth="1*"/>
+                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                    <colspec colname="c3" colnum="3" colwidth="1*"/>
+                    <tbody>
+                        <row>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">getCasino</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>–-</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function return our Casino</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>the casino model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">getGame</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="italic"><emphasis role="bold">@gameID
+                                                </emphasis></emphasis>the game Id</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function return the Game using the ID and
+                                            searching it in our casino</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>the whole module of that Game</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">createGame</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="italic"><emphasis role="bold">@maxBet
+                                                </emphasis></emphasis>the maximum Bet of the Game;
+                                                <emphasis role="italic"><emphasis role="bold">@minBet </emphasis></emphasis>the minimum Bet of
+                                            the Game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function create a new Game by calling the method
+                                            createNewGame</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>the newly created Game</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">insertNewPlayer</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the game in which
+                                            the player will be inserted to; <emphasis role="bold"><emphasis role="italic">@playerName
+                                                </emphasis></emphasis>the name of the User;
+                                                <emphasis role="bold"><emphasis role="italic">@balance </emphasis></emphasis>the balance of the
+                                            User; <emphasis role="bold"><emphasis role="italic">@id
+                                                </emphasis></emphasis>the user's ID; <emphasis role="bold"><emphasis role="italic">@tableSeat
+                                                </emphasis></emphasis>his Seat on the Game should be
+                                            between 1 and 5, -1 if he is waiting and watching</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function insert the user as a new player using
+                                            his name</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the Game</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">join</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the Game to be
+                                            joined to; <emphasis role="bold"><emphasis role="italic">@playerName </emphasis></emphasis>the name of the
+                                            player; <emphasis role="bold"><emphasis role="italic">@balance </emphasis></emphasis>the balance of the
+                                            player</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function is called when the user wants to join
+                                            the game , it checks if there is freeSeat it will insert
+                                            the player . Otherwise it will add in the Waiting list
+                                            and give him a -1 as a tableSeat . Finally it will
+                                            delete the player from the Lobby List</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the Game model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">insertGame</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@newGame
+                                                </emphasis></emphasis>the newly created and
+                                            generated game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function insert the new Game into the casino
+                                            model</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the casino model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">createNewGame</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@maxBet
+                                                </emphasis></emphasis>the maximum Bet of the game;
+                                                <emphasis role="bold"><emphasis role="italic">@minBet </emphasis></emphasis>the minimum Bet of
+                                            the game; <emphasis role="bold"><emphasis role="italic">@playerNames </emphasis></emphasis>the player of
+                                            names to be added to the game; <emphasis role="bold"><emphasis role="italic">@balance
+                                                </emphasis></emphasis>the balances of the
+                                            player</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function generate a new Game by creating the
+                                            players Element and generating the game Deck</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>the generated game model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">startGame</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the game to
+                                            start</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function is called when cards have to be served,
+                                            i.e the game has to start.</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the game Model by adding cards to
+                                            players</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">checkScores</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the Game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function checkScores after each round, if there
+                                            is no player left, then it will change the state of the
+                                            game or step to gameOver</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the game model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">intiliazeSum</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function is called to calculate the Sum of cards
+                                            before the game starts</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the game Model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">dealerTurnHelper</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the game; <emphasis role="bold"><emphasis role="italic">@sum
+                                                </emphasis></emphasis>the sum if the dealer
+                                            withdrawal; <emphasis role="bold"><emphasis role="italic">@limit </emphasis></emphasis>how
+                                            many Cards have to be withdrawn so far</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function checks Recursively how many the Dealer
+                                            has to draw Card in order to reach 17 or higher</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>how many Cards should the dealer withdraw</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">dealerTurn</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the game ID</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function let the dealer withdraw the Cards in
+                                            order to reach 17 or higher</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the game model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">checkWinnings</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the Game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function return our Casino</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>the casino model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">updateEvents</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the id of the Game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function generate Event messages to give to each
+                                            player using his ID</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the events of the game</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">updateSeats</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function give a waiting Player a seat if there is
+                                            one available</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the game model and it's players</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">newRound</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                                </emphasis></emphasis>the ID of the game</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function is called when a user clicks a new
+                                            round. It change the players variables like currentBet,
+                                            dealer's and player's cards and update the free
+                                            seats</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>update the game model</para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry>
+                                <orderedlist>
+                                    <listitem>
+                                        <para><emphasis><emphasis role="bold">addUser</emphasis></emphasis></para>
+                                    </listitem>
+                                    <listitem>
+                                        <para><emphasis role="bold"><emphasis role="italic">@playerName </emphasis></emphasis>the name of the
+                                            player; <emphasis role="bold"><emphasis role="italic">@balance </emphasis></emphasis>the balance of the
+                                            player; <emphasis role="bold"><emphasis role="italic">@id </emphasis></emphasis>the ID of the
+                                            User</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>this function is used to add a new User to the casino.
+                                            It checks first if the User already exists, if so then a
+                                            new User will be created with a new ID but with the same
+                                            amount of money and points. Otherwise a new User with a
+                                            new ID will be created</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>updates the game model </para>
+                                    </listitem>
+                                </orderedlist>
+                            </entry>
+                            <entry/>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </para>
+        <table frame="all">
+            <title>Functions in action.xqm</title>
+            <tgroup cols="3">
+                <colspec colname="c1" colnum="1" colwidth="1*"/>
+                <colspec colname="c2" colnum="2" colwidth="1*"/>
+                <colspec colname="c3" colnum="3" colwidth="1*"/>
+                <tbody>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">nextBet</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function returns our Casino</para>
+                                </listitem>
+                                <listitem>
+                                    <para>the casino model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">bet</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the game; <emphasis role="bold"><emphasis role="italic">@betAmount
+                                            </emphasis></emphasis>the amount to be added to the
+                                        current Bet</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when The player wants to add a bet
+                                        amount to his currentBet</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">stand</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when the player wants to
+                                        stand</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">double</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis> the ID of the game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when the player wants to double,
+                                        it should check if he has less or more than 11 sum of
+                                        cards</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">clear</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the Game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when the user clicks clear and
+                                        want to remove his bet and make a new bet</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">hit</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the Game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when the player wants to
+                                        hit</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">surrender</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when the player will surrender,
+                                        only if he has 2 cards</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">exitGame</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the game; <emphasis role="bold"><emphasis role="italic">@playerID
+                                            </emphasis></emphasis> the ID of the player to
+                                        exit</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function is called when the player wish to exit the
+                                        game, it should check which state the game is in</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry/>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <table frame="all">
+            <title>Functions in player.xqm</title>
+            <tgroup cols="3">
+                <colspec colname="c1" colnum="1" colwidth="1*"/>
+                <colspec colname="c2" colnum="2" colwidth="1*"/>
+                <colspec colname="c3" colnum="3" colwidth="1*"/>
+                <tbody>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">deletePlayer</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of the game, in which the
+                                        player will be deleted</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function deletes player from a game</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the game model</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">insertPlayer</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@gameID
+                                            </emphasis></emphasis>the ID of game, in which the
+                                        player will be inserted; <emphasis role="bold"><emphasis role="italic">@player </emphasis></emphasis>the
+                                        player to be inserted; <emphasis role="bold"><emphasis role="italic">@tableSeat </emphasis></emphasis>the
+                                        seat of the player to be inserted</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function inserts the player to the game and based on
+                                        his tableSeat he will be placed in a certain position</para>
+                                </listitem>
+                                <listitem>
+                                    <para>update the model by inserting the player</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">new
+                                            Player</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@name
+                                            </emphasis></emphasis>the name of the player to be
+                                        inserted; <emphasis role="bold"><emphasis role="italic">@balance </emphasis></emphasis>the balance of the
+                                        player to be inserted; <emphasis role="bold"><emphasis role="italic">@id </emphasis></emphasis> the ID of
+                                        the user based on name; <emphasis role="bold"><emphasis role="italic">@tableSeat </emphasis></emphasis>the
+                                        player's seat</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function created a new Player based on his
+                                        properties</para>
+                                </listitem>
+                                <listitem>
+                                    <para>a player node</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">new
+                                            User</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis role="bold"><emphasis role="italic">@name
+                                            </emphasis></emphasis> the name of the User; <emphasis role="bold"><emphasis role="italic">@balance
+                                            </emphasis></emphasis>the balance of the new user;
+                                            <emphasis role="bold"><emphasis role="italic">@points
+                                            </emphasis></emphasis>the points of the new User;
+                                            <emphasis role="bold"><emphasis role="italic">@id
+                                            </emphasis></emphasis>the id of The new User</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function allows you to create a new User based on his
+                                        properties</para>
+                                </listitem>
+                                <listitem>
+                                    <para>the new User</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry/>
+                        <entry/>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <table frame="all">
+            <title>Functions in cards.xqm</title>
+            <tgroup cols="3">
+                <colspec colname="c1" colnum="1" colwidth="1*"/>
+                <colspec colname="c2" colnum="2" colwidth="1*"/>
+                <colspec colname="c3" colnum="3" colwidth="1*"/>
+                <tbody>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold"><emphasis role="bold">shuffleCards</emphasis></emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para>--</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function shuffle Cards and return them</para>
+                                </listitem>
+                                <listitem>
+                                    <para>the shuffeled cards</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">calculateDealerValues</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">@game</emphasis></emphasis> the Game;
+                                                <emphasis><emphasis role="bold">@player</emphasis></emphasis> in this case is the
+                                        Dealer; <emphasis><emphasis role="bold">@limit</emphasis></emphasis> the number of cards to be
+                                        withdrawn from Deck</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function calculate the amount of the dealer Cards
+                                        plus the first $limit cards from our deck</para>
+                                </listitem>
+                                <listitem>
+                                    <para>the number of Cards</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">calculateCurrentCardValue</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">@game</emphasis></emphasis> the game in which the
+                                        player is; <emphasis><emphasis role="bold">@player</emphasis></emphasis> the player;
+                                                <emphasis><emphasis role="bold">@cardValue</emphasis></emphasis> the value of card
+                                        to be added to deck of player; </para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function calculate the total sum of cards of the
+                                        player , this function is called for example in hit, stand
+                                        etc.</para>
+                                </listitem>
+                                <listitem>
+                                    <para>the new total sum of cards of the player</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">getWholeDeck</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para>--</para>
+                                </listitem>
+                                <listitem>
+                                    <para>getter function for Deck</para>
+                                </listitem>
+                                <listitem>
+                                    <para>the whole deck of our casino</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry/>
+                        <entry/>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <table frame="all">
+            <title>Functions in helper.xqm</title>
+            <tgroup cols="3">
+                <colspec colname="c1" colnum="1" colwidth="1*"/>
+                <colspec colname="c2" colnum="2" colwidth="1*"/>
+                <colspec colname="c3" colnum="3" colwidth="1*"/>
+                <tbody>
+                    <row>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">random</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">@number</emphasis></emphasis> integer</para>
+                                </listitem>
+                                <listitem>
+                                    <para>creating random number</para>
+                                </listitem>
+                                <listitem>
+                                    <para>random number</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">randomNumber</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">@range</emphasis></emphasis> integer</para>
+                                </listitem>
+                                <listitem>
+                                    <para>this function uses Java function until
+                                        generate-random-number and is generally available</para>
+                                </listitem>
+                                <listitem>
+                                    <para>a random number in [1,$range]</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                        <entry>
+                            <orderedlist>
+                                <listitem>
+                                    <para><emphasis><emphasis role="bold">generateID</emphasis></emphasis></para>
+                                </listitem>
+                                <listitem>
+                                    <para>--</para>
+                                </listitem>
+                                <listitem>
+                                    <para>creates ID</para>
+                                </listitem>
+                                <listitem>
+                                    <para>ID</para>
+                                </listitem>
+                            </orderedlist>
+                        </entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+    </appendix>
+    <bibliography>
+        <biblioentry>
+            <abbrev>Elektronisches Publizieren: Document Engineering im World-Wide Web</abbrev>
+            <author>
+                <personname>Philipp Ulrich, 19.12. 2019</personname>
+            </author>
+        </biblioentry>
+        <biblioentry>
+            <abbrev xml:id="abbrev_jnh_tlj_mlb">[2] Multi-Client Webanwendungen mit XML
+                Technologien</abbrev>
+            <author>
+                <personname>Prof. Dr. Anne Brüggemann-Klein</personname>
+            </author>
+            <author>
+                <personname>Dipl.-Inf. Univ. Marouane Sayih</personname>
+            </author>
+        </biblioentry>
+        <biblioentry>
+            <abbrev>WebSocket Element</abbrev>
+            <author>
+                <personname>Philipp Ulrich, 06.06.2019</personname>
+            </author>
+        </biblioentry>
+        <biblioentry>
+            <abbrev>XQuery und XQuery Update Facility im XStack </abbrev>
+            <author>
+                <personname>Anne Brüggemann-Klein</personname>
+            </author>
+            <author>
+                <personname>Philipp Ulrich </personname>
+            </author>
+        </biblioentry>
+        <biblioentry>
+            <abbrev>X Stack Demo GN Version 2.0 </abbrev>
+            <author>
+                <personname>Anne Brüggemann-Klein</personname>
+            </author>
+        </biblioentry>
+        <biblioentry>
+            <abbrev xml:id="abbrev_bkx_mnj_mlb">[1] Blackjack Insurance Explained</abbrev>
+            <author>
+                <personname><link xlink:href="https://www.onlinegambling.com/casino/blackjack/insurance-bet/"/></personname>
+            </author>
+        </biblioentry>
+    </bibliography>
+</article>
