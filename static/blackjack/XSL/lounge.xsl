@@ -37,7 +37,7 @@
 
                             <!-- Title zone -->
                             <rect x="{$titleZoneX}" y="{$titleZoneY}" width="{$TitleZoneWidth}" height="{$titleZoneHeight}" rx="2" ry="2" fill="#043b5c"/>
-                            <text x="{$titleTextX}" y="{$titleTextY}" dy="2em" fill="#fbda79" font-size="4" text-anchor="middle">✯ LEADERBOARD ✯</text>
+                            <text x="{$titleTextX}" y="{$titleTextY}" dy="2em" fill="#fbda79" font-family="Times New Roman" font-size="4" text-anchor="middle">✯ LEADERBOARD ✯</text>
 
                             <!-- Players zone -->
                             <rect x="{$firstRowX}" y="{$firstRowY}" width="{$playerZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#07486e"/>
@@ -60,7 +60,7 @@
 
                         <!-- Display of the top 8 players -->
                         <svg id="players" width="100%" height="100%" viewBox="0 0 100 100">
-                            <text y="14.5" fill="white" font-size="4" >
+                            <text y="14.5" fill="white" font-family="Times New Roman" font-size="4" >
                                 <xsl:for-each select="users/user">
                                     <xsl:sort select="points"  order="descending" data-type="number" />
 
@@ -92,7 +92,7 @@
 
                             <!-- Title zone -->
                             <rect x="{$titleZoneX}" y="{$titleZoneY}" width="{$TitleZoneWidth}" height="{$titleZoneHeight}" rx="2" ry="2" fill="#035c4b"/>
-                            <text x="{$titleTextX}" y="{$titleTextY}" dy="2em" fill="#fbda79" font-size="4" text-anchor="middle">GAMES</text>
+                            <text x="{$titleTextX}" y="{$titleTextY}" dy="2em" fill="#fbda79" font-family="Times New Roman" font-size="4" text-anchor="middle">GAMES</text>
 
                             <!-- Players zone -->
                             <rect x="{$firstRowX}" y="{$firstRowY}" width="{$gameZoneWidth}" height="{$zoneHeight}" rx="2" ry="2" fill="#076e5c"/>
@@ -122,7 +122,7 @@
 
                         <!-- Display of the created games -->
                         <svg id="games" width="100%" height="100%" viewBox="0 0 100 100">
-                            <text y="14.5" fill="white" font-size="4" >
+                            <text y="14.5" fill="white" font-family="Times New Roman" font-size="4" >
                                 <xsl:for-each select="blackjack">
                                     <xsl:variable name="counter" select="position()"/>
                                     <tspan x="35" dy="2em">Game <xsl:value-of select="./@counter"/></tspan>
@@ -188,7 +188,7 @@
                 <!-- Display of the text containing: Player name, balance and score -->
                 <g id="message">
                     <svg id="table" width="100%" height="100%" viewBox="0 0 100 100">
-                        <text x="35" y="27" fill="white" font-size="4">
+                        <text x="35" y="27" fill="white" font-family="Times New Roman" font-size="4">
                             <tspan text-anchor="middle">
                                 <tspan x="{$paragraphCentered}" dy="2em">Good luck, </tspan>
                                 <tspan fill="#fbda79"><xsl:value-of select="$playerName"/></tspan>
