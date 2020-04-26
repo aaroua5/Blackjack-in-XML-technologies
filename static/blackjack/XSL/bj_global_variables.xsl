@@ -26,6 +26,44 @@
     <xsl:variable name="betZoneWidth" select="8"/>
     <xsl:variable name="betZoneHeight" select="4"/>
     
+    <!-- Buttons -->
+    <xsl:variable name="hitX" select="100"/>
+    <xsl:variable name="hitY" select="91"/>
+    <xsl:variable name="hitRadius" select="6"/>
+
+    <xsl:variable name="standX" select="120"/>
+    <xsl:variable name="standY" select="87"/>
+    <xsl:variable name="standRadius" select="6.7"/>
+
+    <xsl:variable name="doubleX" select="140"/>
+    <xsl:variable name="doubleY" select="80"/>
+    <xsl:variable name="doubleRadius" select="7.4"/>
+
+    <xsl:variable name="newRoundX" select="39.5"/>
+    <xsl:variable name="newRoundY" select="89"/>
+    <xsl:variable name="newRoundWidth" select="21"/>
+    <xsl:variable name="newRoundHeight" select="9"/>
+
+    <xsl:variable name="giveUpX" select="41.5"/>
+    <xsl:variable name="giveUpY" select="89"/>
+    <xsl:variable name="giveUpWidth" select="17"/>
+    <xsl:variable name="giveUpHeight" select="9"/>
+
+    <xsl:variable name="dealX" select="51.5"/>
+    <xsl:variable name="dealY" select="89"/>
+    <xsl:variable name="dealWidth" select="17"/>
+    <xsl:variable name="dealHeight" select="9"/>
+
+    <xsl:variable name="clearX" select="31.5"/>
+    <xsl:variable name="clearY" select="89"/>
+    <xsl:variable name="clearWidth" select="17"/>
+    <xsl:variable name="clearHeight" select="9"/>
+
+    <xsl:variable name="exitX" select="133.5"/>
+    <xsl:variable name="exitY" select="-5.7"/>
+    <xsl:variable name="exitCenter" select="20"/>
+    <xsl:variable name="exitRadius" select="5"/>
+    
     <!-- chips -->
     <xsl:variable name="chipCenter" select="20"/>
     <xsl:variable name="chipRadius" select="5"/>
