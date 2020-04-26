@@ -62,9 +62,9 @@
                         <path
                                 id="MyPath2"
                                 d="M185.6,209.6c114.6,27.7,232.3,42.7,350,48.7,134.1,6.9,269.1,2.4,402.2-15.6A1762.6,1762.6,0,0,0,1116,209.6"
-                                transform="translate(-10.5 -15)" fill="none"/>
-                        <text font-family="DIN Condensed" font-size="85" fill="#80A323" letter-spacing="4">
-                            <textPath href="#MyPath2" startOffset="14%">
+                                transform="translate(-10.5 -17)" fill="none"/>
+                        <text font-family="Arial" font-weight="bold" font-size="65" fill="#80A323" letter-spacing="4">
+                            <textPath href="#MyPath2" startOffset="3%">
                                 BLACKJACK   PAYS   3   TO   2
                             </textPath>
                         </text>
@@ -74,7 +74,7 @@
                                 id="MyPath1"
                                 d="M342.9,129.3c83.6,19.4,193.2,35.6,322,34.8,120.6-.8,223.9-16.2,304-34.8"
                                 transform="translate(-10.5 -15)" fill="none"/>
-                        <text font-family="DIN Condensed" font-size="27" fill="#0d5545" letter-spacing="4">
+                        <text font-family="Arial" font-weight="bold" font-size="22" fill="#0d5545" letter-spacing="1">
                             <textPath href="#MyPath1" startOffset="2%">
                                 DEALER MUST DRAW TO 16 AND STAND ON ALL 17'S
                             </textPath>
