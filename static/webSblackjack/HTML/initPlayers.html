@@ -10,33 +10,28 @@
 
 
         .title{
+            color: #fbda79;
             position: absolute;
-            top: 20%;
+            text-align: center;
+            top: 25%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #4CAF50;
+            color: #fbda79;
         }
 
         .player {
             position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .bet {
-            position: absolute;
-            top: 70%;
+            top: 43%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
         .btn {
             position: absolute;
-            top: 80%;
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #4CAF50;
+            background-color: #09846F;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -57,13 +52,12 @@
 <body class= "container second">
 <h1 class="title">
     Please Insert Name
-    <p style="font-size: small">should only contain the Alphabets , First Letter should be capitalized , other characters should be lowerCase , not longer than 10  </p>
-
+    <p style="font-size: small; color: #EBEBEB">should only contain the alphabets, first letter should be capitalized, other characters should be lowerCase, name should be no longer than 10 characters</p>
 </h1>
 <form class="form-group" action="/webSbj/form" style="display:flex; flex-direction:column;" method="post">
     <div class="player">
         <div class="line">
-            <label style="margin-right:10px" for="playername1">Name of Player</label>
+            <label style="margin-right:10px; color: #EBEBEB" for="playername1">Name of Player</label>
             <input style="margin-right:15px; border-radius: 6px;" type="text" name="playername1" id="playername1"  pattern="[A-Z]{1,1}[a-z]{1,9}" required="1234" placeholder="Username" oninvalid="this.setCustomValidity(this.willValidate?'':'Please match the requested format')"/>
         </div>
 

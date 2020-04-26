@@ -412,7 +412,7 @@
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat=3]/status ='surrendered'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX3 + 3}" y="{$cardZoneY3 - 2}" xlink:href="http://localhost:8984/static/blackjack/whiteFlag.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX3 + 3}" y="{$cardZoneY3 - 2}" xlink:href="http://localhost:8984/static/webSblackjack/whiteFlag.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat=2]/status ='surrendered'">
