@@ -383,55 +383,55 @@
 
                         <!-- sticker for the blackjack - confetti -->
                         <xsl:if test="players/player[tableSeat =5]/status = 'blackjack'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX5 - 10}" y="{$cardZoneY1and5 - 20}" xlink:href="http://localhost:8984/static/webSblackjack/blackjack.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX5 - 10}" y="{$cardZoneY1and5 - 20}" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat =4]/status = 'blackjack'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX4 - 10}" y="{$cardZoneY2and4 - 20}" xlink:href="http://localhost:8984/static/webSblackjack/blackjack.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX4 - 10}" y="{$cardZoneY2and4 - 20}" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat =3]/status = 'blackjack'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX3 - 10}" y="{$cardZoneY3 - 20}" xlink:href="http://localhost:8984/static/webSblackjack/blackjack.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX3 - 10}" y="{$cardZoneY3 - 20}" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat =2]/status = 'blackjack'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX2 - 10}" y="{$cardZoneY2and4 - 20}" xlink:href="http://localhost:8984/static/webSblackjack/blackjack.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX2 - 10}" y="{$cardZoneY2and4 - 20}" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat = 1]/status = 'blackjack'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX1 - 10}" y="{$cardZoneY1and5 - 20}" xlink:href="http://localhost:8984/static/webSblackjack/blackjack.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX1 - 10}" y="{$cardZoneY1and5 - 20}" xlink:href="https://i.ya-webdesign.com/images/celebration-gif-png.gif"/>
                         </xsl:if>
 
                         <!-- sticker for players who surrendered - white flag -->
                         <xsl:if test="players/player[tableSeat=5]/status ='surrendered'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX5 + 3}" y="{$cardZoneY1and5 - 2}" xlink:href="http://localhost:8984/static/webSblackjack/whiteFlag.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX5 + 3}" y="{$cardZoneY1and5 - 2}" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat=4]/status ='surrendered'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX4 + 3}" y="{$cardZoneY2and4 - 2}" xlink:href="http://localhost:8984/static/webSblackjack/whiteFlag.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX4 + 3}" y="{$cardZoneY2and4 - 2}" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat=3]/status ='surrendered'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX3 + 3}" y="{$cardZoneY3 - 2}" xlink:href="http://localhost:8984/static/webSblackjack/whiteFlag.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX3 + 3}" y="{$cardZoneY3 - 2}" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat=2]/status ='surrendered'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX2 + 3}" y="{$cardZoneY2and4 - 2}" xlink:href="http://localhost:8984/static/webSblackjack/whiteFlag.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX2 + 3}" y="{$cardZoneY2and4 - 2}" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
                         </xsl:if>
 
                         <xsl:if test="players/player[tableSeat=1]/status ='surrendered'">
-                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX1 + 3}" y="{$cardZoneY1and5 - 2}" xlink:href="http://localhost:8984/static/webSblackjack/whiteFlag.gif"/>
+                            <image height="{$stickerBig}" width="{$stickerBig}" x="{$cardZoneX1 + 3}" y="{$cardZoneY1and5 - 2}" xlink:href="https://i.ibb.co/YB82FDv/ewedw.gif"/>
                         </xsl:if>
 
                         <!-- stickers for players who won/lost - hand clap/monster crying -->
                         <xsl:if test="players/player[tableSeat=5]">
                             <xsl:choose>
                                 <xsl:when test="players/player[tableSeat=5]/status='loser'">
-                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX5 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/lost.gif"/>
+                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX5 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:if test ="players/player[tableSeat=5]/status !='free' and players/player[tableSeat=5]/status !='surrendered'">
-                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX5 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/clap.webp"/>
+                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX5 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
                                     </xsl:if>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -440,11 +440,11 @@
                         <xsl:if test="players/player[tableSeat=4]">
                             <xsl:choose>
                                 <xsl:when test="players/player[tableSeat=4]/status='loser'">
-                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX4 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/lost.gif"/>
+                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX4 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:if test="players/player[tableSeat=4]/status !='free' and players/player[tableSeat=4]/status !='surrendered'">
-                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX4 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/clap.webp"/>
+                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX4 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
                                     </xsl:if>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -453,11 +453,11 @@
                         <xsl:if test="players/player[tableSeat=3]">
                             <xsl:choose>
                                 <xsl:when test="players/player[tableSeat=3]/status='loser'">
-                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX3 + 7}" y="{$cardZoneY3 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/lost.gif"/>
+                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX3 + 7}" y="{$cardZoneY3 + 2}" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:if test="players/player[tableSeat=3]/status !='free'and players/player[tableSeat=3]/status !='surrendered'">
-                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX3 + 7}" y="{$cardZoneY3 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/clap.webp"/>
+                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX3 + 7}" y="{$cardZoneY3 + 2}" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
                                     </xsl:if>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -466,11 +466,11 @@
                         <xsl:if test="players/player[tableSeat=2]">
                             <xsl:choose>
                                 <xsl:when test="players/player[tableSeat=2]/status='loser'">
-                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX2 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/lost.gif"/>
+                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX2 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:if test="players/player[tableSeat=2]/status !='free' and players/player[tableSeat=2]/status !='surrendered'">
-                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX2 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/clap.webp"/>
+                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX2 + 7}" y="{$cardZoneY2and4 + 2}" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
                                     </xsl:if>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -479,11 +479,11 @@
                         <xsl:if test="players/player[tableSeat=1]">
                             <xsl:choose>
                                 <xsl:when test="players/player[tableSeat=1]/status='loser'">
-                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX1 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/lost.gif"/>
+                                    <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX1 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="https://i.pinimg.com/originals/57/31/27/5731271860899dd1403e8ce0f1af6380.gif"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:if test="players/player[tableSeat=1]/status !='free' and players/player[tableSeat=1]/status !='surrendered'">
-                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX1 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="http://localhost:8984/static/webSblackjack/clap.webp"/>
+                                        <image height="{$stickerSmall}" width="{$stickerSmall}" x="{$cardZoneX1 + 7}" y="{$cardZoneY1and5 + 2}" xlink:href="https://thumbs.gfycat.com/ContentNecessaryHorseshoebat.webp"/>
                                     </xsl:if>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1057,7 +1057,7 @@
             <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}">
                     <rect width="{$cardWidth}" height="{$cardHeight}" rx="10" ry="10" fill="white"/>
-                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5" href="http://localhost:8984/static/webSblackjack/Jack.png"/>
+                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5" href="https://i.ibb.co/V3SzTpK/Jack.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">J</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">J</text>
                     <text class="cardTexth"  x="154" y="65"  fill="{$color}" font-size="35"><xsl:value-of select="card_type"/></text>
@@ -1075,7 +1075,7 @@
             <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="{$cardWidth}" height="{$cardHeight}" rx="10" ry="10" fill="white"/>
-                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}"      y="8.5" x="2.5" href="http://localhost:8984/static/webSblackjack/Queen.png"/>
+                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}"      y="8.5" x="2.5" href="https://i.ibb.co/CJmLR83/Queen.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">Q</text>
                     <text class="cardTexth"  x="154" y="65"  fill="{$color}" font-size="35"><xsl:value-of select="card_type"/></text>
@@ -1093,7 +1093,7 @@
             <svg width="{$cardWidthDimension}" height="{$cardHeightDimension}" filter="url(#f1)">
                 <svg width="{$cardWidth}" height="{$cardHeight}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="{$cardWidth}" height="{$cardHeight}" rx="10" ry="10" fill="white"/>
-                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5"  href="http://localhost:8984/static/webSblackjack/King.png"/>
+                    <image width="{$cardWidth - 5}" height="{$cardHeight - 17}" y="8.5" x="2.5"  href="https://i.ibb.co/P6NHWwf/King.png"/>
                     <text class="cardText" text-anchor="middle" dy="0.3em" x="18" y="20" font-size="25"  fill="{$color}">K</text>
                     <text class="cardText" text-anchor="middle" dy="0.3em" transform="scale(-1,-1)" x="-167" y="-280" font-size="25"  fill="{$color}">K</text>
                     <text class="cardTexth"  x="154" y="65"  fill="{$color}" font-size="35"><xsl:value-of select="card_type"/></text>
