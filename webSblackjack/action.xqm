@@ -4,7 +4,8 @@ import module namespace helper = "blackjack/helper" at "helper.xqm";
 import module namespace blackjack-game = "blackjack/Game" at "game.xqm";
 import module namespace blackjack-card = "blackjack/Cards" at "cards.xqm";
 
-(:~ this function is called when the player hits Deal and the game should move to next player based on playerTurn
+(:~ this function is called when the player hits Deal and the
+ :game should move to next player based on playerTurn
  :  after clicking Deal the Bet will be deducted from his total monney
  : @gameID      The ID of the game
  : @return      Update the game model
